@@ -13,6 +13,49 @@
   }
 }
 
+
+.login-box {
+  background: linear-gradient(90deg, #d53369 0%, #FFaa51 100%);
+  margin:100px auto;
+  width:300px;
+  padding: 10px;
+  padding-top: 20px;
+  border-radius: 10px;
+}
+
+.login-box h1 {
+  margin: auto;
+  padding: 5px;
+  display: block;
+  color: #FFF;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.login-box input {
+  margin:10px auto;
+  display: block;
+  border-radius: 5px;
+  height: 25px;
+
+}
+.login-box button {
+  margin:auto;
+  display: block;
+  padding: 10p x ;
+  width:150px;
+  border-radius: 10px;
+  height: 40px;
+}
+
+.login-box small {
+  color: #FDF;
+  margin:auto;
+  display: block;
+  text-align: center;
+  font-size: 0.7em;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
