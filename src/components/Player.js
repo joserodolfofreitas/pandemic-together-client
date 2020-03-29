@@ -8,26 +8,32 @@ class Player extends React.Component {
     }
 
     render() {
+        let roomState = this.props.roomState;
+        var players = [];
+
         let player = this.props.player;
         let position = this.props.position;
         let containerStyle = {gridArea: position};
         let classes = "player-area " + position;
 
+        var playerField = [player.advantages[0], player.disadvantages[0]];
+
         return (
             <div className={classes} style={containerStyle}>
-                <div style={{gridArea:"virus-infection", backgroundColor:"#F00", margin:"auto"}}>
-                    <div className="card" style={{float:"left"}}>V</div>
-                    <div className="card" style={{float:"left"}}>V</div>
-                    <div className="card" style={{float:"left"}}>V</div>
+                <div style={{gridArea:"virus-infection", margin:"auto"}}>
+                    {player.virusField.map(function(card, index){
+                        return <Card key={index} card={card}/>
+                    })}
+
                 </div>
 
                 <div style={{gridArea:"player-char", backgroundColor:"#0F0", margin:"auto"}}>
-                    <div className="card" style={{float:"left"}}>Advantage</div>
-                    <div className="card" style={{float:"left"}}>C1</div>
-                    <div className="card" style={{float:"left"}}>Disadvantage</div>
+                    {playerField.map(function(card, index){
+                        return <Card key={index} card={card}/>
+                    })}
                 </div>
                 <div style={{gridArea:"player-name", backgroundColor:"#0F0", margin:"auto"}}>
-                    {position}
+                    {player.name}
                 </div>
             </div>
         );

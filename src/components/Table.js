@@ -9,6 +9,7 @@ import * as Constants from './common/constants';
 
 function mapStateToProps(state) {
     return {
+        clientSessionId : state.clientSessionId,
         player : state.player,
         room : state.room,
         roomState : state.roomState,
@@ -53,17 +54,38 @@ class Table extends React.Component {
         }
 
         else if (roomState.gameState == Constants.GAME_STATE_STARTED) {
+
+            let clientPlayerSessionId = this.props.room.sessionId;
+            var index = 0;
+            var players = [];
+            var currentPlayer;
+            for (let id in roomState.players) {
+                const player: Player = roomState.players[id];
+                players[index++] = player;
+                if (player.sessionId == clientPlayerSessionId) {
+                    currentPlayer = player;
+                }
+            }
+            var playerPositions = ["player-c", "player-b", "player-a"];
+
             content =
                 <div className="table">
                     <div className="header">
                         Pandemic Together
                     </div>
-                    <Player position="player-a"/>
-                    <Player position="player-b" />
-                    <Player position="player-c"/>
-                    <Player position="player"/>
 
-                    <PlayerHand/>
+                    {players.map(function(player, index){
+                        var position;
+                        if (player.sessionId == currentPlayer.sessionId) {
+                            position = "player";
+                        } else {
+                            position = playerPositions.pop();
+                        }
+
+                        return <Player key={index} player={player} position={position}/>
+                    })}
+
+                    <PlayerHand player={currentPlayer}/>
                     <Deck />
                     <ChatRoom />
                     <div className="footer">

@@ -15,9 +15,9 @@ class PlayerHand extends React.Component {
         return (
             <div className={classes} style={containerStyle}>
                 <div >
-                    <div className="card hand-card" style={{float:"left"}}>Advantage</div>
-                    <div className="card hand-card" style={{float:"left"}}>C1</div>
-                    <div className="card hand-card" style={{float:"left"}}>Disadvantage</div>
+                    {player.hand.map(function(card, index){
+                        return <Card key={index} card={card} handCard={true}/>
+                    })}
                 </div>
                 <div style={{backgroundColor:"#0F0", margin:"auto"}}>
                     your hand

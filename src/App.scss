@@ -111,6 +111,10 @@ $cardHeight: 80px;
   height: $cardHeight*2;
 }
 
+.virus-card {
+  background-color: #a66;
+}
+
 .deck {
   margin: auto;
   grid-area: deck;
