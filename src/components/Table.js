@@ -77,7 +77,7 @@ class Table extends React.Component {
                     {players.map(function(player, index){
                         var position;
                         if (player.sessionId == currentPlayer.sessionId) {
-                            position = "player";
+                            position = "player-current";
                         } else {
                             position = playerPositions.pop();
                         }

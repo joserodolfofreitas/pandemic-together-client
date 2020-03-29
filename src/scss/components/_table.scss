@@ -1,0 +1,38 @@
+.table {
+  background-color: #c26230;
+  height: 100vh;
+  display: grid;
+  grid-gap: 10px;
+  width: 100%;
+  grid-template-columns: 200px 200px 200px 220px;
+  grid-template-rows: 50px 200px 200px 200px 30px;
+  grid-template-areas:
+    "header header header header"
+    "top-left player-a top-right chatroom"
+    "player-b deck player-c chatroom"
+    "bottom-left player-current player-hand player-hand"
+    "footer footer footer footer";
+
+  .header {
+    background-color: #fff;
+    grid-area: header;
+    width: 100%;
+    color: #ccc;
+    font-size: 1.2em;
+    padding: 10px;
+  }
+
+  .footer {
+    background-color: #fff;
+    grid-area: footer;
+    width: 100%;
+    color: #444;
+    font-size: 0.8em;
+    text-align: center;
+  }
+
+  .start-button {
+    margin: auto;
+    display: block;
+  }
+}

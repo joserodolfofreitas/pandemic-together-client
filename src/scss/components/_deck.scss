@@ -1,0 +1,14 @@
+.deck {
+    margin: auto;
+    grid-area: deck;
+    background-color: #ccc;
+
+    box-shadow: 0px 10px 10px 0px rgba(#111, 0.8);
+
+    .deck-title {
+        padding-top: 30px;
+        text-align: center;
+        transform: rotate(-90deg);
+        height: $cardWidth;
+    }    
+}
