@@ -3,6 +3,7 @@ import './App.css';
 import Table from './components/Table'
 import { Provider } from 'react-redux';
 import ClientStore from './components/ReduxStore/ClientStore';
+import { hot } from 'react-hot-loader/root';
 
 
 class App extends React.Component {
@@ -21,4 +22,4 @@ class App extends React.Component {
 }
 
 //export default connect(mapStateToProps, {setRoom}) (App)
-export default App
+export default hot(App)

@@ -2,6 +2,7 @@ import {
     DRAW_CARD,
     UPDATE_PLAYER,
     SET_ROOM,
+    SET_ROOM_STATE,
 } from './actions'
 
 function addWindow(state, windowProps) {
@@ -20,7 +21,17 @@ function addWindow(state, windowProps) {
 function setRoom(state, room) {
     return {
         ...state,
-        room: room
+        room: room,
+    };
+}
+
+function setRoomState(state, newRoomState) {
+    console.log("currentTurn at SetRoomState", newRoomState.currentTurn);
+    var newUpdateState = state.updatesOnRoomState + 1;// cheap workaround to guaranteee re-render after updating roomState.
+    return {
+        ...state,
+        roomState: newRoomState,
+        updatesOnRoomState: newUpdateState,
     };
 }
 
@@ -38,6 +49,8 @@ function reducers(state, action) {
     switch (action.type) {
         case SET_ROOM:
             return setRoom(state, action.room);
+        case SET_ROOM_STATE:
+            return setRoomState(state, action.roomState);
         case DRAW_CARD:
             return addWindow(state);
 

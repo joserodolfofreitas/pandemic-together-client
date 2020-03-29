@@ -56,6 +56,56 @@
   font-size: 0.7em;
 }
 
+
+
+.chat-room {
+  width:200px;
+  padding: 10px;
+  margin-top: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: 1px solid;
+  float: right;
+}
+
+.chat-room h1 {
+  margin: auto;
+  padding: 5px;
+  display: block;
+  color: ;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+.chat-room span {
+  color: #CCC;
+}
+
+.chat-room input {
+  margin:10px auto;
+  display: block;
+  border-radius: 5px;
+  height: 25px;
+
+}
+.chat-room button {
+  margin:auto;
+  display: block;
+  padding: 10p x ;
+  width:150px;
+  border-radius: 10px;
+  height: 40px;
+}
+
+.chat-room small {
+  color: #FDF;
+  margin:auto;
+  display: block;
+  text-align: center;
+  font-size: 0.7em;
+}
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

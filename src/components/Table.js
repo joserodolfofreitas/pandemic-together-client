@@ -1,33 +1,53 @@
 import React from 'react';
 import LoginBox from './LoginBox';
+import ChatRoom from './ChatRoom';
 import { connect } from 'react-redux';
-import { setRoom } from './ReduxStore/actions'
 
 function mapStateToProps(state) {
     return {
         player : state.player,
         room : state.room,
+        roomState : state.roomState,
+        updatesOnRoomState : state.updatesOnRoomState,
     }
 }
 
 class Table extends React.Component {
+    constructor(props) {
+        super(props);
+        console.log("Table constructor", this,props.room, this.props.roomState);
+        this.state = {
+            currentTurn:0,
+            room: this.props.room,
+            roomState: this.props.roomState,
+        };
+    }
 
     onClick() {
         let room = this.props.room;
-        console.log(room);
+        let roomState = this.props.roomState;
+        console.log(roomState.currentTurn);
+        for (let id in roomState.players) {
+            const player: Player = roomState.players[id];
+            console.log(id, player.name);
+        }
         room.send({card:"R1", onPlayer:"C1"});
+        room.send("NEXT_TURN");
+        this.setState({currentTurn: this.state.currentTurn});
     }
 
     render() {
-        let room = this.props.room;
+        let roomState = this.props.roomState;
         var content;
-        if (room == null) {
+        if (roomState == null) {
             content = <LoginBox/>;
-        }
-        else {
+        } else {
+
             content =
                 <div className="table">
+
                     <button className="table title" onClick={() => this.onClick()} >Table</button>
+                    <ChatRoom />
                 </div>;
         }
 
@@ -35,4 +55,4 @@ class Table extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, {setRoom}) (Table)
+export default connect(mapStateToProps, null) (Table)
