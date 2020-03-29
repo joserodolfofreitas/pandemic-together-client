@@ -37,7 +37,7 @@ export const initialState = {
         {
             elementId: "R3",
             type: Constants.CARD_TYPE_RESOURCE,
-            name: "Masks and Ventilators",
+            name: "Hospital Equipment",
             description: "destroy one virus token",
             action: Constants.ACTION_DESTROY_VIRUS_TOKEN,
             maxImpactPerElement: 1,
@@ -73,7 +73,7 @@ export const initialState = {
         {
             elementId: "A3",
             type: Constants.CARD_TYPE_ADVANTAGE,
-            name: "Advanced Research Labs",
+            name: "Research Labs",
             description: "Each round destroys a virus card token",
             action: Constants.ACTION_DESTROY_VIRUS_TOKEN,
             maxImpactPerElement: 1,
