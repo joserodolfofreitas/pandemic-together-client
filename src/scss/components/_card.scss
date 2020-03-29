@@ -1,20 +1,21 @@
-
 .card {
-    background-color: #fff;
-    width: $cardWidth;
-    height: $cardHeight;
-    box-shadow: 0px 1px 1px 0px rgba(#111, 0.5);
-    border-radius: 5px;
-    margin: 5px;
+  background-color: #fff;
+  width: $cardWidth;
+  height: $cardHeight;
+  box-shadow: 0px 1px 1px 0px rgba(#111, 0.5);
+  border-radius: 5px;
+  margin: 5px;
 
-    .hand-card {
-        width: $cardWidth * 2;
-        height: $cardHeight * 2;
-      }
-      
-      .virus-card {
-        background-color: #a66;
-      }
-      
+  &.hand-card {
+    width: $cardWidth * 2;
+    height: $cardHeight * 2;
   }
-  
+
+  &.virus-card {
+    background-color: #a66;
+  }
+
+  &.card-a1{ 
+    background-image: url(./images/card-a1.png);
+  }
+}

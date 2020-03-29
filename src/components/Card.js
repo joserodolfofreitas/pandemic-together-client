@@ -14,19 +14,12 @@ class Card extends React.Component {
     }
 
     render() {
-        let card = this.props.card;
-        let handCard = this.props.handCard;
-        var classNames = "card";
-        if (handCard != undefined && handCard === true) {
-            classNames+= " hand-card";
-        }
-        if (card.type == Constants.CARD_TYPE_VIRUS) {
-            classNames+= " virus-card";
-        }
+        const card = this.props.card;
+        const handCard = this.props.handCard;
+        var classNames = `card card-${card.elementId.toLowerCase()} ${handCard === true ? "hand-card" : ""} ${card.type == Constants.CARD_TYPE_VIRUS ? "" : "virus-card"}`;
+
         return (
-                <div className={classNames} style={{float:"left"}}>
-                    {card.elementId}
-                </div>
+            <div className={classNames} style={{float:"left"}}></div>
         );
     }
 }
