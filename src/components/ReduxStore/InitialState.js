@@ -1,4 +1,4 @@
-import * as Constants from './constants';
+import * as Constants from '../common/constants';
 
 export const initialState = {
     player: null,

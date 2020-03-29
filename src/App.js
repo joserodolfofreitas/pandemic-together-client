@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import Table from './components/Table'
 import { Provider } from 'react-redux';
 import ClientStore from './components/ReduxStore/ClientStore';

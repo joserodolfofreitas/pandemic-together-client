@@ -29,6 +29,7 @@ class LoginBox extends React.Component {
         client.joinOrCreate("pandemic-together-room", {name:this.state.input}).then(room => {
             console.log(room.sessionId, "joined", room.name);
             console.log("roomState", room.state);
+
             room.state.players.onAdd = function(player, i) {
                 console.log("player joined!", player);
             };

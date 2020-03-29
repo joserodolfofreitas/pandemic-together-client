@@ -10,8 +10,8 @@ class Table extends React.Component {
     render() {
 
         return (
-            <div className="table">
-                <div className="table title">Table</div>
+            <div className="card deck">
+                <div className="deck-title">deck</div>
             </div>
         );
     }
