@@ -1,0 +1,17 @@
+.deck {
+    margin: auto;
+    grid-area: deck;
+
+    .card{
+        box-shadow: 5px 5px 10px 2px rgba(17, 17, 17, 0.8);
+        background-color: #000;
+    }
+/*
+    .deck-title {
+        padding-top: 30px;
+        text-align: center;
+        transform: rotate(-90deg);
+        height: $cardWidth;
+    }    
+*/
+}

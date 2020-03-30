@@ -28,7 +28,7 @@ class Table extends React.Component {
         };
     }
 
-    onClick() {
+    onClick_StartGame() {
         let room = this.props.room;
         let roomState = this.props.roomState;
         /*for (let id in roomState.players) {
@@ -41,63 +41,65 @@ class Table extends React.Component {
     }
 
     render() {
-        let roomState = this.props.roomState;
-        var content;
+        const roomState = this.props.roomState;
         if (roomState == null) {
-            content = <LoginBox/>;
+            return this.renderLogin();
         } else if (roomState.gameState == Constants.GAME_STATE_WAITING_PLAYERS) {
-            content =
-                <div className="table">
-                    <button className="start-button" onClick={() => this.onClick()} >Start Game</button>
-                    <ChatRoom />
-                </div>;
+            return this.renderWaitingForPlayers();
         }
-
         else if (roomState.gameState == Constants.GAME_STATE_STARTED) {
-
-            let clientPlayerSessionId = this.props.room.sessionId;
-            var index = 0;
-            var players = [];
-            var currentPlayer;
-            for (let id in roomState.players) {
-                const player: Player = roomState.players[id];
-                players[index++] = player;
-                if (player.sessionId == clientPlayerSessionId) {
-                    currentPlayer = player;
-                }
-            }
-            var playerPositions = ["player-c", "player-b", "player-a"];
-
-            content =
-                <div className="table">
-                    <div className="header">
-                        Pandemic Together
-                    </div>
-
-                    {players.map(function(player, index){
-                        var position;
-                        if (player.sessionId == currentPlayer.sessionId) {
-                            position = "player";
-                        } else {
-                            position = playerPositions.pop();
-                        }
-
-                        return <Player key={index} player={player} position={position}/>
-                    })}
-
-                    <PlayerHand player={currentPlayer}/>
-                    <Deck />
-                    <ChatRoom />
-                    <div className="footer">
-                        a collaborative effort by lots of people (will add names soon)
-                    </div>
-                </div>
+            return this.renderTable();
+       
         }
-
-        return (
-            content);
-
+        throw new Error("Unknown state")
     }
+
+    renderLogin(){
+        return <LoginBox/>
+    }
+
+    renderWaitingForPlayers(){
+        return <div className="table">
+            <button className="start-button" onClick={() => this.onClick_StartGame()} >Start Game</button>
+            <ChatRoom />       
+        </div>;
+    }
+
+    renderTable(){
+        const playerItems = this.getPlayerItems();
+        const currentPlayer = playerItems.filter(p => p.isCurrent)[0].player;
+        return <div className="table">
+            <div className="header">
+                Pandemic Together
+            </div>
+            {playerItems.map(function(item, index){
+                return <Player key={index} player={item.player} position={item.position}/>
+            })}
+            <PlayerHand player={currentPlayer}/>
+            <Deck />
+            <ChatRoom />
+            <div className="footer">
+                a collaborative effort by lots of people (will add names soon)
+            </div>
+        </div>
+    }
+
+    getPlayerItems(){
+        const roomState = this.props.roomState;
+        const currentPlayerSessionId = this.props.room.sessionId;
+        let positions = ["player-c", "player-b", "player-a"];
+        let players = [];
+        for (let id in roomState.players) {
+            const player = roomState.players[id];
+            if (player.sessionId == currentPlayerSessionId) {
+                players.push({position: "player-current", player, isCurrent: true})
+            }else{
+                players.push({position: positions.pop(), player, isCurrent: false})
+            }
+        }
+        return players;
+    }
+
 }
 
 export default connect(mapStateToProps, null) (Table)

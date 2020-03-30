@@ -1,0 +1,25 @@
+.player-area {
+    background-color: #ccc;
+    display: grid;
+  
+    grid-gap: 0px;
+    width: 100%;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto 30px;
+    grid-template-areas:
+      "virus-infection"
+      "player-char"
+      "player-name";
+  
+    &.player-a {
+      transform: rotate(180deg);
+    }
+  
+    &.player-c {
+      transform: rotate(-90deg);
+    }
+  
+    &.player-b {
+      transform: rotate(90deg);
+    }
+  }

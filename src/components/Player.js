@@ -20,14 +20,14 @@ class Player extends React.Component {
 
         return (
             <div className={classes} style={containerStyle}>
-                <div style={{gridArea:"virus-infection", margin:"auto"}}>
+                <div style={{gridArea:"virus-infection", backgroundColor:"#00F", margin:"auto"}}>
                     {player.virusField.map(function(card, index){
                         return <Card key={index} card={card}/>
                     })}
 
                 </div>
 
-                <div style={{gridArea:"player-char", backgroundColor:"#0F0", margin:"auto"}}>
+                <div style={{gridArea:"player-char", backgroundColor:"#F00", margin:"auto"}}>
                     {playerField.map(function(card, index){
                         return <Card key={index} card={card}/>
                     })}

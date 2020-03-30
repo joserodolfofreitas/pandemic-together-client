@@ -10,10 +10,12 @@ class Table extends React.Component {
     render() {
 
         return (
-            <div className="card deck">
-                <div className="deck-title">deck</div>
+            <div className="deck">
+                <div className="card" style={{backgroundImage: "url(/images/card-deck.png)"}}>
+                    
+                </div>
             </div>
-        );
+        ); //<div className="deck-title">deck</div>
     }
 }
 

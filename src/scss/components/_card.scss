@@ -1,0 +1,28 @@
+.card {
+  background-color: #fff;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: $cardWidth;
+  height: $cardHeight;
+  box-shadow: 0px 1px 1px 0px rgba(#111, 0.5);
+  border-radius: 5px;
+  margin: 5px;
+
+  transition: 0.5s;
+
+  &.hand-card {
+    width: $cardWidth * 2;
+    height: $cardHeight * 2;
+  }
+
+  &.virus-card {
+    outline: none;
+    border-color: #f00;
+    box-shadow: 0 0 10px #f00;
+  }
+
+  &:hover:not(.hand-card){
+    transform: scale(1.5,1.5);
+  }
+}
