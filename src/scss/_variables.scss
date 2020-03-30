@@ -1,2 +1,2 @@
-$cardWidth: 50px;
-$cardHeight: 80px;
+$cardWidth: 25vw / 3; // 25% screen * 3 cards
+$cardHeight:  $cardWidth * (8/5);

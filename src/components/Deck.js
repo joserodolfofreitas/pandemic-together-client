@@ -11,11 +11,11 @@ class Table extends React.Component {
 
         return (
             <div className="deck">
-                <div className="card">
-                    <div className="deck-title">deck</div>
+                <div className="card" style={{backgroundImage: "url(/images/card-deck.png)"}}>
+                    
                 </div>
             </div>
-        );
+        ); //<div className="deck-title">deck</div>
     }
 }
 

@@ -4,12 +4,15 @@
   background-position: center center;
   background-repeat: no-repeat;  
   background-image: url(/images/background.jpg);
+
+  width: 100vw; 
   height: 100vh;
+  overflow: hidden;
+  
   display: grid;
-  grid-gap: 10px;
-  width: 100%;
-  grid-template-columns: 200px 200px 200px 220px;
-  grid-template-rows: 50px 200px 200px 200px 30px;
+  grid-gap: 10px;  
+  grid-template-columns: auto;
+  grid-template-rows: 50px auto auto auto 30px;
   grid-template-areas:
     "header header header header"
     "top-left player-a top-right chatroom"
