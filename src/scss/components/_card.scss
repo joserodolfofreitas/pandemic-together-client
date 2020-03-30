@@ -1,5 +1,8 @@
 .card {
   background-color: #fff;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
   width: $cardWidth;
   height: $cardHeight;
   box-shadow: 0px 1px 1px 0px rgba(#111, 0.5);
@@ -12,10 +15,8 @@
   }
 
   &.virus-card {
-    background-color: #a66;
-  }
-
-  &.card-a1{ 
-    background-image: url(./images/card-a1.png);
+    outline: none;
+    border-color: #f00;
+    box-shadow: 0 0 10px #f00;
   }
 }

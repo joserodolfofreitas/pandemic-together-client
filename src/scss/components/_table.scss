@@ -1,5 +1,9 @@
 .table {
   background-color: #c26230;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;  
+  background-image: url(/images/background.jpg);
   height: 100vh;
   display: grid;
   grid-gap: 10px;
