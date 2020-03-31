@@ -1,5 +1,4 @@
 import React from 'react';
-import Deck from './Deck';
 import * as Colyseus from "colyseus.js";
 import { connect } from 'react-redux';
 import { setRoom, setRoomState } from './ReduxStore/actions'
@@ -40,15 +39,11 @@ class LoginBox extends React.Component {
 
             room.onStateChange.once((state) => {
                 console.log("this is the first room state!", state);
-                console.log("currentTurn", state.currentTurn);
-                console.log("playerName", state.players);
                 this.props.setRoomState(state);
             });
 
             room.onStateChange((state) => {
                 console.log("the room state has been updated:", state);
-                console.log("currentTurn", state.currentTurn);
-                console.log("playerName", state.players);
                 this.props.setRoomState(state);
             });
             this.props.setRoom(room);

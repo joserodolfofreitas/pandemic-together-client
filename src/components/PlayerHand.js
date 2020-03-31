@@ -1,12 +1,24 @@
 import React from 'react';
 import Card from './Card';
+import * as Constants from './common/constants';
+import { connect } from 'react-redux';
+
+function mapStateToProps(state) {
+    return {
+        room : state.room,
+        roomState : state.roomState,
+        updatesOnRoomState : state.updatesOnRoomState,
+    }
+}
 
 class PlayerHand extends React.Component {
-
-    onClick(window) {
-        console.log(window);
+    onClick_advanceTurn() {
+        if (this.props.roomState.currentTurn != this.props.room.sessionId) {
+            return;
+        }
+        const message = {type: Constants.GM_ADVANCE_TURN, player: this.props.room.sessionId};
+        this.props.room.send(message);
     }
-
     render() {
         let player = this.props.player;
         let containerStyle = {gridArea: "player-hand"};
@@ -16,15 +28,17 @@ class PlayerHand extends React.Component {
             <div className={classes} style={containerStyle}>
                 <div >
                     {player.hand.map(function(card, index){
-                        return <Card key={index} card={card} handCard={true}/>
+                        return <Card key={card.cardId} card={card} handCard={true}/>
                     })}
                 </div>
                 <div style={{backgroundColor:"#0F0", margin:"auto"}}>
-                    your hand
+                    <span>your hand</span>
+
+                    <span><button onClick={() => this.onClick_advanceTurn()}> End turn (pass)</button></span>
                 </div>
             </div>
         );
     }
 }
 
-export default PlayerHand;
+export default connect(mapStateToProps, null) (PlayerHand)

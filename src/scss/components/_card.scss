@@ -21,8 +21,28 @@
     border-color: #f00;
     box-shadow: 0 0 10px #f00;
   }
-
   &:hover:not(.hand-card){
     transform: scale(1.5,1.5);
   }
+
+  &.selected-card{
+    box-shadow: 0px 0px 8px 15px rgba(#FF1, 0.5);
+  }
+
+  &.virus-contained{
+    box-shadow: 0px 0px 5px 5px rgba(#0F0, 1);
+  }
+
+}
+
+.card-token{
+  width: $cardWidth / 4 ;
+  height: $cardWidth / 4;
+  border-radius:$cardWidth / (4 * 2);
+  background-color: #F00;
+  color: #FFF;
+  display: inline-block;
+  float:right;
+  text-align: center;
+  padding: 2px;
 }
