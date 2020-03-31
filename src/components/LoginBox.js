@@ -3,7 +3,7 @@ import * as Colyseus from "colyseus.js";
 import { connect } from 'react-redux';
 import { setRoom, setRoomState } from './ReduxStore/actions'
 
-const serverUrl = (process.env.NODE_ENV === 'production') ?  'ws://ec2-18-156-7-201.eu-central-1.compute.amazonaws.com:2567' : 'ws://localhost:2567'
+const serverUrl = (process.env.NODE_ENV === 'production') ?  'ws://ec2-3-127-247-9.eu-central-1.compute.amazonaws.com:2567' : 'ws://localhost:2567'
 
 function mapStateToProps(state) {
     return {
