@@ -3,7 +3,7 @@ import LoginBox from './LoginBox';
 import ChatRoom from './ChatRoom';
 import Deck from './Deck';
 import Player from './Player';
-import PlayerHand from './PlayerHand';
+import CurrentPlayer from './CurrentPlayer';
 import { connect } from 'react-redux';
 import * as Constants from './common/constants';
 
@@ -59,16 +59,18 @@ class Table extends React.Component {
     }
 
     renderTable(){
-        const playerItems = this.getPlayerItems();
-        const currentPlayer = playerItems.filter(p => p.isCurrent)[0].player;
-        return <div className="table">
+        const playerItems = this.getOtherPlayerItems();
+        const currentPlayer = this.getCurrentPlayer();
+        const className = `table players-${playerItems.length+1}`;
+
+        return <div className={className}>
             <div className="header">
                 Pandemic Together
             </div>
             {playerItems.map(function(item, index){
                 return <Player key={index} player={item.player} position={item.position}/>
             })}
-            <PlayerHand player={currentPlayer}/>
+            <CurrentPlayer player={currentPlayer}/>
             <Deck />
             <ChatRoom />
             <div className="footer">
@@ -77,20 +79,24 @@ class Table extends React.Component {
         </div>
     }
 
-    getPlayerItems(){
+    getOtherPlayerItems(){
         const roomState = this.props.roomState;
         const currentPlayerSessionId = this.props.room.sessionId;
         let positions = ["player-c", "player-b", "player-a"];
         let players = [];
         for (let id in roomState.players) {
             const player = roomState.players[id];
-            if (player.sessionId == currentPlayerSessionId) {
-                players.push({position: "player-current", player, isCurrent: true})
-            }else{
-                players.push({position: positions.pop(), player, isCurrent: false})
+            if (player.sessionId != currentPlayerSessionId) {
+                players.push({position: positions.pop(), player})
             }
         }
         return players;
+    }
+
+    getCurrentPlayer(){       
+        const roomState = this.props.roomState;
+        const currentPlayerSessionId = this.props.room.sessionId;
+        return Object.values(roomState.players).filter(p => p.sessionId == currentPlayerSessionId)[0]
     }
 
 }

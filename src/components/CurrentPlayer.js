@@ -11,7 +11,7 @@ function mapStateToProps(state) {
     }
 }
 
-class PlayerHand extends React.Component {
+class CurrentPlayer extends React.Component {
     onClick_advanceTurn() {
         if (this.props.roomState.currentTurn != this.props.room.sessionId) {
             return;
@@ -21,8 +21,8 @@ class PlayerHand extends React.Component {
     }
     render() {
         let player = this.props.player;
-        let containerStyle = {gridArea: "player-hand"};
-        let classes = "player-area";
+        let containerStyle = {gridArea: "player-current"};
+        let classes = "player player-current";
 
         return (
             <div className={classes} style={containerStyle}>
@@ -41,4 +41,4 @@ class PlayerHand extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, null) (PlayerHand)
+export default connect(mapStateToProps, null) (CurrentPlayer)

@@ -13,13 +13,10 @@ function mapStateToProps(state) {
 class Player extends React.Component {
 
     render() {
-        let roomState = this.props.roomState;
-        var players = [];
-
         let player = this.props.player;
         let position = this.props.position;
         let containerStyle = {gridArea: position};
-        let classes = `player-area ${position}${this.props.roomState.currentTurn == player.sessionId ? " current-turn" : ""}`;
+        let classes = `player ${position}${this.props.roomState.currentTurn == player.sessionId ? " current-turn" : ""}`;
 
         var playerField = [player.advantages[0], player.disadvantages[0]];
 
