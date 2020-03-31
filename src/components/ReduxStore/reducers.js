@@ -1,8 +1,9 @@
 import {
-    DRAW_CARD,
-    UPDATE_PLAYER,
     SET_ROOM,
     SET_ROOM_STATE,
+    SELECT_CARD,
+    DESELECT_CARD,
+    RESET_SELECTED_CARDS,
 } from './actions'
 
 function addWindow(state, windowProps) {
@@ -26,24 +27,38 @@ function setRoom(state, room) {
 }
 
 function setRoomState(state, newRoomState) {
-    console.log("currentTurn at SetRoomState", newRoomState.currentTurn);
-    var newUpdateState = state.updatesOnRoomState + 1;// cheap workaround to guaranteee re-render after updating roomState.
     return {
         ...state,
         roomState: newRoomState,
-        updatesOnRoomState: newUpdateState,
+        updatesOnRoomState: state.updatesOnRoomState + 1, // cheap workaround to guaranteee re-render after updating roomState.
     };
 }
 
-function removeWindow(state, stringId) {
-    const newWindowArray = [...state.windows].filter((item, index) => item.stringId !== stringId)
-    const newWindowIdsArray = [...state.windowsIds].filter((item, index) => item !== stringId)
+function selectCard(state, card) {
     return {
         ...state,
-        windows: newWindowArray,
-        windowsIds: newWindowIdsArray
+        selectedCards: [...state.selectedCards, card],
     };
 }
+
+function deselectCard(state, cardId) {
+    console.log("state.selectedCards.length", state.selectedCards.length);
+    console.log(cardId, "cardId");
+    const newSelectedCards = [...state.selectedCards].filter((card, index) => card.cardId != cardId);
+    console.log("newSelectedCards", newSelectedCards);
+    return {
+        ...state,
+        selectedCards: newSelectedCards,
+    };
+}
+
+function resetSelectedCards (state) {
+    return {
+        ...state,
+        selectedCards: [],
+    };
+}
+
 
 function reducers(state, action) {
     switch (action.type) {
@@ -51,22 +66,12 @@ function reducers(state, action) {
             return setRoom(state, action.room);
         case SET_ROOM_STATE:
             return setRoomState(state, action.roomState);
-        case DRAW_CARD:
-            return addWindow(state);
-
-        /*case REMOVE_WINDOW:
-            let removeIndex = state.windowsIds.indexOf(action.stringId);
-
-            if (removeIndex !== -1) {
-                return removeWindow(state, action.stringId);
-            }
-            //window doesn't exist
-            return state;
-        case INCREMENT_NEXT_Z_INDEX:
-            return {
-                ...state,
-                nextZIndex: ++state.nextZIndex,
-            };*/
+        case SELECT_CARD:
+            return selectCard(state, action.card);
+        case DESELECT_CARD:
+            return deselectCard(state, action.card.cardId);
+        case RESET_SELECTED_CARDS:
+            return resetSelectedCards(state);
         default:
             return state;
     }

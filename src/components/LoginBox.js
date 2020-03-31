@@ -1,8 +1,9 @@
 import React from 'react';
-import Deck from './Deck';
 import * as Colyseus from "colyseus.js";
 import { connect } from 'react-redux';
 import { setRoom, setRoomState } from './ReduxStore/actions'
+
+const serverUrl = (process.env.NODE_ENV === 'production') ?  'ws://ec2-3-127-247-9.eu-central-1.compute.amazonaws.com:2567' : 'ws://localhost:2567'
 
 function mapStateToProps(state) {
     return {
@@ -25,7 +26,7 @@ class LoginBox extends React.Component {
     }
 
     login = () => {
-        var client = new Colyseus.Client('ws://localhost:2567');
+        var client = new Colyseus.Client(serverUrl);
         client.joinOrCreate("pandemic-together-room", {name:this.state.input}).then(room => {
             console.log(room.sessionId, "joined", room.name);
             console.log("roomState", room.state);
@@ -40,15 +41,11 @@ class LoginBox extends React.Component {
 
             room.onStateChange.once((state) => {
                 console.log("this is the first room state!", state);
-                console.log("currentTurn", state.currentTurn);
-                console.log("playerName", state.players);
                 this.props.setRoomState(state);
             });
 
             room.onStateChange((state) => {
                 console.log("the room state has been updated:", state);
-                console.log("currentTurn", state.currentTurn);
-                console.log("playerName", state.players);
                 this.props.setRoomState(state);
             });
             this.props.setRoom(room);

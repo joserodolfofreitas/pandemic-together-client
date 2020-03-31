@@ -20,9 +20,8 @@ function mapStateToProps(state) {
 class Table extends React.Component {
     constructor(props) {
         super(props);
-        console.log("Table constructor", this,props.room, this.props.roomState);
         this.state = {
-            currentTurn:0,
+            currentTurn: 0,
             room: this.props.room,
             roomState: this.props.roomState,
         };
@@ -30,12 +29,6 @@ class Table extends React.Component {
 
     onClick_StartGame() {
         let room = this.props.room;
-        let roomState = this.props.roomState;
-        /*for (let id in roomState.players) {
-            const player: Player = roomState.players[id];
-            console.log(id, player.name);
-        }*/
-        //room.send({type: card:"R1", onPlayer:"C1"});
         room.send({type: Constants.GM_START_GAME});
         this.setState({currentTurn: this.state.currentTurn});
     }

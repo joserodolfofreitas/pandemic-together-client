@@ -1,6 +1,7 @@
 import React from 'react';
-import Card from './Card';
+import * as Constants from './common/constants';
 import { connect } from 'react-redux';
+
 
 function mapStateToProps(state) {
     return {
@@ -20,15 +21,20 @@ class ChatRoom extends React.Component {
         var index = 0;
         for (let id in roomState.players) {
             const player: Player = roomState.players[id];
-            console.log(player.name);
             players[index++] = player;
         }
+        var round = (roomState.gameState == Constants.GAME_STATE_STARTED) ? "round " + roomState.round : "";
+
         return (
             <div className="chat-room">
                 <h1>Players in the room</h1>
                 {players.map(function(player, index){
-                    return <div key={index} style={{textAlign: "center"}}><span>{player.name}</span></div>
+                    var playerCurrentTurn = roomState.currentTurn == player.sessionId;
+                    return <div key={index} style={{textAlign: "center"}}>{playerCurrentTurn?<span style={{float:"left", color:"#050"}}>=></span>:""}<span>{player.name}</span></div>
                 })}
+                <div><hr /></div>
+                <div style={{fontSize:"0.6em", color:"#333", textAlign: "center"}}>{roomState.gameState}</div>
+                <div style={{fontSize:"0.7em", color:"#333", textAlign: "center"}}>{round}</div>
 
             </div>
         );
