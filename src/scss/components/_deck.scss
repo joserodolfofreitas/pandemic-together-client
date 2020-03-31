@@ -2,11 +2,96 @@
     margin: auto;
     grid-area: deck;
 
-    .card{
-        box-shadow: 5px 5px 10px 2px rgba(17, 17, 17, 0.8);
-        background-color: #000;
+    .stack {
+        width: calc(#{$cardWidth} + 16px);
+        height: calc(#{$cardHeight} + 16px);
+        margin: $cardMargin;
+
+        position: relative;
+
+        .card {
+            background-color: #000;
+            position: absolute;
+
+            &:nth-child(1) {
+                top: 12px;
+                left: 12px;
+                box-shadow: 5px 5px 10px 2px rgba(17, 17, 17, 0.8);
+                transform: scale(1);
+            }
+            &:nth-child(2) {
+                top: 8px;
+                left: 8px;
+                transform: scale(1);
+            }
+            &:nth-child(3) {
+                top: 4px;
+                left: 4px;
+                transform: scale(1);
+            }
+            &:nth-child(4) {
+                top: 0px;
+                left: 0px;
+                opacity: 1;
+                transform: translate(0, 0);
+            }
+        }
     }
-/*
+
+    @keyframes move-to-current {
+        from {
+            transform: translate(0, 0);
+            opacity: 1;
+        }
+        to {
+            transform: translate(0, 100%);
+            opacity: 0;
+        }
+    }
+    @keyframes move-to-a {
+        from {
+            transform: translate(0, 0);
+            opacity: 1;
+        }
+        to {
+            transform: translate(-100%, 0);
+            opacity: 0;
+        }
+    }
+    @keyframes move-to-b {
+        from {
+            transform: translate(0, 0);
+            opacity: 1;
+        }
+        to {
+            transform: translate(0, -100%);
+            opacity: 0;
+        }
+    }
+    @keyframes move-to-c {
+        from {
+            transform: translate(0, 0);
+            opacity: 1;
+        }
+        to {
+            transform: translate(100%, 0);
+            opacity: 0;
+        }
+    }
+
+    &.player-current .stack .card:nth-child(4) {
+        animation: move-to-current 1s ease-in 0s 1;
+    }
+    &.player-a .stack .card:nth-child(4) {
+        animation: move-to-a 1s ease-in 0s 1;
+    }
+    &.player-b .stack .card:nth-child(4) {
+        animation: move-to-b 1s ease-in 0s 1;
+    }
+    &.player-c .stack .card:nth-child(4) {
+        animation: move-to-c 1s ease-in 0s 1;
+    }
+    /*
     .deck-title {
         padding-top: 30px;
         text-align: center;

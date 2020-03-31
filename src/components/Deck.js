@@ -3,27 +3,30 @@ import { connect } from 'react-redux';
 
 function mapStateToProps(state) {
     return {
-        roomState : state.roomState,
-        updatesOnRoomState : state.updatesOnRoomState,
+        roomState: state.roomState,
+        updatesOnRoomState: state.updatesOnRoomState,
     }
 }
 
 class Deck extends React.Component {
     render() {
-        var content;
-
+        const currentPlayer = this.props.playerItems.filter(p => p.player.sessionId == this.props.roomState.currentTurn);
+        const currentPlayerPosition = (currentPlayer && currentPlayer.length)?currentPlayer[0].position : "player-current";
+        const className = `deck ${currentPlayerPosition}`;
         if (this.props.roomState.deck.length > 0) {
-            content =
-                <div className="deck">
-                    <div className="card" style={{backgroundImage: "url(/images/card-deck.png)"}}/>
+            return <div className={className}>
+                    <div className="stack">
+                        <div className="card" style={{ backgroundImage: "url(/images/card-deck.png)" }} />
+                        <div className="card" style={{ backgroundImage: "url(/images/card-deck.png)" }} />
+                        <div className="card" style={{ backgroundImage: "url(/images/card-deck.png)" }} />
+                        <div className="card" style={{ backgroundImage: "url(/images/card-deck.png)" }} />
+                    </div>
                 </div>
         } else {
-            content = <div></div>
+            return <div></div>
         }
-        return (
-            content
-        );
+        
     }
 }
 
-export default connect(mapStateToProps, null) (Deck)
+export default connect(mapStateToProps, null)(Deck)
