@@ -11,8 +11,8 @@
 
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: auto;
-  grid-template-rows: 50px auto auto auto 30px;
+  grid-template-columns: 25vmin auto 25vmin;
+  grid-template-rows: 50px 25vmin auto 25vmin 30px;
   //landscape; 4 players
   grid-template-areas:
     "header header header"
@@ -20,8 +20,6 @@
     "player-a deck player-c "
     "player-current player-current player-current"
     "footer footer footer";
-
-> * {overflow: hidden;} //FIXME
 
   //landscape; 3 players
   &.players-3 {
