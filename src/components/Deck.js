@@ -23,7 +23,7 @@ class Deck extends React.Component {
                     </div>
                 </div>
         } else {
-            return <div></div>
+            return <div className="deck deck-empty"></div>
         }
         
     }
