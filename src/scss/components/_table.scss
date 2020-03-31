@@ -2,23 +2,34 @@
   background-color: #c26230;
   background-size: cover;
   background-position: center center;
-  background-repeat: no-repeat;  
+  background-repeat: no-repeat;
   background-image: url(/images/background.jpg);
 
-  width: 100vw; 
+  width: 100vw;
   height: 100vh;
   overflow: hidden;
-  
+
   display: grid;
-  grid-gap: 10px;  
-  grid-template-columns: auto;
-  grid-template-rows: 50px auto auto auto 30px;
+  grid-gap: 10px;
+  grid-template-columns: 25vmin auto 25vmin;
+  grid-template-rows: 50px 25vmin auto 25vmin 30px;
+  //landscape; 4 players
   grid-template-areas:
-    "header header header header"
-    "top-left player-a top-right chatroom"
-    "player-b deck player-c chatroom"
-    "bottom-left player-current player-hand player-hand"
-    "footer footer footer footer";
+    "header header header"
+    "player-a player-b player-c"
+    "player-a deck player-c "
+    "player-current player-current player-current"
+    "footer footer footer";
+
+  //landscape; 3 players
+  &.players-3 {
+    grid-template-areas:
+      "header header header"
+      "player-a deck player-b"
+      "player-a deck player-b "
+      "player-current player-current player-current"
+      "footer footer footer";
+  }
 
   .header {
     background-color: #fff;
@@ -41,5 +52,19 @@
   .start-button {
     margin: auto;
     display: block;
+  }
+}
+
+@media (orientation: portrait) {
+  .table {
+    //portrait; 4 players
+    grid-template-areas:
+      "header header header"
+      "player-b player-b player-b"
+      "player-a deck player-c "
+      "player-current player-current player-current"
+      "footer footer footer";
+
+    //portrait; 3 players = landscape; 3 players
   }
 }
