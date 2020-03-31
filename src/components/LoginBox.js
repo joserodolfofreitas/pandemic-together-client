@@ -3,6 +3,8 @@ import * as Colyseus from "colyseus.js";
 import { connect } from 'react-redux';
 import { setRoom, setRoomState } from './ReduxStore/actions'
 
+const serverUrl = (process.env.NODE_ENV === 'production') ?  'ws://ec2-18-156-7-201.eu-central-1.compute.amazonaws.com:2567' : 'ws://localhost:2567'
+
 function mapStateToProps(state) {
     return {
         room : state.room,
@@ -24,7 +26,7 @@ class LoginBox extends React.Component {
     }
 
     login = () => {
-        var client = new Colyseus.Client('ws://localhost:2567');
+        var client = new Colyseus.Client(serverUrl);
         client.joinOrCreate("pandemic-together-room", {name:this.state.input}).then(room => {
             console.log(room.sessionId, "joined", room.name);
             console.log("roomState", room.state);
