@@ -5,6 +5,8 @@ export const initialState = {
     room: null,
     roomState: null,
     updatesOnRoomState: 0,
+    currentPlayerTurn: "",
+    selectedCards: [],
     roomPlayers: [],
     deck: [],
     cards: [
