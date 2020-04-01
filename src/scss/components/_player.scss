@@ -75,6 +75,10 @@
         border-right: 1px solid #140c0e;
         .card {
           filter: brightness(0.75);
+          
+          &:hover {
+            filter: brightness(1);
+          }
         }
       }
 
