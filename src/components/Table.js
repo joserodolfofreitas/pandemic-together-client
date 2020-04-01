@@ -84,20 +84,23 @@ class Table extends React.Component {
         console.log("--->",this.props.roomState,this.props.room);
         const roomStatePlayers = this.props.roomState.players;
         const currentPlayerSessionId = this.props.room.sessionId;
-        let positions = Object.keys(roomStatePlayers).length == 3 ? ["player-right", "player-left"] : ["player-right", "player-top", "player-left"];
+        console.log(Object.keys(roomStatePlayers));
         let players = [];
         let indexCounter = 0;
         let currentPlayerIndex = 0;
         for (let id in roomStatePlayers) {
             const player = roomStatePlayers[id];
             if (player.sessionId != currentPlayerSessionId) {
-                players.push({position: positions.pop(), player})
+                players.push({player})
             }else{
                 currentPlayerIndex = indexCounter;
             }
             indexCounter++;
         }
-        return players.concat(players.splice(0,currentPlayerIndex));
+        players = players.concat(players.splice(0,currentPlayerIndex))
+        let positions = players.length == 2 ? ["player-left", "player-right"] : ["player-left", "player-top", "player-right"];
+        positions.forEach((p,i) => players[i].position = p);
+        return players;
     }
 
     getCurrentPlayer(){       
