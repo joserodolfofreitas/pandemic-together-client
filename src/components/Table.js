@@ -65,13 +65,14 @@ class Table extends React.Component {
 
         return <div className={className}>
             <div className="header">
+                <span className="logo" style={{backgroundImage: "url(/images/logo.png)"}}></span>
                 Pandemic Together
             </div>
             {playerItems.map(function(item, index){
                 return <Player key={index} player={item.player} position={item.position}/>
             })}
             <CurrentPlayer player={currentPlayer}/>
-            <Deck />
+            <Deck playerItems={playerItems} />
             <ChatRoom />
             <div className="footer">
                 a collaborative effort by lots of people (will add names soon)

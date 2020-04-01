@@ -64,7 +64,7 @@ class Card extends React.Component {
             throw new Error("card cannot be undefined");
         }
         const handCard = this.props.handCard;
-        var classNames = `card card-${card.elementId.toLowerCase()}${handCard === true ? " hand-card" : ""}${card.type == Constants.CARD_TYPE_VIRUS ? "" : " virus-card"}${this.state.selected === true ? " selected-card" : ""}${card.contained === true ? " virus-contained" : ""}`;
+        var classNames = `card card-${card.elementId.toLowerCase()}${handCard === true ? " hand-card" : ""}${card.type == Constants.CARD_TYPE_VIRUS ? " virus-card" : ""}${this.state.selected === true ? " selected-card" : ""}${card.contained === true ? " virus-contained" : ""}`;
         const style={float:"left", backgroundImage: `url("/images/card-${card.elementId.toLowerCase()}.png")`};
         return (
             <div className={classNames} style={style} onClick={()=> this.onClick_selectCard()}>

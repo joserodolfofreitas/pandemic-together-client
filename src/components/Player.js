@@ -22,7 +22,7 @@ class Player extends React.Component {
         return (
             <div className={classes} style={containerStyle}>
                 <div className="player-cards card-container" style={{ gridArea: "player-cards", "--card-count": cardCount }}>
-                    <div className="virus-infection" style={{ }}>
+                    <div className="player-char" style={{ }}>
                         {playerField.map((card, index) => <Card key={card.cardId} card={card} />)}
                     </div>
                     <div className="virus-infection" style={{ }}>
