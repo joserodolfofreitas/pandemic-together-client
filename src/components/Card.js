@@ -63,19 +63,31 @@ class Card extends React.Component {
             console.log("card", card);
             throw new Error("card cannot be undefined");
         }
-        const handCard = this.props.handCard;
-        var classNames = `card card-${card.elementId.toLowerCase()}${handCard === true ? " hand-card" : ""}${card.type == Constants.CARD_TYPE_VIRUS ? " virus-card" : ""}${this.state.selected === true ? " selected-card" : ""}${card.contained === true ? " virus-contained" : ""}`;
+
+        const isHandCard = this.props.handCard;
+        const isVirusCard = card.type == Constants.CARD_TYPE_VIRUS;
+
+        var classNames = `card card-${card.elementId.toLowerCase()}${isHandCard === true ? " hand-card" : ""}${isVirusCard ? " virus-card" : ""}${this.state.selected === true ? " selected-card" : ""}${card.contained === true ? " virus-contained" : ""}`;
         const style={float:"left", backgroundImage: `url("/images/card-${card.elementId.toLowerCase()}.png")`};
+
         return (
             <div className={classNames} style={style} onClick={()=> this.onClick_selectCard()}>
-                {(card.tokens > 0) ?
-                    <div className="card-token">
-                        {card.tokens}
-                    </div> : ""
-                }
+                {isVirusCard ? this.renderVirusTokens(card) : null}
+                
             </div>
         );
     }
+
+    renderVirusTokens(card){
+        let tokens = [];
+        for(let i = 0; i < card.tokens; i++){
+            tokens.push(<div class="token" style={{backgroundImage: "url(/images/logo.png)"}}></div>)
+        }
+        return <div class="card-tokens">
+            {tokens}
+        </div>
+    }
+    
 }
 
 export default connect(mapStateToProps, {selectCard, deselectCard, resetSelectedCards}) (Card)

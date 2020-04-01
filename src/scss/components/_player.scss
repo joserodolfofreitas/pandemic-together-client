@@ -27,6 +27,15 @@
 
   &.player-b {
     justify-items: center;
+
+    .player-cards {
+      transform: rotate(-180deg);
+      transform-origin: center center;
+
+      .card:hover {
+        transform: rotate(180deg) scale(1.5, 1.5);
+      }
+    }
   }
 
   &:not(.player-current) {

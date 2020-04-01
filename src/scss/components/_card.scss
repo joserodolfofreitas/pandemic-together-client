@@ -22,6 +22,22 @@
     // border-color: #f00;
     // box-shadow: 0 0 10px #f00;
     transform: scale(0.9);
+
+    .card-tokens{
+      position: absolute;
+      width: 100%; height: $cardWidth / 5;
+      bottom: calc(100% + 1vh);
+      transform: scale(1.1);
+      text-align: center;
+
+      .token{
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        width: $cardWidth / 5; height: $cardWidth / 5;
+        display: inline-block;
+      }
+    }
   }
   &:hover{
     transform: scale(1.5,1.5);
@@ -36,16 +52,4 @@
 
 .card-container{
   width: calc(var(--card-count) * (#{$cardWidth} + (#{$cardMargin} * 2)))
-}
-
-.card-token{
-  width: $cardWidth / 4 ;
-  height: $cardWidth / 4;
-  border-radius:$cardWidth / (4 * 2);
-  background-color: #F00;
-  color: #FFF;
-  display: inline-block;
-  float:right;
-  text-align: center;
-  padding: 2px;
 }
