@@ -52,7 +52,7 @@
             opacity: 0;
         }
     }
-    @keyframes move-to-a {
+    @keyframes move-to-left {
         from {
             transform: translate(0, 0);
             opacity: 1;
@@ -62,7 +62,7 @@
             opacity: 0;
         }
     }
-    @keyframes move-to-b {
+    @keyframes move-to-top {
         from {
             transform: translate(0, 0);
             opacity: 1;
@@ -72,7 +72,7 @@
             opacity: 0;
         }
     }
-    @keyframes move-to-c {
+    @keyframes move-to-right {
         from {
             transform: translate(0, 0);
             opacity: 1;
@@ -86,14 +86,14 @@
     &.player-current .stack .card:first-child {
         animation: move-to-current 1s ease-in 0s 1;
     }
-    &.player-a .stack .card:first-child {
-        animation: move-to-a 1s ease-in 0s 1;
+    &.player-left .stack .card:first-child {
+        animation: move-to-left 1s ease-in 0s 1;
     }
-    &.player-b .stack .card:first-child {
-        animation: move-to-b 1s ease-in 0s 1;
+    &.player-top .stack .card:first-child {
+        animation: move-to-top 1s ease-in 0s 1;
     }
-    &.player-c .stack .card:first-child {
-        animation: move-to-c 1s ease-in 0s 1;
+    &.player-right .stack .card:first-child {
+        animation: move-to-right 1s ease-in 0s 1;
     }
     /*
     .deck-title {

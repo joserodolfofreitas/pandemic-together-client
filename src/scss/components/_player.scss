@@ -1,7 +1,7 @@
 .player {
   display: grid;
 
-  &.player-a {
+  &.player-left {
     .player-cards {
       transform: rotate(90deg) translate(0, -100%);
       transform-origin: top left;
@@ -11,7 +11,7 @@
     }
   }
 
-  &.player-c {
+  &.player-right {
     .player-cards {
       transform: rotate(-90deg) translate(-100%, 20%);
       transform-origin: top left;
@@ -25,7 +25,7 @@
     }
   }
 
-  &.player-b {
+  &.player-top {
     justify-items: center;
 
     .player-cards {
