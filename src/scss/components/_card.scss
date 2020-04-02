@@ -14,7 +14,6 @@
   transition: 0.5s;
 
   &.hand-card {
-    
   }
 
   &.virus-card {
@@ -22,30 +21,56 @@
     // border-color: #f00;
     // box-shadow: 0 0 10px #f00;
     transform: scale(0.9);
+
+    .card-tokens {
+      position: absolute;
+      width: 100%;
+      height: $cardWidth / 5;
+      bottom: calc(100% + 1vh);
+      transform: scale(1.1);
+      text-align: center;
+
+      @keyframes create-token {
+        0% {
+          transform: translate(0, -100%);
+          opacity: 0;
+          width: 0; height: 0;
+        }
+        33% {
+          transform: translate(0, 0);
+          opacity: 1;        
+          width: $cardWidth / 5;
+          height: $cardWidth / 5;
+        }
+        66% {
+          transform: scale(2);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+  
+      .token {
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        width: $cardWidth / 5;
+        height: $cardWidth / 5;
+        display: inline-block;
+        animation: create-token 2s ease-out 0s 1;
+      }
+    }
   }
-  &:hover{
-    transform: scale(1.5,1.5);
+  &:hover {
+    transform: scale(1.5, 1.5);
     z-index: 10;
   }
 
-  &.virus-contained{
-    box-shadow: 0px 0px 5px 5px rgba(#0F0, 1);
+  &.virus-contained {
+    box-shadow: 0px 0px 5px 5px rgba(#0f0, 1);
   }
-
 }
 
-.card-container{
-  width: calc(var(--card-count) * (#{$cardWidth} + (#{$cardMargin} * 2)))
-}
-
-.card-token{
-  width: $cardWidth / 4 ;
-  height: $cardWidth / 4;
-  border-radius:$cardWidth / (4 * 2);
-  background-color: #F00;
-  color: #FFF;
-  display: inline-block;
-  float:right;
-  text-align: center;
-  padding: 2px;
+.card-container {
+  width: calc(var(--card-count) * (#{$cardWidth} + (#{$cardMargin} * 2)));
 }

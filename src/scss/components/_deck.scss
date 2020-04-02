@@ -44,56 +44,56 @@
 
     @keyframes move-to-current {
         from {
-            transform: translate(0, 0);
+            transform: translate(0, 0) rotateX(0deg);
             opacity: 1;
         }
         to {
-            transform: translate(0, 100%);
+            transform: translate(0, 100%) rotateX(-90deg);
             opacity: 0;
         }
     }
-    @keyframes move-to-a {
+    @keyframes move-to-left {
         from {
-            transform: translate(0, 0);
+            transform: translate(0, 0) rotateY(0deg);
             opacity: 1;
         }
         to {
-            transform: translate(-100%, 0);
+            transform: translate(-200%, 0) rotateY(90deg);
             opacity: 0;
         }
     }
-    @keyframes move-to-b {
+    @keyframes move-to-top {
         from {
-            transform: translate(0, 0);
+            transform: translate(0, 0) rotateX(0deg);
             opacity: 1;
         }
         to {
-            transform: translate(0, -100%);
+            transform: translate(0, -100%) rotateX(90deg);
             opacity: 0;
         }
     }
-    @keyframes move-to-c {
+    @keyframes move-to-right {
         from {
-            transform: translate(0, 0);
+            transform: translate(0, 0)  rotateY(0deg);
             opacity: 1;
         }
         to {
-            transform: translate(100%, 0);
+            transform: translate(200%, 0)  rotateY(-90deg);
             opacity: 0;
         }
     }
 
     &.player-current .stack .card:first-child {
-        animation: move-to-current 1s ease-in 0s 1;
+        animation: move-to-current 0.5s ease-out 0s 1;
     }
-    &.player-a .stack .card:first-child {
-        animation: move-to-a 1s ease-in 0s 1;
+    &.player-left .stack .card:first-child {
+        animation: move-to-left 0.5s ease-out 0s 1;
     }
-    &.player-b .stack .card:first-child {
-        animation: move-to-b 1s ease-in 0s 1;
+    &.player-top .stack .card:first-child {
+        animation: move-to-top 0.5s ease-out 0s 1;
     }
-    &.player-c .stack .card:first-child {
-        animation: move-to-c 1s ease-in 0s 1;
+    &.player-right .stack .card:first-child {
+        animation: move-to-right 0.5s ease-out 0s 1;
     }
     /*
     .deck-title {

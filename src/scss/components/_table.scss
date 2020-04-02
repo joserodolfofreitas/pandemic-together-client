@@ -16,8 +16,8 @@
   //landscape; 4 players
   grid-template-areas:
     "header header header"
-    "player-a player-b player-c"
-    "player-a deck player-c "
+    "player-left player-top player-right"
+    "player-left deck player-right"
     "player-current player-current player-current"
     "footer footer footer";
 
@@ -25,8 +25,8 @@
   &.players-3 {
     grid-template-areas:
       "header header header"
-      "player-a deck player-b"
-      "player-a deck player-b "
+      "player-left deck player-right"
+      "player-left deck player-right "
       "player-current player-current player-current"
       "footer footer footer";
   }
@@ -71,8 +71,8 @@
     //portrait; 4 players
     grid-template-areas:
       "header header header"
-      "player-b player-b player-b"
-      "player-a deck player-c "
+      "player-left player-top player-right"
+      "player-left deck player-right "
       "player-current player-current player-current"
       "footer footer footer";
 

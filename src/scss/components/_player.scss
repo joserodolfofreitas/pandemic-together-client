@@ -1,7 +1,7 @@
 .player {
   display: grid;
 
-  &.player-a {
+  &.player-left {
     .player-cards {
       transform: rotate(90deg) translate(0, -100%);
       transform-origin: top left;
@@ -11,7 +11,7 @@
     }
   }
 
-  &.player-c {
+  &.player-right {
     .player-cards {
       transform: rotate(-90deg) translate(-100%, 20%);
       transform-origin: top left;
@@ -25,8 +25,17 @@
     }
   }
 
-  &.player-b {
+  &.player-top {
     justify-items: center;
+
+    .player-cards {
+      transform: rotate(-180deg);
+      transform-origin: center center;
+
+      .card:hover {
+        transform: rotate(180deg) scale(1.5, 1.5);
+      }
+    }
   }
 
   &:not(.player-current) {
@@ -66,6 +75,10 @@
         border-right: 1px solid #140c0e;
         .card {
           filter: brightness(0.75);
+          
+          &:hover {
+            filter: brightness(1);
+          }
         }
       }
 
