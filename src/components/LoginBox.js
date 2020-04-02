@@ -3,7 +3,7 @@ import * as Colyseus from "colyseus.js";
 import { connect } from 'react-redux';
 import { setRoom, setRoomState } from './ReduxStore/actions'
 
-const serverUrl = (process.env.NODE_ENV === 'production') ?  'https://pandemic-together-server.herokuapp.com' : 'ws://localhost:2567'
+const serverUrl = (process.env.NODE_ENV === 'production') ?  'wss://pandemic-together-server.herokuapp.com' : 'ws://localhost:2567'
 //const serverUrl = (window.location.hostname.indexOf("herokuapp") === -1)
     //? "ws://localhost:2567" // development (local)
     //: "ws://pandemic-together-server.herokuapp.com" // production (remote)
@@ -29,8 +29,8 @@ class LoginBox extends React.Component {
     }
 
     login = () => {
-        var client = new Colyseus.Client("http://pandemic-together-server.herokuapp.com");
-        //var client = new Colyseus.Client("ws://localhost:2567");
+        var client = new Colyseus.Client(serverUrl);
+
         client.joinOrCreate("pandemic-together-room", {name:this.state.input}).then(room => {
             console.log(room.sessionId, "joined", room.name);
             console.log("roomState", room.state);
