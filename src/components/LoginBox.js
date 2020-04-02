@@ -3,7 +3,7 @@ import * as Colyseus from "colyseus.js";
 import { connect } from 'react-redux';
 import { setRoom, setRoomState } from './ReduxStore/actions'
 
-const serverUrl = (process.env.NODE_ENV === 'production') ?  'ws://pandemic-together-client.herokuapp.com:27351' : 'ws://localhost:2567'
+const serverUrl = (process.env.NODE_ENV === 'production') ?  'ws://pandemic-together-server.herokuapp.com:27351' : 'ws://localhost:2567'
 //const serverUrl = (window.location.hostname.indexOf("herokuapp") === -1)
     //? "ws://localhost:2567" // development (local)
     //: "ws://pandemic-together-server.herokuapp.com" // production (remote)
