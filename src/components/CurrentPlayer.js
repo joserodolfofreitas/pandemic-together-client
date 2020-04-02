@@ -25,29 +25,30 @@ class CurrentPlayer extends React.Component {
         const containerStyle = { gridArea: "player-current" };
         const classes = `player player-current${this.props.roomState.currentTurn == player.sessionId ? " current-turn" : ""}`;
         const playerField = [player.advantages[0], player.disadvantages[0]];
-        const cardCount = Math.max(player.virusField.length, 2); //2 playerField cards
+        const statusCardCount = player.virusField.length + 2; //2 playerField cards
         return (
             <div className={classes} style={containerStyle}>
-                <div className="player-name" style={{ gridArea: "player-name"}}>{player.name}</div>
-                <div className="status-cards card-container" style={{ gridArea: "status-cards", "--card-count":cardCount}}>
-                    <div className="virus-infection" style={{ gridArea: "virus-infection" }}>
-                        {player.virusField.map(function (card, index) {
-                            return <Card key={card.cardId} card={card} />
-                        })}
+                <div className="player-cards">
+                    <div className="player-name" style={{ gridArea: "player-name" }}>{player.name}</div>
+                    <div className="status-cards card-container" style={{ gridArea: "status-cards", "--card-count": statusCardCount }}>
+                        <div className="virus-infection" style={{ gridArea: "virus-infection" }}>
+                            {player.virusField.map(function (card, index) {
+                                return <Card key={card.cardId} card={card} />
+                            })}
 
+                        </div>
+                        <div className="player-char" style={{ gridArea: "player-char" }}>
+                            {playerField.map(function (card, index) {
+                                return <Card key={card.cardId} card={card} />
+                            })}
+                        </div>
                     </div>
-                    <div className="player-char" style={{ gridArea: "player-char" }}>
-                        {playerField.map(function (card, index) {
-                            return <Card key={card.cardId} card={card} />
+                    <div className="hand-cards" style={{ gridArea: "hand-cards", "--card-count": player.hand.length }}>
+                        {player.hand.map(function (card, index) {
+                            return <Card key={card.cardId} card={card} handCard={true} />
                         })}
                     </div>
                 </div>
-                <div className="hand-cards" style={{ gridArea: "hand-cards"}}>
-                    {player.hand.map(function (card, index) {
-                        return <Card key={card.cardId} card={card} handCard={true} />
-                    })}
-                </div>
-
             </div>
         );
 

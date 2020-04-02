@@ -1,7 +1,7 @@
 .player {
   display: grid;
 
-  &.player-a {
+  &.player-left {
     .player-cards {
       transform: rotate(90deg) translate(0, -100%);
       transform-origin: top left;
@@ -11,7 +11,7 @@
     }
   }
 
-  &.player-c {
+  &.player-right {
     .player-cards {
       transform: rotate(-90deg) translate(-100%, 20%);
       transform-origin: top left;
@@ -20,44 +20,20 @@
         transform: rotate(90deg) scale(1.5, 1.5);
       }
     }
+    .player-name {
+      text-align: right;
+    }
   }
 
-  &.player-b {
+  &.player-top {
     justify-items: center;
-  }
 
-  &.player-current {
-    grid-gap: 0px;
-    width: 100%;
-    display: grid;
-    grid-template-columns: min-content auto;
-    grid-template-rows: auto calc(#{$cardHeight} + (2 * #{$cardMargin}));
-    grid-template-areas:
-      "player-name player-name"
-      "status-cards hand-cards";
+    .player-cards {
+      transform: rotate(-180deg);
+      transform-origin: center center;
 
-    .status-cards {
-      grid-gap: 0px;
-      display: grid;
-      grid-template-rows: 50% 50%;
-      grid-template-areas:
-        "virus-infection"
-        "player-char";
-
-      padding-left: 10px;
-
-      .card {
-        width: $cardWidth * 0.5;
-        height: $cardHeight * 0.5;
-        margin: $cardMargin * 0.5;
-
-        &:hover {
-          transform: scale(3, 3);
-        }
-      }
-
-      &.card-container {
-        width: calc(var(--card-count) * (#{$cardWidth} * 0.5 + (#{$cardMargin})));
+      .card:hover {
+        transform: rotate(180deg) scale(1.5, 1.5);
       }
     }
   }
@@ -67,22 +43,87 @@
     width: 100%;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: calc(5vmin - (2* #{$cardMargin})) auto;
+    grid-template-rows: calc(5vmin - (2 * #{$cardMargin})) auto;
     grid-template-areas:
       "player-name"
       "player-cards";
     align-items: start;
   }
 
-  &.current-turn {
-    box-shadow: 0px 0px 2px 2px rgba(#ff1, 1);
+  &.player-current {
+    .player-cards {
+      grid-gap: 0px;
+      display: grid;
+      grid-template-columns: min-content auto;
+      grid-template-rows: calc(5vmin - (2 * #{$cardMargin})) calc(#{$cardHeight} + (2 * #{$cardMargin}));
+      grid-template-areas:
+        "player-name player-name"
+        "status-cards hand-cards";
+
+      margin: auto;
+
+      .player-name {
+        text-align: center;
+      }
+      .status-cards {
+        grid-gap: 0px;
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-areas: "player-char virus-infection";
+
+        padding: 0 10px;
+        border-right: 1px solid #140c0e;
+        .card {
+          filter: brightness(0.75);
+          
+          &:hover {
+            filter: brightness(1);
+          }
+        }
+      }
+
+      .hand-cards {
+        padding: 0 10px;
+        .card {
+          filter: brightness(0.75);
+
+          &:hover {
+            filter: brightness(1);
+          }
+        }
+      }
+    }
+
+    &.current-turn .card.selected-card {
+      box-shadow: 0px 0px 4px 10px rgba(#ff1, 1);
+      z-index: 10;
+    }
   }
 
-  .player-name{
-    padding: 0 0 0 10px;
+  .player-name {
+    padding: 0 10px 0 10px;
     margin: 0;
     font-weight: bold;
     line-height: 2vmin;
+    color: #fff;
+    text-shadow: 1px 1px 1px #140c0e, 1px -1px 1px #140c0e, -1px 1px 1px #140c0e, -1px -1px 1px #140c0e;
+  }
 
+  &.current-turn {
+    .player-name {
+      text-shadow: 2px 2px 2px #dc143c, 2px -2px 2px #dc143c, -2px 2px 2px #dc143c, -2px -2px 2px #dc143c;
+    }
+    .player-cards {
+      .hand-cards .card {
+        cursor: pointer;
+        filter: brightness(1);
+      }
+      .status-cards .card {
+        filter: brightness(1);
+      }
+      .player-char .card {
+        box-shadow: 0px 0px 4px 7px #dc143c;
+      }
+    }
   }
 }

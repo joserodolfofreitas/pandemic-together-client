@@ -16,8 +16,8 @@
   //landscape; 4 players
   grid-template-areas:
     "header header header"
-    "player-a player-b player-c"
-    "player-a deck player-c "
+    "player-left player-top player-right"
+    "player-left deck player-right"
     "player-current player-current player-current"
     "footer footer footer";
 
@@ -25,28 +25,39 @@
   &.players-3 {
     grid-template-areas:
       "header header header"
-      "player-a deck player-b"
-      "player-a deck player-b "
+      "player-left deck player-right"
+      "player-left deck player-right "
       "player-current player-current player-current"
       "footer footer footer";
   }
 
   .header {
-    background-color: #fff;
+    background-color: #140C0E;
+    color: #fff;
     grid-area: header;
     width: 100%;
-    color: #ccc;
     font-size: 1.2em;
-    padding: 10px;
+    line-height: 50px;
+    .logo{
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+      padding: 0 10px;
+      margin-bottom: -20px;
+    }
   }
 
   .footer {
-    background-color: #fff;
+    background-color: rgba($color: #140C0E, $alpha: 0.5);
+    color: #fff;
     grid-area: footer;
     width: 100%;
-    color: #444;
     font-size: 0.8em;
     text-align: center;
+    line-height: 30px;;
   }
 
   .start-button {
@@ -60,8 +71,8 @@
     //portrait; 4 players
     grid-template-areas:
       "header header header"
-      "player-b player-b player-b"
-      "player-a deck player-c "
+      "player-left player-top player-right"
+      "player-left deck player-right "
       "player-current player-current player-current"
       "footer footer footer";
 

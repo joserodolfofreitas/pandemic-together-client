@@ -2,11 +2,100 @@
     margin: auto;
     grid-area: deck;
 
-    .card{
-        box-shadow: 5px 5px 10px 2px rgba(17, 17, 17, 0.8);
-        background-color: #000;
+    .stack {
+        width: calc(#{$cardWidth} + 16px);
+        height: calc(#{$cardHeight} + 16px);
+        margin: $cardMargin;
+
+        position: relative;
+
+        .card {
+            background-color: #000;
+            position: absolute;
+            &:nth-child(1) {
+                top: 0px;
+                left: 0px;
+                z-index: 4;
+            }
+            &:nth-child(2) {
+                top: 4px;
+                left: 4px;
+                transform: scale(1);
+                z-index: 3;
+            }
+            &:nth-child(3) {
+                top: 8px;
+                left: 8px;
+                transform: scale(1);
+                z-index: 2;
+            }
+            &:nth-child(4) {
+                top: 12px;
+                left: 12px;
+                transform: scale(1);
+                z-index: 1;
+            }
+
+            &:last-child{
+                box-shadow: 5px 5px 10px 2px rgba(17, 17, 17, 0.8);
+            }
+        }
     }
-/*
+
+    @keyframes move-to-current {
+        from {
+            transform: translate(0, 0) rotateX(0deg);
+            opacity: 1;
+        }
+        to {
+            transform: translate(0, 100%) rotateX(-90deg);
+            opacity: 0;
+        }
+    }
+    @keyframes move-to-left {
+        from {
+            transform: translate(0, 0) rotateY(0deg);
+            opacity: 1;
+        }
+        to {
+            transform: translate(-200%, 0) rotateY(90deg);
+            opacity: 0;
+        }
+    }
+    @keyframes move-to-top {
+        from {
+            transform: translate(0, 0) rotateX(0deg);
+            opacity: 1;
+        }
+        to {
+            transform: translate(0, -100%) rotateX(90deg);
+            opacity: 0;
+        }
+    }
+    @keyframes move-to-right {
+        from {
+            transform: translate(0, 0)  rotateY(0deg);
+            opacity: 1;
+        }
+        to {
+            transform: translate(200%, 0)  rotateY(-90deg);
+            opacity: 0;
+        }
+    }
+
+    &.player-current .stack .card:first-child {
+        animation: move-to-current 0.5s ease-out 0s 1;
+    }
+    &.player-left .stack .card:first-child {
+        animation: move-to-left 0.5s ease-out 0s 1;
+    }
+    &.player-top .stack .card:first-child {
+        animation: move-to-top 0.5s ease-out 0s 1;
+    }
+    &.player-right .stack .card:first-child {
+        animation: move-to-right 0.5s ease-out 0s 1;
+    }
+    /*
     .deck-title {
         padding-top: 30px;
         text-align: center;
