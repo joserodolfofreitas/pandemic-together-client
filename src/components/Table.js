@@ -42,6 +42,11 @@ class Table extends React.Component {
             return this.renderTable();
        
         }
+
+        else if (roomState.gameState == Constants.GAME_STATE_VICTORY_END) {
+            return this.renderTable(); //TODO VICTORY SCREEN
+
+        }
         throw new Error("Unknown state")
     }
 
