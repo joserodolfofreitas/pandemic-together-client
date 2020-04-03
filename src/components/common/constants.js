@@ -25,3 +25,7 @@ export const GAME_STATE_STARTED = 'GAME_STATE_STARTED';
 export const GAME_STATE_OVER = 'GAME_STATE_OVER';
 export const GAME_STATE_VICTORY_END = 'GAME_STATE_VICTORY_END';
 
+
+export const DndItemTypes = {
+    CARD: 'card'
+}
