@@ -27,9 +27,9 @@ function runLogin(username) {
                     dispatch(setRoomState(state));
                 });
 
-                room.onStateChange((state) => {
-                    console.log("the room state has been updated:", state);
-                    dispatch(setRoomState(state));
+                room.onStateChange((roomState) => {
+                    console.log("the room state has been updated:", roomState);
+                    dispatch(setRoomState(roomState));
                 });
                 dispatch(setRoom(room));
             }).catch(e => {
