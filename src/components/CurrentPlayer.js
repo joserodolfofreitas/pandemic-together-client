@@ -49,16 +49,16 @@ class CurrentPlayer extends React.Component {
                         })}
                     </div>
                 </div>
-            </div>
-        );
-
-        /*
                 <div style={{ backgroundColor: "#0F0", margin: "auto" }}>
                     <span>your hand</span>
-
                     <span><button onClick={() => this.onClick_advanceTurn()}> End turn (pass)</button></span>
-                </div>        
-        */
+                </div>
+            </div>
+    );
+
+
+
+
     }
 }
 
