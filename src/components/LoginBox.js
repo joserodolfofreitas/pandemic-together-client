@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Colyseus from "colyseus.js";
 import { connect } from 'react-redux';
-import { setRoom, setRoomState } from './ReduxStore/actions'
+import { setRoom, setRoomState } from './redux/actions'
 
 const serverUrl = (process.env.NODE_ENV === 'production') ?  'wss://pandemic-together-server.herokuapp.com' : 'ws://localhost:2567'
 //const serverUrl = (window.location.hostname.indexOf("herokuapp") === -1)

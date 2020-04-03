@@ -35,12 +35,12 @@ class Table extends React.Component {
 
     render() {
         const roomState = this.props.roomState;
-        if (roomState == null) {
+        if (roomState === null) {
             return this.renderLogin();
-        } else if (roomState.gameState == Constants.GAME_STATE_WAITING_PLAYERS) {
+        } else if (roomState.gameState === Constants.GAME_STATE_WAITING_PLAYERS) {
             return this.renderWaitingForPlayers();
         }
-        else if (roomState.gameState == Constants.GAME_STATE_STARTED) {
+        else if (roomState.gameState === Constants.GAME_STATE_STARTED) {
             return this.renderTable();
        
         }
@@ -90,7 +90,7 @@ class Table extends React.Component {
         let currentPlayerIndex = 0;
         for (let id in roomStatePlayers) {
             const player = roomStatePlayers[id];
-            if (player.sessionId != currentPlayerSessionId) {
+            if (player.sessionId !== currentPlayerSessionId) {
                 players.push({player})
             }else{
                 currentPlayerIndex = indexCounter;
@@ -98,7 +98,7 @@ class Table extends React.Component {
             indexCounter++;
         }
         players = players.concat(players.splice(0,currentPlayerIndex))
-        let positions = players.length == 2 ? ["player-left", "player-right"] : ["player-left", "player-top", "player-right"];
+        let positions = players.length === 2 ? ["player-left", "player-right"] : ["player-left", "player-top", "player-right"];
         positions.forEach((p,i) => players[i].position = p);
         return players;
     }
@@ -106,7 +106,7 @@ class Table extends React.Component {
     getCurrentPlayer(){       
         const roomState = this.props.roomState;
         const currentPlayerSessionId = this.props.room.sessionId;
-        return Object.values(roomState.players).filter(p => p.sessionId == currentPlayerSessionId)[0]
+        return Object.values(roomState.players).filter(p => p.sessionId === currentPlayerSessionId)[0]
     }
 
 }

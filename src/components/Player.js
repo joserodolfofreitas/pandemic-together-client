@@ -16,7 +16,7 @@ class Player extends React.Component {
         const player = this.props.player;
         const position = this.props.position;
         const containerStyle = { gridArea: position };
-        const classes = `player ${position}${this.props.roomState.currentTurn == player.sessionId ? " current-turn" : ""}`;
+        const classes = `player ${position}${this.props.roomState.currentTurn === player.sessionId ? " current-turn" : ""}`;
         const playerField = [player.advantages[0], player.disadvantages[0]];
         const cardCount = player.virusField.length + 2; //2 playerField cards
         return (

@@ -1,8 +1,7 @@
 import React from 'react';
 import * as Constants from './common/constants';
 import { connect } from 'react-redux';
-import { selectCard, deselectCard, resetSelectedCards } from './ReduxStore/actions'
-
+import { selectCard, deselectCard, resetSelectedCards } from './redux/actions'
 
 function mapStateToProps(state) {
     return {
@@ -13,6 +12,7 @@ function mapStateToProps(state) {
         updatesOnRoomState : state.updatesOnRoomState,
     }
 }
+
 class Card extends React.Component {
     constructor(props) {
         super(props);
@@ -23,12 +23,12 @@ class Card extends React.Component {
 
     onClick_selectCard() {
 
-        if (this.props.roomState.currentTurn != this.props.room.sessionId) {
+        if (this.props.roomState.currentTurn !== this.props.room.sessionId) {
             return;
         }
 
         // ugly logic that will disappear once we have dnd. Player must interact first with handCard (and only one hand card)
-        if (this.props.selectedCards.length == 0) {
+        if (this.props.selectedCards.length === 0) {
             if (this.props.handCard)  {
                 this.setState({selected: true});
                 this.props.selectCard(this.props.card);
@@ -40,7 +40,7 @@ class Card extends React.Component {
                     this.props.deselectCard(this.props.card);
                 }
             } else {
-                if (this.props.card.type == Constants.CARD_TYPE_VIRUS) {
+                if (this.props.card.type === Constants.CARD_TYPE_VIRUS) {
                     const message = {type: Constants.GM_PLAY_CARD,
                         player: this.props.room.sessionId,
                         cardPlayed: this.props.selectedCards[0],
@@ -59,13 +59,13 @@ class Card extends React.Component {
     render() {
         const card = this.props.card;
 
-        if (card == undefined || card.elementId == undefined) {
+        if (!card || !card.elementId) {
             console.log("card", card);
             throw new Error("card cannot be undefined");
         }
 
         const isHandCard = this.props.handCard;
-        const isVirusCard = card.type == Constants.CARD_TYPE_VIRUS;
+        const isVirusCard = card.type === Constants.CARD_TYPE_VIRUS;
 
         var classNames = `card card-${card.elementId.toLowerCase()}${isHandCard === true ? " hand-card" : ""}${isVirusCard ? " virus-card" : ""}${this.state.selected === true ? " selected-card" : ""}${card.contained === true ? " virus-contained" : ""}`;
         const style={float:"left", backgroundImage: `url("/images/card-${card.elementId.toLowerCase()}.png")`};
