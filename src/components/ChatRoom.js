@@ -16,20 +16,20 @@ function mapStateToProps(state) {
 class ChatRoom extends React.Component {
 
     render() {
-        let roomState = this.props.roomState;
-        var players = [];
-        var index = 0;
+        const roomState = this.props.roomState;
+        let players = [];
+        let index = 0;
         for (let id in roomState.players) {
-            const player: Player = roomState.players[id];
+            const player = roomState.players[id];
             players[index++] = player;
         }
-        var round = (roomState.gameState == Constants.GAME_STATE_STARTED) ? "round " + roomState.round : "";
+        const round = (roomState.gameState === Constants.GAME_STATE_STARTED) ? "round " + roomState.round : "";
 
         return (
             <div className="chat-room">
                 <h1>Players in the room</h1>
                 {players.map(function(player, index){
-                    var playerCurrentTurn = roomState.currentTurn == player.sessionId;
+                    var playerCurrentTurn = roomState.currentTurn === player.sessionId;
                     return <div key={index} style={{textAlign: "center"}}>{playerCurrentTurn?<span style={{float:"left", color:"#050"}}>=></span>:""}<span>{player.name}</span></div>
                 })}
                 <div><hr /></div>

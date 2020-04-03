@@ -1,6 +1,5 @@
 import React from 'react';
 import Card from './Card';
-import Player from './Player';
 import * as Constants from './common/constants';
 import { connect } from 'react-redux';
 
@@ -23,7 +22,7 @@ class CurrentPlayer extends React.Component {
     render() {
         const player = this.props.player;
         const containerStyle = { gridArea: "player-current" };
-        const classes = `player player-current${this.props.roomState.currentTurn == player.sessionId ? " current-turn" : ""}`;
+        const classes = `player player-current${this.props.roomState.currentTurn === player.sessionId ? " current-turn" : ""}`;
         const playerField = [player.advantages[0], player.disadvantages[0]];
         const statusCardCount = player.virusField.length + 2; //2 playerField cards
         return (
@@ -49,16 +48,16 @@ class CurrentPlayer extends React.Component {
                         })}
                     </div>
                 </div>
-            </div>
-        );
-
-        /*
                 <div style={{ backgroundColor: "#0F0", margin: "auto" }}>
                     <span>your hand</span>
-
                     <span><button onClick={() => this.onClick_advanceTurn()}> End turn (pass)</button></span>
-                </div>        
-        */
+                </div>
+            </div>
+    );
+
+
+
+
     }
 }
 

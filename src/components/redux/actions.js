@@ -1,3 +1,4 @@
+ import * as Constants from './../common/constants';
 /*
  * redux action types
  */
@@ -43,4 +44,11 @@ export function shuffleDeck() {
 
 export function updatePlayer(player) {
     return { type: UPDATE_PLAYER, player }
+}
+
+export function startGame(){
+    return (dispatch, getState) => {
+        const state = getState();
+        state.room.send({type: Constants.GM_START_GAME});
+    }
 }
