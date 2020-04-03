@@ -50,7 +50,7 @@ class Table extends React.Component {
     }
 
     renderWaitingForPlayers(){
-        return <div className="table">
+        return <div className="table" style={{backgroundImage: "url(/images/background.jpg)"}}>
             <button className="start-button" onClick={() => this.onClick_StartGame()} >Start Game</button>
             <ChatRoom />       
         </div>;
@@ -61,7 +61,7 @@ class Table extends React.Component {
         const currentPlayer = this.getCurrentPlayer();
         const className = `table players-${playerItems.length+1}`;
 
-        return <div className={className}>
+        return <div className={className} style={{backgroundImage: "url(/images/background.jpg)"}}>
             <div className="header">
                 <span className="logo" style={{backgroundImage: "url(/images/logo.png)"}}></span>
                 Pandemic Together
