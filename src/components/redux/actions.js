@@ -1,4 +1,6 @@
- import * as Constants from './../common/constants';
+
+import runLogin from './thunks/runLogin';
+import runStartGame from './thunks/runStartGame';
 /*
  * redux action types
  */
@@ -46,9 +48,10 @@ export function updatePlayer(player) {
     return { type: UPDATE_PLAYER, player }
 }
 
-export function startGame(){
-    return (dispatch, getState) => {
-        const state = getState();
-        state.room.send({type: Constants.GM_START_GAME});
-    }
+export function startGame() {
+    return runStartGame();
+}
+
+export function login(username) {
+    return runLogin(username);
 }
