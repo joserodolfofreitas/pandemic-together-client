@@ -5,6 +5,7 @@ import Deck from './Deck';
 import Player from './Player';
 import CurrentPlayer from './CurrentPlayer';
 import { connect } from 'react-redux';
+import {startGame} from './redux/actions';
 import * as Constants from './common/constants';
 
 function mapStateToProps(state) {
@@ -21,16 +22,13 @@ class Table extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentTurn: 0,
             room: this.props.room,
             roomState: this.props.roomState,
         };
     }
 
     onClick_StartGame() {
-        let room = this.props.room;
-        room.send({type: Constants.GM_START_GAME});
-        this.setState({currentTurn: this.state.currentTurn});
+        this.props.startGame();
     }
 
     render() {
@@ -81,10 +79,8 @@ class Table extends React.Component {
     }
 
     getOtherPlayerItems(){
-        console.log("--->",this.props.roomState,this.props.room);
         const roomStatePlayers = this.props.roomState.players;
         const currentPlayerSessionId = this.props.room.sessionId;
-        console.log(Object.keys(roomStatePlayers));
         let players = [];
         let indexCounter = 0;
         let currentPlayerIndex = 0;
@@ -111,4 +107,4 @@ class Table extends React.Component {
 
 }
 
-export default connect(mapStateToProps, null) (Table)
+export default connect(mapStateToProps, {startGame}) (Table)

@@ -9,6 +9,4 @@ function deselectCard(state, cardId) {
     };
 }
 
-
-
 export default deselectCard;
