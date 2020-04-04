@@ -31,7 +31,7 @@
   }
 
   .header {
-    background-color: #140C0E;
+    background-color: rgba($color: #140C0E, $alpha: 1);
     color: #fff;
     grid-area: header;
     width: 100%;
@@ -75,7 +75,7 @@
     //portrait; 4 players
     grid-template-areas:
       "header header header"
-      "player-left player-top player-right"
+      "player-top player-top player-top"
       "player-left deck player-right "
       "player-current player-current player-current"
       "footer footer footer";

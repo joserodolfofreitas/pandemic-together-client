@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { login, startGame } from './redux/actions'
+import { login, startGame, removeMobileUrlBar } from './redux/actions'
 import ChatRoom from './ChatRoom';
 import * as Constants from './common/constants';
 
@@ -25,7 +25,7 @@ class StartGame extends React.Component {
     }
 
     onKeyUp_SubmitOnEnter = (event) => {
-        if(event.keyCode == 13){
+        if(event.keyCode === 13){
             this.props.login(this.state.username);    
         }
     }
@@ -51,8 +51,6 @@ class StartGame extends React.Component {
                 </div>
             </div>
         </div>
-
-
     }
 
     renderUserArea() {
@@ -76,6 +74,10 @@ class StartGame extends React.Component {
         }
         throw new Error("Unknown state")
     }
+
+    componentDidMount(){
+        this.props.removeMobileUrlBar();
+    }
 }
 
-export default connect(mapStateToProps, { login, startGame })(StartGame)
+export default connect(mapStateToProps, { login, startGame, removeMobileUrlBar })(StartGame)

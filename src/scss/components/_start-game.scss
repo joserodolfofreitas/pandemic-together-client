@@ -47,15 +47,22 @@
     margin: 10px auto;
     display: block;
     border-radius: 5px;
-    height: 25px;
+    height: 20px;
+    padding: 5px;
+    border: 0px solid black;
+    width: calc(90% - 10px);
   }
   button {
     margin: auto;
     display: block;
-    padding: 10p x;
-    width: 150px;
-    border-radius: 10px;
-    height: 40px;
+    width: 90%;
+    border-radius: 5px;
+    border: 0px solid black;
+    background:  #dc143c;
+    color: #fff; 
+    font-weight: bold;
+    height: 30px;
+    cursor: pointer;
   }
 
   small {

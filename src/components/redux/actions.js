@@ -1,7 +1,8 @@
 
 import runLogin from './thunks/runLogin';
 import runStartGame from './thunks/runStartGame';
-import runApplyResourceOnVirus from './thunks/runApplyResourceOnVirus'
+import runApplyResourceOnVirus from './thunks/runApplyResourceOnVirus';
+import runRemoveMobileUrlBar from './thunks/runRemoveMobileUrlBar';
 /*
  * redux action types
  */
@@ -41,6 +42,11 @@ export function startGame() {
 export function login(username) {
     return runLogin(username);
 }
+
 export function applyResourceOnVirus(resourceCard, virusCard){
     return runApplyResourceOnVirus(resourceCard, virusCard)
+}
+
+export function removeMobileUrlBar(resourceCard, virusCard){
+    return runRemoveMobileUrlBar()
 }

@@ -11,20 +11,6 @@
     }
   }
 
-  &.player-right {
-    .player-cards {
-      transform: rotate(-90deg) translate(-100%, 20%);
-      transform-origin: top left;
-
-      .card:hover {
-        transform: rotate(90deg) scale(1.5, 1.5);
-      }
-    }
-    .player-name {
-      text-align: right;
-    }
-  }
-
   &.player-top {
     justify-items: center;
 
@@ -35,6 +21,21 @@
       .card:hover {
         transform: rotate(180deg) scale(1.5, 1.5);
       }
+    }
+  }
+
+
+  &.player-right {
+    .player-cards {
+      transform: rotate(-90deg) translate(-100%, 10%);
+      transform-origin: top left;
+
+      .card:hover {
+        transform: rotate(90deg) scale(1.5, 1.5);
+      }
+    }
+    .player-name {
+      text-align: right;
     }
   }
 
