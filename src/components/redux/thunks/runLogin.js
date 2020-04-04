@@ -1,5 +1,5 @@
 import * as Colyseus from "colyseus.js";
-import { setRoom, setRoomState } from './../actions'
+import { setRoom, setRoomState, isLoading } from './../actions'
 const serverUrl = (process.env.NODE_ENV === 'production') ? 'wss://pandemic-together-server.herokuapp.com' : 'ws://localhost:2567'
 //const serverUrl = (window.location.hostname.indexOf("herokuapp") === -1)
 //? "ws://localhost:2567" // development (local)
@@ -11,6 +11,7 @@ function runLogin(username) {
         if (!username) {
             return;
         }
+        dispatch(isLoading(true));
 
         var client = new Colyseus.Client(serverUrl);
         client.joinOrCreate("pandemic-together-room", { name: username })
@@ -35,6 +36,7 @@ function runLogin(username) {
                     console.log("the room state has been updated:", roomState);
                     dispatch(setRoomState(roomState));
                 });
+                dispatch(isLoading(false));
                 dispatch(setRoom(room));
             }).catch(e => {
                 console.log("JOIN ERROR", e);

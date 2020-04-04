@@ -7,7 +7,8 @@ import * as Constants from './common/constants';
 
 function mapStateToProps(state) {
     return {
-        roomState: state.roomState
+        roomState: state.roomState,
+        isLoading: state.isLoading
     }
 }
 
@@ -25,8 +26,8 @@ class StartGame extends React.Component {
     }
 
     onKeyUp_SubmitOnEnter = (event) => {
-        if(event.keyCode === 13){
-            this.props.login(this.state.username);    
+        if (event.keyCode === 13) {
+            this.props.login(this.state.username);
         }
     }
 
@@ -55,7 +56,12 @@ class StartGame extends React.Component {
 
     renderUserArea() {
         const roomState = this.props.roomState;
-        if (roomState === null) {
+        if (this.props.isLoading) {
+            return <div className="loading">
+                <span className="logo" style={{backgroundImage: "url(/images/logo.png)"}}></span>
+                <small>loading</small>
+            </div>
+        } else if (roomState === null) {
             return (
                 <div className="login-box">
                     <h1>Pandemic Together</h1>
@@ -75,7 +81,7 @@ class StartGame extends React.Component {
         throw new Error("Unknown state")
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.removeMobileUrlBar();
     }
 }

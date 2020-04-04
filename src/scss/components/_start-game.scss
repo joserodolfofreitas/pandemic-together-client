@@ -72,4 +72,34 @@
     text-align: center;
     font-size: 0.7em;
   }
+
+  .loading{
+    padding: $cardWidth;
+
+    @keyframes spin-logo {
+      0% {
+        transform: rotate(0) scale(1);
+      }
+      25% {
+        transform: rotate(-25deg) scale(1.2);
+      }
+      75% {
+        transform: rotate(25deg) scale(0.8);
+      }
+      100% {
+        transform: rotate(0) scale(1);
+      }
+    }
+
+    .logo{
+      display: block;
+      width: $cardWidth;
+      height: $cardWidth;
+      background-size: contain;
+      background-position: center center;
+      background-repeat: no-repeat;
+      margin: 0 auto $cardWidth*0.5 auto;
+      animation: spin-logo 2s ease-out 0s infinite;
+    }
+  }
 }

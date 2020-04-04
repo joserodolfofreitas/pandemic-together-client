@@ -6,11 +6,12 @@ import runRemoveMobileUrlBar from './thunks/runRemoveMobileUrlBar';
 /*
  * redux action types
  */
-export const SET_ROOM = 'SET_ROOM'
-export const SHUFFLE_DECK = 'SHUFFLE_DECK'
-export const DRAW_CARD = 'DRAW_CARD'
-export const UPDATE_PLAYER = 'UPDATE_PLAYER'
-export const SET_ROOM_STATE = "SET_ROOM_STATE"
+export const SET_ROOM = 'SET_ROOM';
+export const SHUFFLE_DECK = 'SHUFFLE_DECK';
+export const DRAW_CARD = 'DRAW_CARD';
+export const UPDATE_PLAYER = 'UPDATE_PLAYER';
+export const SET_ROOM_STATE = 'SET_ROOM_STATE';
+export const SET_IS_LOADING = 'SET_IS_LOADING';
 
 /*
  * redux action creators
@@ -33,6 +34,10 @@ export function shuffleDeck() {
 
 export function updatePlayer(player) {
     return { type: UPDATE_PLAYER, player }
+}
+
+export function isLoading(isLoading) {
+    return { type: SET_IS_LOADING, isLoading }
 }
 
 export function startGame() {
