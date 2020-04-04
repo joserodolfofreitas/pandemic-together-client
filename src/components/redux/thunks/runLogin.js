@@ -1,13 +1,17 @@
 import * as Colyseus from "colyseus.js";
-import {setRoom, setRoomState} from './../actions'
-const serverUrl = (process.env.NODE_ENV === 'production') ?  'wss://pandemic-together-server.herokuapp.com' : 'ws://localhost:2567'
+import { setRoom, setRoomState } from './../actions'
+const serverUrl = (process.env.NODE_ENV === 'production') ? 'wss://pandemic-together-server.herokuapp.com' : 'ws://localhost:2567'
 //const serverUrl = (window.location.hostname.indexOf("herokuapp") === -1)
-    //? "ws://localhost:2567" // development (local)
-    //: "ws://pandemic-together-server.herokuapp.com" // production (remote)
+//? "ws://localhost:2567" // development (local)
+//: "ws://pandemic-together-server.herokuapp.com" // production (remote)
 
 function runLogin(username) {
 
     return (dispatch, getState) => {
+        if (!username) {
+            return;
+        }
+
         var client = new Colyseus.Client(serverUrl);
         client.joinOrCreate("pandemic-together-room", { name: username })
             .then(room => {

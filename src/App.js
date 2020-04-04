@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Table from './components/Table'
+import Main from './components/Main'
 import { Provider } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import MultiBackend from 'react-dnd-multi-backend';
@@ -14,7 +14,7 @@ class App extends React.Component {
         return (
             <DndProvider backend={MultiBackend} options={HTML5toTouch}>
                 <Provider store={store}>
-                    <Table />
+                    <Main />
                 </Provider>
             </DndProvider>
         );
