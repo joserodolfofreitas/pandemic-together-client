@@ -24,9 +24,10 @@ class CurrentPlayer extends React.Component {
 
         const playerField = [player.advantages[0], player.disadvantages[0]];
         const statusCardCount = player.virusField.length + 2; //2 playerField cards
+        const isCurrentTurn = this.props.roomState.currentTurn === player.sessionId;
 
         const styles = { gridArea: "player-current" };
-        const classes = `player player-current${this.props.roomState.currentTurn === player.sessionId ? " current-turn" : ""}`;
+        const classes = `player player-current${isCurrentTurn ? " current-turn" : ""}`;
 
         return (
             <div className={classes} style={styles}>
@@ -41,7 +42,10 @@ class CurrentPlayer extends React.Component {
                         </div>
                     </div>
                     <div className="hand-cards" style={{ gridArea: "hand-cards", "--card-count": player.hand.length }}>
-                        {player.hand.map(card => <Card key={card.cardId} card={card} isHandCard={true} />)}
+                        {player.hand.map(card => {
+                            const canBeUsed = isCurrentTurn; //TODO: disadvantage anwenden
+                            return <Card key={card.cardId} card={card} isHandCard={true} canBeUsed={canBeUsed} />
+                        })}
                     </div>
                 </div>
                 <div style={{ backgroundColor: "#0F0", margin: "auto" }}>

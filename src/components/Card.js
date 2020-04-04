@@ -1,8 +1,8 @@
 import React from 'react';
 import * as Constants from './common/constants';
 import { connect } from 'react-redux';
-import { selectCard, deselectCard, resetSelectedCards } from './redux/actions';
-import { DragSource } from 'react-dnd';
+import { applyResourceOnVirus } from './redux/actions';
+import { DragSource, DropTarget } from 'react-dnd';
 
 function mapStateToProps(state) {
     return {
@@ -14,87 +14,62 @@ function mapStateToProps(state) {
     }
 }
 
-const dndSource = {
+const dndDragSource = {
     beginDrag(props) {
-        return { id: props.card.item }
+        return { id: props.card.cardId, card: props.card }
     },
     canDrag(props) {
-        return props.isHandCard;
+        return props.isHandCard && props.canBeUsed;
     }
 }
 
-function dndCollect(connect, monitor) {
+const dndDropTarget = {
+    drop(props, monitor, component) {
+       props.applyResourceOnVirus(monitor.getItem().card, props.card)
+    },
+    canDrop(props, monitor) {
+        return props.card.type === Constants.CARD_TYPE_VIRUS;
+    }
+}
+
+function dndDropCollect(connect, monitor) {
+    return {
+        connectDropTarget: connect.dropTarget(),
+        isDragOver: monitor.isOver()
+    }
+}
+
+
+function dndDragCollect(connect, monitor) {
     return {
         connectDragSource: connect.dragSource(),
-        isDragging: monitor.isDragging(),
     }
 }
 
 class Card extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selected: false,
-        };
-    }
-
-    onClick_selectCard() {
-
-        if (this.props.roomState.currentTurn !== this.props.room.sessionId) {
-            return;
-        }
-
-        // ugly logic that will disappear once we have dnd. Player must interact first with handCard (and only one hand card)
-        if (this.props.selectedCards.length === 0) {
-            if (this.props.isHandCard) {
-                this.setState({ selected: true });
-                this.props.selectCard(this.props.card);
-            }
-        } else {
-            if (this.props.isHandCard) {
-                if (this.state.selected) {
-                    this.setState({ selected: false });
-                    this.props.deselectCard(this.props.card);
-                }
-            } else {
-                if (this.props.card.type === Constants.CARD_TYPE_VIRUS) {
-                    const message = {
-                        type: Constants.GM_PLAY_CARD,
-                        player: this.props.room.sessionId,
-                        cardPlayed: this.props.selectedCards[0],
-                        onPlayer: this.props.card.cardHolder,
-                        onCardIds: [this.props.card.cardId]
-                    };
-
-                    this.props.room.send(message);
-                    this.props.resetSelectedCards();
-                    console.log(message);
-                }
-            }
-        }
-
-    }
-
     render() {
         const card = this.props.card;
 
         const isHandCard = this.props.isHandCard;
         const isVirusCard = card.type === Constants.CARD_TYPE_VIRUS;
+        const canBeUsed = isHandCard && this.props.canBeUsed;
+        const isDragOver = this.props.isDragOver && isVirusCard;
 
-        const classNames = `card card-${card.elementId.toLowerCase()}${isHandCard === true ? " hand-card" : ""}${isVirusCard ? " virus-card" : ""}${this.state.selected === true ? " selected-card" : ""}${card.contained === true ? " virus-contained" : ""}`;
+        const classNames = `card card-${card.elementId.toLowerCase()}${isHandCard === true ? " hand-card" : ""}${isVirusCard ? " virus-card" : ""}${isDragOver === true ? " drag-over" : ""}${canBeUsed?" can-be-used":""}${card.contained === true ? " virus-contained" : ""}`;
         const style = { float: "left", backgroundImage: `url("/images/card-${card.elementId.toLowerCase()}.png")` };
 
         const connectDragSource = this.props.connectDragSource;
+        const connectDropTarget = this.props.connectDropTarget;
 
-        return connectDragSource(<div className={classNames} style={style} onClick={() => this.onClick_selectCard()}>
+        return connectDropTarget(connectDragSource(<div className={classNames} style={style}>
             {isVirusCard ? this.renderVirusTokens(card) : null}
-        </div>);
+        </div>));
     }
 
     renderVirusTokens(card) {
         let tokens = [];
         for (let i = 0; i < card.tokens; i++) {
-            tokens.push(<div class="token" style={{ backgroundImage: "url(/images/logo.png)" }}></div>)
+            tokens.push(<div className="token" style={{ backgroundImage: "url(/images/logo.png)" }}></div>)
         }
         return <div class="card-tokens">
             {tokens}
@@ -103,6 +78,8 @@ class Card extends React.Component {
 
 }
 
-export default connect(mapStateToProps, { selectCard, deselectCard, resetSelectedCards })(
-    DragSource(Constants.DndItemTypes.CARD, dndSource, dndCollect)(Card)
+export default connect(mapStateToProps, { applyResourceOnVirus })(
+    DragSource(Constants.DndItemTypes.CARD, dndDragSource, dndDragCollect)(
+        DropTarget(Constants.DndItemTypes.CARD, dndDropTarget, dndDropCollect)(Card)
+    )
 );
