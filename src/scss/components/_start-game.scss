@@ -1,0 +1,68 @@
+.start-game {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  .content {
+    margin: 10vh auto;
+    width: calc(#{$cardWidth* 6} + 10px);
+
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+    grid-template-areas: "left right";
+
+    .left {
+      grid-area: left;
+      .card {
+        width: $cardWidth * 3;
+        height: $cardHeight * 3;
+        background-size: cover;
+      }
+    }
+    .right {
+      grid-area: right;
+      .user-area {
+        background-color: #140c0e;
+        color: #fff;
+        width: $cardWidth * 3;
+        height: $cardHeight * 3;
+        border-radius: 5px;
+        margin: 5px;
+      }
+    }
+  }
+
+  h1 {
+    margin: auto;
+    padding: 5px;
+    display: block;
+    color: #fff;
+    text-align: center;
+    font-size: 1.2em;
+  }
+
+  input {
+    margin: 10px auto;
+    display: block;
+    border-radius: 5px;
+    height: 25px;
+  }
+  button {
+    margin: auto;
+    display: block;
+    padding: 10p x;
+    width: 150px;
+    border-radius: 10px;
+    height: 40px;
+  }
+
+  small {
+    color: #fdf;
+    margin: auto;
+    display: block;
+    text-align: center;
+    font-size: 0.7em;
+  }
+}

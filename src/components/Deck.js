@@ -10,9 +10,9 @@ function mapStateToProps(state) {
 
 class Deck extends React.Component {
     render() {
-        const currentPlayer = this.props.playerItems.filter(p => p.player.sessionId === this.props.roomState.currentTurn);
-        const currentPlayerPosition = (currentPlayer && currentPlayer.length)?currentPlayer[0].position : "player-current";
-        const className = `deck ${currentPlayerPosition}`;
+        const activePlayer = this.props.playerItems.filter(p => p.player.sessionId === this.props.roomState.currentTurn);
+        const activePlayerPosition = (activePlayer && activePlayer.length)?activePlayer[0].position : "player-current";
+        const className = `deck ${activePlayerPosition}`;
         const cardsOnStack = Math.min(this.props.roomState.deck.length, 4);
         if (cardsOnStack > 0) {
             let cards = [];
