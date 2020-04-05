@@ -3,7 +3,7 @@
 
   &.player-left {
     .player-cards {
-      transform: rotate(90deg) translate(0, -100%);
+      transform: rotate(90deg) translate(0, -110%);
       transform-origin: top left;
       .card:hover {
         transform: rotate(-90deg) scale(1.5, 1.5);
@@ -49,6 +49,20 @@
       "player-name"
       "player-cards";
     align-items: start;
+
+    .player-cards{
+      grid-area: player-cards;
+      height: $cardHeight;
+      display: grid;
+      grid-template-columns: auto auto;
+      grid-template-areas: "player-char virus-infection";
+      .player-char{
+        grid-area: player-char;
+      }
+      .virus-infection{
+        grid-area: virus-infection;
+      }
+    }
   }
 
   &.player-current {
@@ -73,7 +87,6 @@
         grid-template-columns: auto auto;
         grid-template-areas: "player-char virus-infection";
 
-        padding: 0 10px;
         border-right: 1px solid #140c0e;
 
         .player-char{
@@ -86,15 +99,16 @@
 
       .hand-cards {
         grid-area: hand-cards;
-        padding: 0 10px;
       }
 
       .actions{
+        border-left: 1px solid #140c0e;
+        opacity: 0;        
+        transition: 0.5s;
         .action{
           width: 0vh;
           height: $cardHeight;        
           margin: 0;               
-          opacity: 0;
           transition: 0.5s;
           cursor: pointer;
           background-size: contain;
@@ -123,8 +137,8 @@
       text-shadow: 2px 2px 2px #dc143c, 2px -2px 2px #dc143c, -2px 2px 2px #dc143c, -2px -2px 2px #dc143c;
     }
     &.player-current .player-cards .actions{
+      opacity: 1;
       .action{
-        opacity: 1;
         width: $cardWidth;
         height: $cardHeight;        
         margin: $cardMargin;        

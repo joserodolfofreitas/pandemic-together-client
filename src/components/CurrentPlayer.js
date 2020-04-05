@@ -23,7 +23,6 @@ class CurrentPlayer extends React.Component {
         const player = this.props.player;
 
         const playerField = [player.advantages[0], player.disadvantages[0]];
-        const statusCardCount = player.virusField.length + 2; //2 playerField cards
         const isCurrentTurn = this.props.roomState.currentTurn === player.sessionId;
 
         const styles = { gridArea: "player-current" };
@@ -33,18 +32,18 @@ class CurrentPlayer extends React.Component {
             <div className={classes} style={styles}>
                 <div className="player-cards">
                     <div className="player-name">{player.name}</div>
-                    <div className="status-cards card-container" style={{ "--card-count": statusCardCount }}>
-                        <div className="virus-infection">
-                            {player.virusField.map(card => <Card key={card.cardId} card={card} />)}
+                    <div className="status-cards">
+                        <div className="virus-infection card-container" style={{ "--card-count": player.virusField.length }}>
+                            {player.virusField.map((card, index) => <Card key={card.cardId} card={card} index={index} />)}
                         </div>
-                        <div className="player-char">
-                            {playerField.map(card => <Card key={card.cardId} card={card} />)}
+                        <div className="player-char card-container" style={{ "--card-count": 2 }}>
+                            {playerField.map((card, index) => <Card key={card.cardId} card={card} index={index} />)}
                         </div>
                     </div>
                     <div className="hand-cards card-container" style={{ "--card-count": player.hand.length }}>
-                        {player.hand.map(card => {
+                        {player.hand.map((card, index) => {
                             const isPlayable = isCurrentTurn; //TODO: disadvantage anwenden
-                            return <Card key={card.cardId} card={card} isHandCard={true} isPlayable={isPlayable} />
+                            return <Card key={card.cardId} card={card} index={index} isHandCard={true} isPlayable={isPlayable} />
                         })}
                     </div>
                     <div className="actions">

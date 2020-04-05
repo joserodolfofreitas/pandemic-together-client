@@ -8,8 +8,9 @@
   margin: $cardMargin;
   box-shadow: 0px 1px 1px 0px rgba(#111, 0.5);
   border-radius: 5px;
+  position: absolute;
 
-  position: relative;
+  left: calc(var(--card-index) * (#{$cardWidth} + (#{$cardMargin} * 2)));
 
   transition: 0.5s;
 
@@ -18,7 +19,20 @@
     z-index: 10;
   }
 
-  &.hand-card {
+  @keyframes add-card {
+    0% {
+      transform: translate(0, -100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(0, 0);
+      opacity: 1;
+    }
+  }
+
+  &.hand-card {  
+    animation: add-card 1s 0s 1;
+
     &.playable{
       cursor: move;
     }
@@ -26,6 +40,7 @@
 
   &.virus-card {
     transform: scale(0.9);
+    animation: add-card 1s 0s 1;
     
     &:hover {
       transform: scale(1.5, 1.5);
@@ -82,5 +97,6 @@
 
 .card-container {
   width: calc(var(--card-count) * (#{$cardWidth} + (#{$cardMargin} * 2)));
-  transition: 1s;
+  position: relative;
+  transition: 0.5s;
 }

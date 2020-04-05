@@ -55,7 +55,7 @@ class Card extends React.Component {
         const isHandCard = this.props.isHandCard;
         const isVirusCard = card.type === Constants.CARD_TYPE_VIRUS;
 
-        const style = { float: "left", backgroundImage: `url("/images/card-${card.elementId.toLowerCase()}.png")` };
+        const style = { "--card-index": this.props.index, backgroundImage: `url("/images/card-${card.elementId.toLowerCase()}.png")` };
 
         const connectDragSource = this.props.connectDragSource;
         const connectDropTarget = this.props.connectDropTarget;
