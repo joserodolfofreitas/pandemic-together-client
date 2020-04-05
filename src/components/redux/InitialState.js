@@ -9,6 +9,7 @@ export const initialState = {
     selectedCards: [],
     roomPlayers: [],
     deck: [],
+    isLoading: false,
     cards: [
         {
             elementId: "V1",

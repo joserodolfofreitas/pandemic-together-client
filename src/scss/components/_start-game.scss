@@ -47,15 +47,22 @@
     margin: 10px auto;
     display: block;
     border-radius: 5px;
-    height: 25px;
+    height: 20px;
+    padding: 5px;
+    border: 0px solid black;
+    width: calc(90% - 10px);
   }
   button {
     margin: auto;
     display: block;
-    padding: 10p x;
-    width: 150px;
-    border-radius: 10px;
-    height: 40px;
+    width: 90%;
+    border-radius: 5px;
+    border: 0px solid black;
+    background:  #dc143c;
+    color: #fff; 
+    font-weight: bold;
+    height: 30px;
+    cursor: pointer;
   }
 
   small {
@@ -64,5 +71,35 @@
     display: block;
     text-align: center;
     font-size: 0.7em;
+  }
+
+  .loading{
+    padding: $cardWidth;
+
+    @keyframes spin-logo {
+      0% {
+        transform: rotate(0) scale(1);
+      }
+      25% {
+        transform: rotate(-25deg) scale(1.2);
+      }
+      75% {
+        transform: rotate(25deg) scale(0.8);
+      }
+      100% {
+        transform: rotate(0) scale(1);
+      }
+    }
+
+    .logo{
+      display: block;
+      width: $cardWidth;
+      height: $cardWidth;
+      background-size: contain;
+      background-position: center center;
+      background-repeat: no-repeat;
+      margin: 0 auto $cardWidth*0.5 auto;
+      animation: spin-logo 2s ease-out 0s infinite;
+    }
   }
 }
