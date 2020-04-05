@@ -26,10 +26,14 @@ class Player extends React.Component {
         return <div className={classes} style={styles}>
             <div className="player-cards card-container" style={{ gridArea: "player-cards", "--card-count": cardCount }}>
                 <div className="player-char" style={{}}>
-                    {playerField.map((card, index) => <Card key={card.cardId} card={card} />)}
+                    {playerField.map((card, index) => <Card key={card.cardId} card={card} /> )}
                 </div>
                 <div className="virus-infection" style={{}}>
-                    {player.virusField.map((card, index) => <Card key={card.cardId} card={card} />)}
+                    {player.virusField.map((card, index) => {
+                        if (!card.graveyard) {
+                            return <Card key={card.cardId} card={card}/>
+                        }
+                    })}
                 </div>
             </div>
             <div className="player-name" style={{ gridArea: "player-name" }}>{player.name}</div>

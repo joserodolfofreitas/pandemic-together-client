@@ -35,7 +35,11 @@ class CurrentPlayer extends React.Component {
                     <div className="player-name" style={{ gridArea: "player-name" }}>{player.name}</div>
                     <div className="status-cards card-container" style={{ gridArea: "status-cards", "--card-count": statusCardCount }}>
                         <div className="virus-infection" style={{ gridArea: "virus-infection" }}>
-                            {player.virusField.map(card => <Card key={card.cardId} card={card} />)}
+                            {player.virusField.map(card => {
+                                if (!card.graveyard) {
+                                    return <Card key={card.cardId} card={card}/>
+                                }
+                            })}
                         </div>
                         <div className="player-char" style={{ gridArea: "player-char" }}>
                             {playerField.map(card => <Card key={card.cardId} card={card} />)}
@@ -44,7 +48,9 @@ class CurrentPlayer extends React.Component {
                     <div className="hand-cards" style={{ gridArea: "hand-cards", "--card-count": player.hand.length }}>
                         {player.hand.map(card => {
                             const canBeUsed = isCurrentTurn; //TODO: disadvantage anwenden
-                            return <Card key={card.cardId} card={card} isHandCard={true} canBeUsed={canBeUsed} />
+                            if (!card.graveyard) {
+                                return <Card key={card.cardId} card={card} isHandCard={true} canBeUsed={canBeUsed}/>
+                            }
                         })}
                     </div>
                 </div>
