@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Constants from './common/constants';
 import { connect } from 'react-redux';
-import { applyResourceOnVirus } from './redux/actions';
+import { applyResourceOnVirus, setDraggingCard, setDragOverCard } from './redux/actions';
 import { DragSource, DropTarget } from 'react-dnd';
 
 function mapStateToProps(state) {
@@ -16,16 +16,20 @@ function mapStateToProps(state) {
 
 const dndDragSource = {
     beginDrag(props) {
+        props.setDraggingCard(props.card);
         return { id: props.card.cardId, card: props.card }
     },
     canDrag(props) {
         return props.isHandCard && props.isPlayable;
+    },
+    endDrag(props) {
+        props.setDraggingCard(null);
     }
 }
 
 const dndDropTarget = {
     drop(props, monitor, component) {
-       props.applyResourceOnVirus(monitor.getItem().card, props.card)
+        props.applyResourceOnVirus(monitor.getItem().card, props.card)
     },
     canDrop(props, monitor) {
         return props.card.type === Constants.CARD_TYPE_VIRUS;
@@ -35,7 +39,8 @@ const dndDropTarget = {
 function dndDropCollect(connect, monitor) {
     return {
         connectDropTarget: connect.dropTarget(),
-        isDragOver: monitor.isOver()
+        isDragOver: monitor.isOver(),
+        canDrop: monitor.canDrop()
     }
 }
 
@@ -47,13 +52,22 @@ function dndDragCollect(connect, monitor) {
 }
 
 class Card extends React.Component {
-    
+    componentDidUpdate(){
+        if (this.props.canDrop) {
+            if (this.props.isDragOver) {
+                if (!this.props.dragOverCard || this.props.dragOverCard.cardId !== this.props.card.cardId) {
+                    this.props.setDragOverCard(this.props.card);
+                }
+            } else {
+                if (this.props.dragOverCard && this.props.dragOverCard.cardId === this.props.card.cardId) {
+                    this.props.setDragOverCard(null);
+                }
+            }
+        }
+    }
 
     render() {
         const card = this.props.card;
-
-        const isHandCard = this.props.isHandCard;
-        const isVirusCard = card.type === Constants.CARD_TYPE_VIRUS;
 
         const style = { "--card-index": this.props.index, backgroundImage: `url("/images/card-${card.elementId.toLowerCase()}.png")` };
 
@@ -61,42 +75,64 @@ class Card extends React.Component {
         const connectDropTarget = this.props.connectDropTarget;
 
         return connectDropTarget(connectDragSource(<div className={this.getCardClasses(card)} style={style}>
-            {isVirusCard ? this.renderVirusTokens(card) : null}
+            {this.renderVirusTokens(card)}
+            {this.renderVirusIndicators(card)}
         </div>));
     }
 
-    getCardClasses(card){
-        const isHandCard = this.props.isHandCard;
+    getCardClasses(card) {
         const isVirusCard = card.type === Constants.CARD_TYPE_VIRUS;
-        const isPlayable = isHandCard && this.props.isPlayable;
+        const isPlayable = this.props.isHandCard && this.props.isPlayable;
 
         let classNames = [`card card-${card.elementId.toLowerCase()}`];
 
-        if(isHandCard){
+        if (this.props.isHandCard) {
             classNames.push('hand-card');
-            if(isPlayable){classNames.push('playable');}
+            if (isPlayable) { classNames.push('playable'); }
         }
-        if(isVirusCard){
+        if (isVirusCard) {
             classNames.push('virus-card');
-            if(card.contained){classNames.push('contained');}
+            if (card.contained) { classNames.push('contained'); }
+        }
+        if (this.props.isFaded) {
+            classNames.push('faded');
+        }
+        if (this.props.isHidden) {
+            classNames.push('hidden');
         }
 
         return classNames.join(' ');
     }
 
+    renderVirusIndicators(card) {
+        if (card.type !== Constants.CARD_TYPE_VIRUS || !this.props.indicator) {
+            return null;
+        }
+        if (this.props.indicator === "contain") {
+            return <div className="overlay overlay-indicator indicator-contain" style={{ backgroundImage: "url(/images/card-v-contain.png)" }}></div>
+        } else if (this.props.indicator === "reduce-tokens") {
+            return <div className="overlay overlay-indicator indicator-reduce-tokens" style={{ backgroundImage: "url(/images/card-v-reduct-tokens.png)" }}></div>
+        }
+        return null;
+    }
+
     renderVirusTokens(card) {
+        if (card.type !== Constants.CARD_TYPE_VIRUS) {
+            return null;
+        }
+
         let tokens = [];
         for (let i = 0; i < card.tokens; i++) {
             tokens.push(<div className="token" style={{ backgroundImage: "url(/images/logo.png)" }}></div>)
         }
-        return <div class="card-tokens">
+        return <div className="card-tokens">
             {tokens}
         </div>
     }
 
 }
 
-export default connect(mapStateToProps, { applyResourceOnVirus })(
+export default connect(mapStateToProps, { applyResourceOnVirus, setDraggingCard, setDragOverCard })(
     DragSource(Constants.DndItemTypes.CARD, dndDragSource, dndDragCollect)(
         DropTarget(Constants.DndItemTypes.CARD, dndDropTarget, dndDropCollect)(Card)
     )

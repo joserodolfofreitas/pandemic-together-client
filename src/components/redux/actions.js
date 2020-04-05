@@ -12,6 +12,8 @@ export const DRAW_CARD = 'DRAW_CARD';
 export const UPDATE_PLAYER = 'UPDATE_PLAYER';
 export const SET_ROOM_STATE = 'SET_ROOM_STATE';
 export const SET_IS_LOADING = 'SET_IS_LOADING';
+export const SET_DRAGGING_CARD = 'SET_DRAGGING_CARD';
+export const SET_DRAG_OVER_CARD = 'SET_DRAG_OVER_CARD';
 
 /*
  * redux action creators
@@ -38,6 +40,14 @@ export function updatePlayer(player) {
 
 export function isLoading(isLoading) {
     return { type: SET_IS_LOADING, isLoading }
+}
+
+export function setDraggingCard(card) {
+    return { type: SET_DRAGGING_CARD, card }
+}
+
+export function setDragOverCard(card) {
+    return { type: SET_DRAG_OVER_CARD, card }
 }
 
 export function startGame() {
