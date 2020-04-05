@@ -43,8 +43,8 @@ class CurrentPlayer extends React.Component {
                     </div>
                     <div className="hand-cards" style={{ gridArea: "hand-cards", "--card-count": player.hand.length }}>
                         {player.hand.map(card => {
-                            const canBeUsed = isCurrentTurn; //TODO: disadvantage anwenden
-                            return <Card key={card.cardId} card={card} isHandCard={true} canBeUsed={canBeUsed} />
+                            const isPlayable = isCurrentTurn; //TODO: disadvantage anwenden
+                            return <Card key={card.cardId} card={card} isHandCard={true} isPlayable={isPlayable} />
                         })}
                     </div>
                 </div>

@@ -19,7 +19,7 @@ const dndDragSource = {
         return { id: props.card.cardId, card: props.card }
     },
     canDrag(props) {
-        return props.isHandCard && props.canBeUsed;
+        return props.isHandCard && props.isPlayable;
     }
 }
 
@@ -47,23 +47,41 @@ function dndDragCollect(connect, monitor) {
 }
 
 class Card extends React.Component {
+    
+
     render() {
         const card = this.props.card;
 
         const isHandCard = this.props.isHandCard;
         const isVirusCard = card.type === Constants.CARD_TYPE_VIRUS;
-        const canBeUsed = isHandCard && this.props.canBeUsed;
-        const isDragOver = this.props.isDragOver && isVirusCard;
 
-        const classNames = `card card-${card.elementId.toLowerCase()}${isHandCard === true ? " hand-card" : ""}${isVirusCard ? " virus-card" : ""}${isDragOver === true ? " drag-over" : ""}${canBeUsed?" can-be-used":""}${card.contained === true ? " virus-contained" : ""}`;
         const style = { float: "left", backgroundImage: `url("/images/card-${card.elementId.toLowerCase()}.png")` };
 
         const connectDragSource = this.props.connectDragSource;
         const connectDropTarget = this.props.connectDropTarget;
 
-        return connectDropTarget(connectDragSource(<div className={classNames} style={style}>
+        return connectDropTarget(connectDragSource(<div className={this.getCardClasses(card)} style={style}>
             {isVirusCard ? this.renderVirusTokens(card) : null}
         </div>));
+    }
+
+    getCardClasses(card){
+        const isHandCard = this.props.isHandCard;
+        const isVirusCard = card.type === Constants.CARD_TYPE_VIRUS;
+        const isPlayable = isHandCard && this.props.isPlayable;
+
+        let classNames = [`card card-${card.elementId.toLowerCase()}`];
+
+        if(isHandCard){
+            classNames.push('hand-card');
+            if(isPlayable){classNames.push('playable');}
+        }
+        if(isVirusCard){
+            classNames.push('virus-card');
+            if(card.contained){classNames.push('contained');}
+        }
+
+        return classNames.join(' ');
     }
 
     renderVirusTokens(card) {

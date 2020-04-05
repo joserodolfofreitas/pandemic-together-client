@@ -74,24 +74,10 @@
 
         padding: 0 10px;
         border-right: 1px solid #140c0e;
-        .card {
-          filter: brightness(0.75);
-          
-          &:hover {
-            filter: brightness(1);
-          }
-        }
       }
 
       .hand-cards {
         padding: 0 10px;
-        .card {
-          filter: brightness(0.75);
-
-          &:hover {
-            filter: brightness(1);
-          }
-        }
       }
     }
   }
@@ -108,18 +94,6 @@
   &.current-turn {
     .player-name {
       text-shadow: 2px 2px 2px #dc143c, 2px -2px 2px #dc143c, -2px 2px 2px #dc143c, -2px -2px 2px #dc143c;
-    }
-    .player-cards {
-      .hand-cards .card {
-        cursor: pointer;
-        filter: brightness(1);
-      }
-      .status-cards .card {
-        filter: brightness(1);
-      }
-      .player-char .card {
-        box-shadow: 0px 0px 4px 7px #dc143c;
-      }
     }
   }
 }
