@@ -32,25 +32,24 @@ class CurrentPlayer extends React.Component {
         return (
             <div className={classes} style={styles}>
                 <div className="player-cards">
-                    <div className="player-name" style={{ gridArea: "player-name" }}>{player.name}</div>
-                    <div className="status-cards card-container" style={{ gridArea: "status-cards", "--card-count": statusCardCount }}>
-                        <div className="virus-infection" style={{ gridArea: "virus-infection" }}>
+                    <div className="player-name">{player.name}</div>
+                    <div className="status-cards card-container" style={{ "--card-count": statusCardCount }}>
+                        <div className="virus-infection">
                             {player.virusField.map(card => <Card key={card.cardId} card={card} />)}
                         </div>
-                        <div className="player-char" style={{ gridArea: "player-char" }}>
+                        <div className="player-char">
                             {playerField.map(card => <Card key={card.cardId} card={card} />)}
                         </div>
                     </div>
-                    <div className="hand-cards" style={{ gridArea: "hand-cards", "--card-count": player.hand.length }}>
+                    <div className="hand-cards card-container" style={{ "--card-count": player.hand.length }}>
                         {player.hand.map(card => {
                             const isPlayable = isCurrentTurn; //TODO: disadvantage anwenden
                             return <Card key={card.cardId} card={card} isHandCard={true} isPlayable={isPlayable} />
                         })}
                     </div>
-                </div>
-                <div style={{ backgroundColor: "#0F0", margin: "auto" }}>
-                    <span>your hand</span>
-                    <span><button onClick={() => this.onClick_advanceTurn()}> End turn (pass)</button></span>
+                    <div className="actions">
+                        <div className="action action-skip" style={{backgroundImage:"url(/images/action-skip.png)"}} onClick={() => this.onClick_advanceTurn()}></div>
+                    </div>
                 </div>
             </div>
         );

@@ -82,4 +82,5 @@
 
 .card-container {
   width: calc(var(--card-count) * (#{$cardWidth} + (#{$cardMargin} * 2)));
+  transition: 1s;
 }
