@@ -44,7 +44,9 @@ class CurrentPlayer extends React.Component {
                     <div className="hand-cards card-container" style={{ "--card-count": player.hand.length }}>
                         {player.hand.map((card, index) => {
                             const isPlayable = isCurrentTurn; //TODO: disadvantage anwenden
-                            return <Card key={card.cardId} card={card} index={index} isHandCard={true} isPlayable={isPlayable} isFaded={isDraggingCard} isHidden={isDraggingCard && this.props.draggingCard.cardId == card.cardId} />
+                            if (!card.graveyard) {
+                                return <Card key={card.cardId} card={card} index={index} isHandCard={true} isPlayable={isPlayable} isFaded={isDraggingCard} isHidden={isDraggingCard && this.props.draggingCard.cardId == card.cardId} />
+                            }
                         })}
                     </div>
                     <div className="actions">

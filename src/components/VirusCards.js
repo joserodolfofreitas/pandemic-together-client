@@ -22,7 +22,11 @@ class VirusCards extends React.Component {
         const cardIndicators = this.getCardIndicators();
 
         return <div className="virus-infection card-container" style={{ "--card-count": virusCards.length }}>
-            {virusCards.map((card, index) => <Card key={card.cardId} card={card} index={index} indicator={cardIndicators[card.cardId]} />)}
+            {virusCards.map((card, index) => {
+                if (!card.graveyard) {
+                    return <Card key={card.cardId} card={card} index={index} indicator={cardIndicators[card.cardId]} />
+                }
+            })}
         </div>;
     }
 
