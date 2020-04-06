@@ -36,8 +36,8 @@ function runLogin(username) {
                     console.log("the room state has been updated:", roomState);
                     dispatch(setRoomState(roomState));
                 });
-                dispatch(isLoading(false));
                 dispatch(setRoom(room));
+                dispatch(isLoading(false));
             }).catch(e => {
                 console.log("JOIN ERROR", e);
             });

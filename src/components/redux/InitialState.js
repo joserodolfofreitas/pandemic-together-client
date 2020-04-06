@@ -10,6 +10,8 @@ export const initialState = {
     roomPlayers: [],
     deck: [],
     isLoading: false,
+    draggingCard: null,
+    dragOverCard: null,
     cards: [
         {
             elementId: "V1",
