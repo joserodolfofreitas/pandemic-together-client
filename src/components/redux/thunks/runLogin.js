@@ -36,8 +36,7 @@ function runLogin(username) {
                     console.log("the room state has been updated:", roomState);
                     dispatch(setRoomState(roomState));
                 });
-
-                room.state.onChange = (changes) => {
+		room.state.onChange = (changes) => {
                     changes.forEach(change => {
                         console.log("******* on state step change")
                         console.log(change.field);
@@ -75,8 +74,9 @@ function runLogin(username) {
                     }
                 };
 
-                dispatch(isLoading(false));
+
                 dispatch(setRoom(room));
+                dispatch(isLoading(false));
             }).catch(e => {
                 console.log("JOIN ERROR", e);
             });

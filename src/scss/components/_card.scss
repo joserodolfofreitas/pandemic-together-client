@@ -8,19 +8,48 @@
   margin: $cardMargin;
   box-shadow: 0px 1px 1px 0px rgba(#111, 0.5);
   border-radius: 5px;
+  position: absolute;
 
-  position: relative;
+  left: calc(var(--card-index) * (#{$cardWidth} + (#{$cardMargin} * 2)));
 
   transition: 0.5s;
 
-  &.hand-card {
+  &:hover {
+    transform: scale(1.5, 1.5);
+    z-index: 10;
+  }
+
+  @keyframes add-card {
+    0% {
+      transform: translate(0, -100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(0, 0);
+      opacity: 1;
+    }
+  }
+
+  &.hand-card {  
+    animation: add-card 1s 0s 1;
+
+    &.playable{
+      cursor: move;
+    }
   }
 
   &.virus-card {
-    // outline: none;
-    // border-color: #f00;
-    // box-shadow: 0 0 10px #f00;
     transform: scale(0.9);
+    animation: add-card 1s 0s 1;
+    
+    &:hover {
+      transform: scale(1.5, 1.5);
+      z-index: 10;
+    }
+
+    &.contained {
+      box-shadow: 0px 0px 5px 5px rgba(#0f0, 1);
+    }
 
     .card-tokens {
       position: absolute;
@@ -62,25 +91,26 @@
     }
   }
 
-  &.drag-over {
-    box-shadow: 0px 0px 4px 10px rgba(#0ff, 1);
+  &.faded{
+    filter: brightness(0.7);
   }
 
-  &.virus-contained {
-    box-shadow: 0px 0px 5px 5px rgba(#0f0, 1);
+  &.hidden{
+    opacity: 0;
   }
 
-  &.can-be-used{
-    cursor: move;
+  .overlay{
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: absolute;
+    left:0;right:0;top:0;bottom: 0;
+    pointer-events: none;
   }
-
-  &:hover {
-    transform: scale(1.5, 1.5);
-    z-index: 10;
-  }
-
 }
 
 .card-container {
   width: calc(var(--card-count) * (#{$cardWidth} + (#{$cardMargin} * 2)));
+  position: relative;
+  transition: 0.5s;
 }

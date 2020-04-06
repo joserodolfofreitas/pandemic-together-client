@@ -3,7 +3,7 @@
 
   &.player-left {
     .player-cards {
-      transform: rotate(90deg) translate(0, -100%);
+      transform: rotate(90deg) translate(0, -110%);
       transform-origin: top left;
       .card:hover {
         transform: rotate(-90deg) scale(1.5, 1.5);
@@ -49,17 +49,31 @@
       "player-name"
       "player-cards";
     align-items: start;
+
+    .player-cards{
+      grid-area: player-cards;
+      height: $cardHeight;
+      display: grid;
+      grid-template-columns: auto auto;
+      grid-template-areas: "player-char virus-infection";
+      .player-char{
+        grid-area: player-char;
+      }
+      .virus-infection{
+        grid-area: virus-infection;
+      }
+    }
   }
 
   &.player-current {
     .player-cards {
       grid-gap: 0px;
       display: grid;
-      grid-template-columns: min-content auto;
+      grid-template-columns: min-content auto min-content;
       grid-template-rows: calc(5vmin - (2 * #{$cardMargin})) calc(#{$cardHeight} + (2 * #{$cardMargin}));
       grid-template-areas:
-        "player-name player-name"
-        "status-cards hand-cards";
+        "player-name player-name player-name"
+        "status-cards hand-cards actions";
 
       margin: auto;
 
@@ -67,36 +81,47 @@
         text-align: center;
       }
       .status-cards {
+        grid-area: status-cards;
         grid-gap: 0px;
         display: grid;
         grid-template-columns: auto auto;
         grid-template-areas: "player-char virus-infection";
 
-        padding: 0 10px;
         border-right: 1px solid #140c0e;
-        .card {
-          filter: brightness(0.75);
-          
-          &:hover {
-            filter: brightness(1);
-          }
+
+        .player-char{
+          grid-area: player-char;
+        }
+        .virus-infection{
+          grid-area: virus-infection;
         }
       }
 
       .hand-cards {
-        padding: 0 10px;
-        .card {
-          filter: brightness(0.75);
+        grid-area: hand-cards;
+      }
 
-          &:hover {
-            filter: brightness(1);
-          }
+      .actions{
+        border-left: 1px solid #140c0e;
+        opacity: 0;        
+        transition: 0.5s;
+        .action{
+          width: 0vh;
+          height: $cardHeight;        
+          margin: 0;               
+          transition: 0.5s;
+          cursor: pointer;
+          background-size: contain;
+          background-position: center center;
+          background-repeat: no-repeat;
         }
       }
     }
   }
 
   .player-name {
+    grid-area: player-name;
+
     padding: 0 10px 0 10px;
     margin: 0;
     font-weight: bold;
@@ -105,20 +130,18 @@
     text-shadow: 1px 1px 1px #140c0e, 1px -1px 1px #140c0e, -1px 1px 1px #140c0e, -1px -1px 1px #140c0e;
   }
 
+
+
   &.current-turn {
     .player-name {
       text-shadow: 2px 2px 2px #dc143c, 2px -2px 2px #dc143c, -2px 2px 2px #dc143c, -2px -2px 2px #dc143c;
     }
-    .player-cards {
-      .hand-cards .card {
-        cursor: pointer;
-        filter: brightness(1);
-      }
-      .status-cards .card {
-        filter: brightness(1);
-      }
-      .player-char .card {
-        box-shadow: 0px 0px 4px 7px #dc143c;
+    &.player-current .player-cards .actions{
+      opacity: 1;
+      .action{
+        width: $cardWidth;
+        height: $cardHeight;        
+        margin: $cardMargin;        
       }
     }
   }
