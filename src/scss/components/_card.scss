@@ -57,9 +57,11 @@
 
     @keyframes destroy-card {
       0% {
+        display: block;
         opacity: 1;
       }
       100% {
+        display: none;
         transform: scale(2);
         opacity: 0;
       }
@@ -67,7 +69,7 @@
 
     &.destroyed{
       opacity: 0;
-      animation: destroy-card 1s ease-out 0s 1;
+      animation: destroy-card 1s ease-out 0s 1 forwards;
     }
 
     .card-tokens {

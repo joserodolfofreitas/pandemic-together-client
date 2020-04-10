@@ -44,7 +44,7 @@ class Viruses extends React.Component {
                 continue;
             }
             if (!displayCardItem) {
-                displayCardItems.push({ card: activeCard , state: "displayed" });
+                displayCardItems.push({ card: activeCard, state: "displayed" });
                 activeIndex++;
                 displayIndex++;
                 continue;
@@ -83,6 +83,7 @@ class Viruses extends React.Component {
 
 export default connect(
     (state, ownProps) => {
+        console.log("connect viruses", ownProps.playerId, state.roomState.players[ownProps.playerId].virusField)
         return {
             draggingCard: state.draggingCard,
             dragOverCard: state.dragOverCard,
