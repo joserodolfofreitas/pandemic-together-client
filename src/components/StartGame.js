@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { login, startGame, removeMobileUrlBar } from './redux/actions'
-import ChatRoom from './ChatRoom';
-import * as Constants from './common/constants';
+import { login, startGame, removeMobileUrlBar } from './../redux/actions'
+import ChatRoom from './shared/ChatRoom';
+import * as Constants from './../common/constants';
 
 
 function mapStateToProps(state) {

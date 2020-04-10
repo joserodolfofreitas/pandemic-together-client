@@ -2,7 +2,7 @@ import React from 'react';
 import StartGame from './StartGame';
 import Table from './Table';
 import { connect } from 'react-redux';
-import * as Constants from './common/constants';
+import * as Constants from './../common/constants';
 
 function mapStateToProps(state) {
     return {

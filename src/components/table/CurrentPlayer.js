@@ -1,8 +1,8 @@
 import React from 'react';
-import Card from './Card';
-import VirusCards from './VirusCards';
-import HandCards from './HandCards';
-import * as Constants from './common/constants';
+import Card from './../shared/Card';
+import VirusCards from './fields/VirusCards';
+import HandCards from './fields/HandCards';
+import * as Constants from '../../common/constants';
 import { connect } from 'react-redux';
 
 function mapStateToProps(state) {

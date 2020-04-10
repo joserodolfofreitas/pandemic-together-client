@@ -1,7 +1,6 @@
 import React from 'react';
-import Card from './Card';
+import Card from './../../shared/Card';
 import { connect } from 'react-redux';
-import * as Constants from './common/constants';
 
 function mapStateToProps(state) {
     return {

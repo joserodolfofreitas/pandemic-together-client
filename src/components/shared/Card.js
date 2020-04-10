@@ -1,7 +1,7 @@
 import React from 'react';
-import * as Constants from './common/constants';
+import * as Constants from './../../common/constants';
 import { connect } from 'react-redux';
-import { applyResourceOnVirus, setDraggingCard, setDragOverCard } from './redux/actions';
+import { applyResourceOnVirus, setDraggingCard, setDragOverCard } from './../../redux/actions';
 import { DragSource, DropTarget } from 'react-dnd';
 
 function mapStateToProps(state) {

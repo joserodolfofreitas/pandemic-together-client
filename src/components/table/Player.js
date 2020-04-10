@@ -1,6 +1,6 @@
 import React from 'react';
-import Card from './Card';
-import VirusCards from './VirusCards';
+import Card from './../shared/Card';
+import VirusCards from './fields/VirusCards';
 import { connect } from 'react-redux';
 
 function mapStateToProps(state) {

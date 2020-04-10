@@ -1,10 +1,10 @@
 import React from 'react';
-import ChatRoom from './ChatRoom';
-import Deck from './Deck';
-import Player from './Player';
-import CurrentPlayer from './CurrentPlayer';
+import ChatRoom from './shared/ChatRoom';
+import Deck from './table/Deck';
+import Player from './table/Player';
+import CurrentPlayer from './table/CurrentPlayer';
 import { connect } from 'react-redux';
-import {startGame} from './redux/actions';
+import {startGame} from './../redux/actions';
 
 function mapStateToProps(state) {
     return {
