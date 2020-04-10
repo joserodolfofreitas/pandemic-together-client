@@ -1,55 +1,33 @@
 import React from 'react';
-import Card from './../shared/Card';
 import Viruses from './fields/Viruses';
 import Hand from './fields/Hand';
-import * as Constants from '../../common/constants';
+import Character from './fields/Character';
 import { connect } from 'react-redux';
-
-function mapStateToProps(state) {
-    return {
-        room: state.room,
-        roomState: state.roomState,
-        updatesOnRoomState: state.updatesOnRoomState,
-        draggingCard: state.draggingCard
-    }
-}
+import { skipTurn } from './../../redux/actions';
+import Player from './Player';
 
 class CurrentPlayer extends React.Component {
-    onClick_advanceTurn() {
-        if (this.props.roomState.currentTurn !== this.props.room.sessionId) {
+    onClick_skipTurn() {
+        if (!this.props.isCurrentTurn) {
             return;
         }
-        const message = { type: Constants.GM_ADVANCE_TURN, player: this.props.room.sessionId };
-        this.props.room.send(message);
+        this.props.skipTurn();
     }
     render() {
         const player = this.props.player;
-
-        const playerField = [player.advantages[0], player.disadvantages[0]];
-        const isCurrentTurn = this.props.roomState.currentTurn === player.sessionId;
-        const isDraggingCard = !!this.props.draggingCard;
-
-        const styles = { gridArea: "player-current" };
-        const classes = `player player-current${isCurrentTurn ? " current-turn" : ""}`;
-
-        return (
-            <div className={classes} style={styles}>
-                <div className="player-cards">
-                    <div className="player-name">{player.name}</div>
-                    <div className="status-cards">
-                        <Viruses cards={player.virusField} />
-                        <div className="player-char card-container" style={{ "--card-count": 2 }}>
-                            {playerField.map((card, index) => <Card key={card.cardId} card={card} index={index} isFaded={isDraggingCard} />)}
-                        </div>
-                    </div>
-                    <Hand cards={player.hand} player={player} />
-                    <div className="actions">
-                        <div className="action action-skip" style={{ backgroundImage: "url(/images/action-skip.png)" }} onClick={() => this.onClick_advanceTurn()}></div>
-                    </div>
-                </div>
+        let cardCount = player.virusField.length + player.hand.length + 2; // + character
+        if (this.props.isCurrentTurn) {
+            cardCount += 1; // + action
+        }
+        return <Player player={player} position={"player-current"} isCurrentTurn={this.props.isCurrentTurn} cardCount={cardCount}>
+            <Viruses player={player} draggingCard={this.props.draggingCard} dragOverCard={this.props.dragOverCard} />
+            <Character player={player} isFaded={!!this.props.draggingCard} />
+            <Hand player={player} isCurrentTurn={this.props.isCurrentTurn} draggingCard={this.props.draggingCard} />
+            <div className="actions">
+                <div className="action action-skip" style={{ backgroundImage: "url(/images/action-skip.png)" }} onClick={() => this.onClick_skipTurn()}></div>
             </div>
-        );
+        </Player>
     }
 }
 
-export default connect(mapStateToProps, null)(CurrentPlayer)
+export default connect(null, { skipTurn })(CurrentPlayer)

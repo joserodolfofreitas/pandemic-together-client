@@ -1,14 +1,7 @@
 import React from 'react';
-import Card from '../../shared/Card';
+import VirusCard from './../cards/VirusCard';
 import { connect } from 'react-redux';
 import * as Constants from '../../../common/constants';
-
-function mapStateToProps(state) {
-    return {
-        draggingCard: state.draggingCard,
-        dragOverCard: state.dragOverCard
-    }
-}
 
 const action2indicatorMap = {
     [Constants.ACTION_DESTROY_VIRUS_TOKEN]:"reduce-tokens",
@@ -25,16 +18,16 @@ class Viruses extends React.Component {
         return <div className="virus-infection card-container" style={{ "--card-count": virusCardItems.filter(c => c.state !== "destroyed").length }}>
             {virusCardItems.map((cardItem) => {
                 if (cardItem.state === "destroyed") {
-                    return <Card key={cardItem.card.cardId} card={cardItem.card} index={positionIndex} indicator={cardIndicators[cardItem.card.cardId]} isDestroyed={true} />
+                    return <VirusCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex} isDestroyed={true} />
                 }else{
-                    return <Card key={cardItem.card.cardId} card={cardItem.card} index={positionIndex++} indicator={cardIndicators[cardItem.card.cardId]} />
+                    return <VirusCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex++} indicator={cardIndicators[cardItem.card.cardId]} />
                 }
             })}
         </div>;
     }
 
     getCardItems(){
-        let activeCards = this.props.cards;
+        let activeCards = this.props.player.virusField;
         let displayCardItems = this.displayCardItems;        
         let activeIndex=0, displayIndex = 0;
         while(activeIndex < activeCards.length || displayIndex < displayCardItems.length){
@@ -85,4 +78,4 @@ class Viruses extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, null)(Viruses)
+export default connect(null, null)(Viruses)

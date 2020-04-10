@@ -1,40 +1,27 @@
 import React from 'react';
-import Card from '../../shared/Card';
+import HandCard from './../cards/HandCard';
 import { connect } from 'react-redux';
-
-function mapStateToProps(state) {
-    return {
-        roomState: state.roomState,
-        draggingCard: state.draggingCard
-    }
-}
 
 class Hand extends React.Component {
     displayCardItems = [];
 
     render() {
-        const player = this.props.player;
         const handCardItems = this.getCardItems();
-
         let positionIndex = 0;
-
-        const isCurrentTurn = this.props.roomState.currentTurn === player.sessionId;
-        const isDraggingCard = !!this.props.draggingCard;
-
         return <div className="hand-cards card-container" style={{ "--card-count": handCardItems.filter(c => c.state !== "destroyed").length }}>
             {handCardItems.map((cardItem) => {
-                const isPlayable = isCurrentTurn; //TODO: disadvantage anwenden
+                const isPlayable = this.props.isCurrentTurn; //TODO: disadvantage anwenden
                 if (cardItem.state === "destroyed") {
-                    return <Card key={cardItem.card.cardId} card={cardItem.card} index={positionIndex} isHandCard={true} isDestroyed={true} />
+                    return <HandCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex} isDestroyed={true} />
                 } else {
-                    return <Card key={cardItem.card.cardId} card={cardItem.card} index={positionIndex++} isHandCard={true} isPlayable={isPlayable} isFaded={isDraggingCard} isHidden={isDraggingCard && this.props.draggingCard.cardId == cardItem.card.cardId} />
+                    return <HandCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex++} isPlayable={isPlayable} isFaded={!!this.props.draggingCard} isHidden={this.props.draggingCard && this.props.draggingCard.cardId == cardItem.card.cardId} />
                 }
             })}
         </div>
     }
 
     getCardItems(){
-        let activeCards = this.props.cards;
+        let activeCards = this.props.player.hand;
         let displayCardItems = this.displayCardItems;        
         let activeIndex=0, displayIndex = 0;
         while(activeIndex < activeCards.length || displayIndex < displayCardItems.length){
@@ -64,4 +51,4 @@ class Hand extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, null)(Hand)
+export default connect(null, null)(Hand)

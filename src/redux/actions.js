@@ -3,6 +3,7 @@ import runLogin from './thunks/runLogin';
 import runStartGame from './thunks/runStartGame';
 import runApplyResourceOnVirus from './thunks/runApplyResourceOnVirus';
 import runRemoveMobileUrlBar from './thunks/runRemoveMobileUrlBar';
+import runSkipTurn from './thunks/runSkipTurn';
 /*
  * redux action types
  */
@@ -62,6 +63,10 @@ export function applyResourceOnVirus(resourceCard, virusCard){
     return runApplyResourceOnVirus(resourceCard, virusCard)
 }
 
-export function removeMobileUrlBar(resourceCard, virusCard){
+export function removeMobileUrlBar(){
     return runRemoveMobileUrlBar()
+}
+
+export function skipTurn(){
+    return runSkipTurn()
 }

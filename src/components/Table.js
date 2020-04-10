@@ -1,18 +1,18 @@
 import React from 'react';
 import ChatRoom from './shared/ChatRoom';
 import Deck from './table/Deck';
-import Player from './table/OtherPlayer';
+import OtherPlayer from './table/OtherPlayer';
 import CurrentPlayer from './table/CurrentPlayer';
 import { connect } from 'react-redux';
 import {startGame} from './../redux/actions';
 
 function mapStateToProps(state) {
     return {
-        clientSessionId : state.clientSessionId,
-        player : state.player,
         room : state.room,
         roomState : state.roomState,
         updatesOnRoomState : state.updatesOnRoomState,
+        draggingCard: state.draggingCard,
+        dragOverCard: state.dragOverCard
     }
 }
 
@@ -20,17 +20,20 @@ class Table extends React.Component {
     render(){
         const playerItems = this.getOtherPlayerItems();
         const currentPlayer = this.getCurrentPlayer();
-        const className = `table players-${playerItems.length+1}`;
 
-        return <div className={className} style={{backgroundImage: "url(/images/background_table.jpg)"}}>
+        const currentTurnPlayerSessionId = this.props.roomState.currentTurn;
+        const draggingCard = this.props.draggingCard;
+        const dragOverCard = this.props.dragOverCard;
+
+        return <div className={`table players-${playerItems.length+1}`} style={{backgroundImage: "url(/images/background_table.jpg)"}}>
             <div className="header">
                 <span className="logo" style={{backgroundImage: "url(/images/logo.png)"}}></span>
                 <h1>Pandemic Together</h1>
             </div>
             {playerItems.map(function(item, index){
-                return <Player key={index} player={item.player} position={item.position}/>
+                return <OtherPlayer key={index} player={item.player} position={item.position} isCurrentTurn={item.player.sessionId === currentTurnPlayerSessionId} draggingCard={draggingCard} dragOverCard={dragOverCard}/>
             })}
-            <CurrentPlayer player={currentPlayer}/>
+            <CurrentPlayer player={currentPlayer} isCurrentTurn={currentPlayer.sessionId === currentTurnPlayerSessionId} draggingCard={draggingCard} dragOverCard={dragOverCard}/>
             <Deck playerItems={playerItems} />
             <ChatRoom />
             <div className="footer">

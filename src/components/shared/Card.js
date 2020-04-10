@@ -1,18 +1,8 @@
 import React from 'react';
 import * as Constants from './../../common/constants';
 import { connect } from 'react-redux';
-import { applyResourceOnVirus, setDraggingCard, setDragOverCard } from './../../redux/actions';
 import { DragSource, DropTarget } from 'react-dnd';
-
-function mapStateToProps(state) {
-    return {
-        room: state.room,
-        roomState: state.roomState,
-        currentPlayerTurn: state.currentPlayerTurn,
-        selectedCards: state.selectedCards,
-        updatesOnRoomState: state.updatesOnRoomState,
-    }
-}
+import { applyResourceOnVirus, setDraggingCard, setDragOverCard } from './../../redux/actions';
 
 const dndDragSource = {
     beginDrag(props) {
@@ -54,12 +44,16 @@ function dndDragCollect(connect, monitor) {
 class Card extends React.Component {
     componentDidUpdate(){
         if (this.props.canDrop) {
+            console.log(this.props.card.cardId,this.props.isDragOver)
             if (this.props.isDragOver) {
                 if (!this.props.dragOverCard || this.props.dragOverCard.cardId !== this.props.card.cardId) {
                     this.props.setDragOverCard(this.props.card);
                 }
             } else {
+                
+                console.log(this.props.card.cardId,this.props.dragOverCard, this.props.dragOverCard ? this.props.dragOverCard.cardId : "");
                 if (this.props.dragOverCard && this.props.dragOverCard.cardId === this.props.card.cardId) {
+                    console.log("setDragOverCard null")
                     this.props.setDragOverCard(null);
                 }
             }
@@ -67,20 +61,15 @@ class Card extends React.Component {
     }
 
     render() {
-        const card = this.props.card;
-
-        const style = { "--card-index": this.props.index, backgroundImage: `url("/images/card-${card.elementId.toLowerCase()}.png")` };
-
         const connectDragSource = this.props.connectDragSource;
         const connectDropTarget = this.props.connectDropTarget;
-
-        return connectDropTarget(connectDragSource(<div className={this.getCardClasses(card)} style={style}>
-            {this.renderVirusTokens(card)}
-            {this.renderVirusIndicators(card)}
+        return connectDropTarget(connectDragSource(<div className={this.getCardClasses()} style={{ "--card-index": this.props.index, backgroundImage: `url("/images/card-${this.props.card.elementId.toLowerCase()}.png")` }}>
+            {this.props.children}
         </div>));
     }
 
-    getCardClasses(card) {
+    getCardClasses() {
+        const card = this.props.card;
         const isVirusCard = card.type === Constants.CARD_TYPE_VIRUS;
         const isPlayable = this.props.isHandCard && this.props.isPlayable;
 
@@ -106,36 +95,9 @@ class Card extends React.Component {
 
         return classNames.join(' ');
     }
-
-    renderVirusIndicators(card) {
-        if (card.type !== Constants.CARD_TYPE_VIRUS || !this.props.indicator) {
-            return null;
-        }
-        if (this.props.indicator === "contain") {
-            return <div className="overlay overlay-indicator indicator-contain" style={{ backgroundImage: "url(/images/card-v-contain.png)" }}></div>
-        } else if (this.props.indicator === "reduce-tokens") {
-            return <div className="overlay overlay-indicator indicator-reduce-tokens" style={{ backgroundImage: "url(/images/card-v-reduct-tokens.png)" }}></div>
-        }
-        return null;
-    }
-
-    renderVirusTokens(card) {
-        if (card.type !== Constants.CARD_TYPE_VIRUS) {
-            return null;
-        }
-
-        let tokens = [];
-        for (let i = 0; i < card.tokens; i++) {
-            tokens.push(<div className="token" style={{ backgroundImage: "url(/images/logo.png)" }}></div>)
-        }
-        return <div className="card-tokens">
-            {tokens}
-        </div>
-    }
-
 }
 
-export default connect(mapStateToProps, { applyResourceOnVirus, setDraggingCard, setDragOverCard })(
+export default connect(null, { applyResourceOnVirus, setDraggingCard, setDragOverCard })(
     DragSource(Constants.DndItemTypes.CARD, dndDragSource, dndDragCollect)(
         DropTarget(Constants.DndItemTypes.CARD, dndDropTarget, dndDropCollect)(Card)
     )

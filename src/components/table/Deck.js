@@ -17,7 +17,7 @@ class Deck extends React.Component {
         if (cardsOnStack > 0) {
             let cards = [];
             for(let i = 0; i < cardsOnStack; i++){
-                cards.push(<div className="card" style={{ backgroundImage: "url(/images/card-deck.png)" }} />)
+                cards.push(<div key={`card-${i}`} className="card" style={{ backgroundImage: "url(/images/card-deck.png)" }} />)
             }
             return <div className={className}>
                     <div className="stack">
