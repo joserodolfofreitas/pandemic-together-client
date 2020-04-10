@@ -24,9 +24,10 @@ class Player extends React.Component {
 
         const styles = { gridArea: position, backgroundColor: this.props.isOver ? "#0f0" : null };
         const classes = `player ${position}${this.props.roomState.currentTurn === player.sessionId ? " current-turn" : ""}`;
+        const cardCount = player.virusField.filter(c => !c.graveyard).length + 2;//TODO remove filter(c => !c.graveyard), when graveyard property is removed
 
         return <div className={classes} style={styles}>
-            <div className="player-cards card-container" style={{ "--card-count": player.virusField.length + 2 }}>
+            <div className="player-cards card-container" style={{ "--card-count": cardCount }}>
                 <div className="player-char card-container" style={{ "--card-count": 2 }}>
                     {playerField.map((card, index) => <Card key={card.cardId} card={card} index={index} isFaded={isDraggingCard} />)}
                 </div>
