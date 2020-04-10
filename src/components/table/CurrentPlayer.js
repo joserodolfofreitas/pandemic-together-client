@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './../shared/Card';
-import VirusCards from './fields/VirusCards';
-import HandCards from './fields/HandCards';
+import Viruses from './fields/Viruses';
+import Hand from './fields/Hand';
 import * as Constants from '../../common/constants';
 import { connect } from 'react-redux';
 
@@ -37,12 +37,12 @@ class CurrentPlayer extends React.Component {
                 <div className="player-cards">
                     <div className="player-name">{player.name}</div>
                     <div className="status-cards">
-                        <VirusCards cards={player.virusField} />
+                        <Viruses cards={player.virusField} />
                         <div className="player-char card-container" style={{ "--card-count": 2 }}>
                             {playerField.map((card, index) => <Card key={card.cardId} card={card} index={index} isFaded={isDraggingCard} />)}
                         </div>
                     </div>
-                    <HandCards cards={player.hand} player={player} />
+                    <Hand cards={player.hand} player={player} />
                     <div className="actions">
                         <div className="action action-skip" style={{ backgroundImage: "url(/images/action-skip.png)" }} onClick={() => this.onClick_advanceTurn()}></div>
                     </div>

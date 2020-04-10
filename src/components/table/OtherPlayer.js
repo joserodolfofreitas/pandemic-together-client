@@ -1,6 +1,6 @@
 import React from 'react';
-import Card from './../shared/Card';
-import VirusCards from './fields/VirusCards';
+import Card from '../shared/Card';
+import Viruses from './fields/Viruses';
 import { connect } from 'react-redux';
 
 function mapStateToProps(state) {
@@ -13,7 +13,7 @@ function mapStateToProps(state) {
 }
 
 
-class Player extends React.Component {
+class OtherPlayer extends React.Component {
 
     render() {
         const player = this.props.player;
@@ -31,11 +31,11 @@ class Player extends React.Component {
                 <div className="player-char card-container" style={{ "--card-count": 2 }}>
                     {playerField.map((card, index) => <Card key={card.cardId} card={card} index={index} isFaded={isDraggingCard} />)}
                 </div>
-                <VirusCards cards={player.virusField} />
+                <Viruses cards={player.virusField} />
             </div>
             <div className="player-name">{player.name}</div>
         </div>;
     }
 }
 
-export default connect(mapStateToProps, null)(Player)
+export default connect(mapStateToProps, null)(OtherPlayer)

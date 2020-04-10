@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from './../../shared/Card';
+import Card from '../../shared/Card';
 import { connect } from 'react-redux';
 
 function mapStateToProps(state) {
@@ -9,7 +9,7 @@ function mapStateToProps(state) {
     }
 }
 
-class HandCards extends React.Component {
+class Hand extends React.Component {
     displayCardItems = [];
 
     render() {
@@ -64,4 +64,4 @@ class HandCards extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, null)(HandCards)
+export default connect(mapStateToProps, null)(Hand)

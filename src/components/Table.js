@@ -1,7 +1,7 @@
 import React from 'react';
 import ChatRoom from './shared/ChatRoom';
 import Deck from './table/Deck';
-import Player from './table/Player';
+import Player from './table/OtherPlayer';
 import CurrentPlayer from './table/CurrentPlayer';
 import { connect } from 'react-redux';
 import {startGame} from './../redux/actions';

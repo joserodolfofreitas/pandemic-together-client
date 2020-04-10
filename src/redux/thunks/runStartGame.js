@@ -1,5 +1,5 @@
 
-import * as Constants from '../../common/constants';
+import * as Constants from './../../common/constants';
 function runStartGame() {
     return (dispatch, getState) => {
         const state = getState();

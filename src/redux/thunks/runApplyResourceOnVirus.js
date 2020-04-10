@@ -1,5 +1,5 @@
 
-import * as Constants from '../../common/constants';
+import * as Constants from './../../common/constants';
 function runApplyResourceOnVirus(resourceCard, virusCard) {
     return (dispatch, getState) => {
         const room =  getState().room;

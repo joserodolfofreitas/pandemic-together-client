@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from './../../shared/Card';
+import Card from '../../shared/Card';
 import { connect } from 'react-redux';
 import * as Constants from '../../../common/constants';
 
@@ -15,7 +15,7 @@ const action2indicatorMap = {
     [Constants.ACTION_CONTAIN_VIRUS]:"contain"
 }
 
-class VirusCards extends React.Component {
+class Viruses extends React.Component {
     displayCardItems = [];
 
     render() {
@@ -85,4 +85,4 @@ class VirusCards extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, null)(VirusCards)
+export default connect(mapStateToProps, null)(Viruses)
