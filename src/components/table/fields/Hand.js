@@ -12,9 +12,9 @@ class Hand extends React.Component {
             {handCardItems.map((cardItem) => {
                 const isPlayable = this.props.isCurrentTurn; //TODO: disadvantage anwenden
                 if (cardItem.state === "destroyed") {
-                    return <HandCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex} isDestroyed={true} />
+                    return <HandCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex} isDestroyed={true}  dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard}/>
                 } else {
-                    return <HandCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex++} isPlayable={isPlayable} isFaded={!!this.props.draggingCard} isHidden={this.props.draggingCard && this.props.draggingCard.cardId == cardItem.card.cardId} />
+                    return <HandCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex++} isPlayable={isPlayable} isFaded={!!this.props.draggingCard} isHidden={this.props.draggingCard && this.props.draggingCard.cardId == cardItem.card.cardId}  dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard}/>
                 }
             })}
         </div>

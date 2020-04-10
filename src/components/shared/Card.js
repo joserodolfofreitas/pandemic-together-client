@@ -44,14 +44,13 @@ function dndDragCollect(connect, monitor) {
 class Card extends React.Component {
     componentDidUpdate(){
         if (this.props.canDrop) {
-            console.log(this.props.card.cardId,this.props.isDragOver)
             if (this.props.isDragOver) {
+                console.log(this.props.card.cardId)
                 if (!this.props.dragOverCard || this.props.dragOverCard.cardId !== this.props.card.cardId) {
                     this.props.setDragOverCard(this.props.card);
                 }
             } else {
-                
-                console.log(this.props.card.cardId,this.props.dragOverCard, this.props.dragOverCard ? this.props.dragOverCard.cardId : "");
+                console.log(this.props.card.cardId, this.props.dragOverCard, this.props.dragOverCard ? this.props.dragOverCard.cardId : "");
                 if (this.props.dragOverCard && this.props.dragOverCard.cardId === this.props.card.cardId) {
                     console.log("setDragOverCard null")
                     this.props.setDragOverCard(null);

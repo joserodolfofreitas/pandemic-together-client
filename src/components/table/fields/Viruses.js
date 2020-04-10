@@ -18,9 +18,9 @@ class Viruses extends React.Component {
         return <div className="virus-infection card-container" style={{ "--card-count": virusCardItems.filter(c => c.state !== "destroyed").length }}>
             {virusCardItems.map((cardItem) => {
                 if (cardItem.state === "destroyed") {
-                    return <VirusCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex} isDestroyed={true} />
+                    return <VirusCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex} isDestroyed={true}  dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard}/>
                 }else{
-                    return <VirusCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex++} indicator={cardIndicators[cardItem.card.cardId]} />
+                    return <VirusCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex++} indicator={cardIndicators[cardItem.card.cardId]}  dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard}/>
                 }
             })}
         </div>;

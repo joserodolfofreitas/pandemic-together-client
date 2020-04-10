@@ -5,7 +5,7 @@ import Card from './../../shared/Card';
 class HandCard extends React.Component {
 
     render() {
-        return <Card card={this.props.card} index={this.props.index} isHandCard={true} isDestroyed={this.props.isDestroyed} isPlayable={this.props.isPlayable} isFaded={this.props.isFaded} isHidden={this.props.isHidden}>
+        return <Card card={this.props.card} index={this.props.index} isHandCard={true} isDestroyed={this.props.isDestroyed} isPlayable={this.props.isPlayable} isFaded={this.props.isFaded} isHidden={this.props.isHidden} dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard}>
         </Card>;
     }
 
