@@ -36,8 +36,6 @@ class HandCards extends React.Component {
 
     getCardItems(){
         let activeCards = this.props.cards;
-        activeCards = activeCards.filter(c => !c.graveyard); //TODO: remove, once graveyard property is removed and cards are just missing
-        console.log("");
         let displayCardItems = this.displayCardItems;        
         let activeIndex=0, displayIndex = 0;
         while(activeIndex < activeCards.length || displayIndex < displayCardItems.length){
