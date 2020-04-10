@@ -45,14 +45,11 @@ class Card extends React.Component {
     componentDidUpdate(){
         if (this.props.canDrop) {
             if (this.props.isDragOver) {
-                console.log(this.props.card.cardId)
                 if (!this.props.dragOverCard || this.props.dragOverCard.cardId !== this.props.card.cardId) {
                     this.props.setDragOverCard(this.props.card);
                 }
             } else {
-                console.log(this.props.card.cardId, this.props.dragOverCard, this.props.dragOverCard ? this.props.dragOverCard.cardId : "");
                 if (this.props.dragOverCard && this.props.dragOverCard.cardId === this.props.card.cardId) {
-                    console.log("setDragOverCard null")
                     this.props.setDragOverCard(null);
                 }
             }
@@ -80,6 +77,7 @@ class Card extends React.Component {
         }
         if (isVirusCard) {
             classNames.push('virus-card');
+            console.log("render virus",card.cardId, card.contained)
             if (card.contained) { classNames.push('contained'); }
         }
         if (this.props.isFaded) {
@@ -96,7 +94,13 @@ class Card extends React.Component {
     }
 }
 
-export default connect(null, { applyResourceOnVirus, setDraggingCard, setDragOverCard })(
+export default connect(
+    // (state) => {
+    //     return { updatesOnRoomState: state.updatesOnRoomState } // every state update, to assure card state changes are displayed
+    // }, 
+    null,
+    { applyResourceOnVirus, setDraggingCard, setDragOverCard })
+    (
     DragSource(Constants.DndItemTypes.CARD, dndDragSource, dndDragCollect)(
         DropTarget(Constants.DndItemTypes.CARD, dndDropTarget, dndDropCollect)(Card)
     )

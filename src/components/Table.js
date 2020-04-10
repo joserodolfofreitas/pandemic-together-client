@@ -4,36 +4,22 @@ import Deck from './table/Deck';
 import OtherPlayer from './table/OtherPlayer';
 import CurrentPlayer from './table/CurrentPlayer';
 import { connect } from 'react-redux';
-import {startGame} from './../redux/actions';
-
-function mapStateToProps(state) {
-    return {
-        room : state.room,
-        roomState : state.roomState,
-        updatesOnRoomState : state.updatesOnRoomState,
-        draggingCard: state.draggingCard,
-        dragOverCard: state.dragOverCard
-    }
-}
+import { startGame } from './../redux/actions';
 
 class Table extends React.Component {
-    render(){
+    render() {
         const playerItems = this.getOtherPlayerItems();
         const currentPlayer = this.getCurrentPlayer();
-
-        const currentTurnPlayerSessionId = this.props.roomState.currentTurn;
-        const draggingCard = this.props.draggingCard;
-        const dragOverCard = this.props.dragOverCard;
-
-        return <div className={`table players-${playerItems.length+1}`} style={{backgroundImage: "url(/images/background_table.jpg)"}}>
+        console.log("render table");
+        return <div className={`table players-${playerItems.length + 1}`} style={{ backgroundImage: "url(/images/background_table.jpg)" }}>
             <div className="header">
-                <span className="logo" style={{backgroundImage: "url(/images/logo.png)"}}></span>
+                <span className="logo" style={{ backgroundImage: "url(/images/logo.png)" }}></span>
                 <h1>Pandemic Together</h1>
             </div>
-            {playerItems.map(function(item, index){
-                return <OtherPlayer key={index} player={item.player} position={item.position} isCurrentTurn={item.player.sessionId === currentTurnPlayerSessionId} draggingCard={draggingCard} dragOverCard={dragOverCard}/>
+            {playerItems.map((item, index) => {
+                return <OtherPlayer key={index} player={item.player} position={item.position} />
             })}
-            <CurrentPlayer player={currentPlayer} isCurrentTurn={currentPlayer.sessionId === currentTurnPlayerSessionId} draggingCard={draggingCard} dragOverCard={dragOverCard}/>
+            <CurrentPlayer player={currentPlayer} />
             <Deck playerItems={playerItems} />
             <ChatRoom />
             <div className="footer">
@@ -42,33 +28,39 @@ class Table extends React.Component {
         </div>
     }
 
-    getOtherPlayerItems(){
-        const roomStatePlayers = this.props.roomState.players;
-        const currentPlayerSessionId = this.props.room.sessionId;
+    getOtherPlayerItems() {
         let players = [];
         let indexCounter = 0;
         let currentPlayerIndex = 0;
-        for (let id in roomStatePlayers) {
-            const player = roomStatePlayers[id];
-            if (player.sessionId !== currentPlayerSessionId) {
-                players.push({player})
-            }else{
+        for (let id in this.props.players) {
+            const player = this.props.players[id];
+            if (player.sessionId !== this.props.currentPlayerId) {
+                players.push({ player })
+            } else {
                 currentPlayerIndex = indexCounter;
             }
             indexCounter++;
         }
-        players = players.concat(players.splice(0,currentPlayerIndex))
+        players = players.concat(players.splice(0, currentPlayerIndex))
         let positions = players.length === 2 ? ["player-left", "player-right"] : ["player-left", "player-top", "player-right"];
-        positions.forEach((p,i) => players[i].position = p);
+        positions.forEach((p, i) => players[i].position = p);
         return players;
     }
 
-    getCurrentPlayer(){       
-        const roomState = this.props.roomState;
-        const currentPlayerSessionId = this.props.room.sessionId;
-        return Object.values(roomState.players).filter(p => p.sessionId === currentPlayerSessionId)[0]
+    getCurrentPlayer() {
+        return Object.values(this.props.players).filter(p => p.sessionId === this.props.currentPlayerId)[0]
     }
 
 }
 
-export default connect(mapStateToProps, {startGame}) (Table)
+export default connect(
+    (state) => {
+        const result = {
+            players: state.roomState.players,
+            currentPlayerId: state.room.sessionId
+        }
+        console.log("connect table", result);
+        return result;
+    },
+    { startGame }
+)(Table)

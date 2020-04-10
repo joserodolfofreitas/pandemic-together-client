@@ -8,21 +8,23 @@ import Player from './Player';
 
 class CurrentPlayer extends React.Component {
     onClick_skipTurn() {
-        if (!this.props.isCurrentTurn) {
+        if (this.props.player.sessionId !== this.props.activePlayerId) {
             return;
         }
         this.props.skipTurn();
     }
     render() {
         const player = this.props.player;
-        let cardCount = player.virusField.length + player.hand.length + 2; // + character
-        if (this.props.isCurrentTurn) {
+        let cardCount = this.props.virusCards.length + player.hand.length + 2; // + character
+        const isActivePlayer = this.props.player.sessionId === this.props.activePlayerId;
+        if (isActivePlayer) {
             cardCount += 1; // + action
         }
-        return <Player player={player} position={"player-current"} isCurrentTurn={this.props.isCurrentTurn} cardCount={cardCount}>
-            <Viruses player={player} draggingCard={this.props.draggingCard} dragOverCard={this.props.dragOverCard} />
-            <Character player={player} isFaded={!!this.props.draggingCard} />
-            <Hand player={player} isCurrentTurn={this.props.isCurrentTurn} draggingCard={this.props.draggingCard} />
+        console.log("render current player")
+        return <Player player={player} position={"player-current"} isActivePlayer={isActivePlayer} cardCount={cardCount}>
+            <Viruses player={player} />
+            <Character player={player} />
+            <Hand player={player} isActivePlayer={isActivePlayer} />
             <div className="actions">
                 <div className="action action-skip" style={{ backgroundImage: "url(/images/action-skip.png)" }} onClick={() => this.onClick_skipTurn()}></div>
             </div>
@@ -30,4 +32,12 @@ class CurrentPlayer extends React.Component {
     }
 }
 
-export default connect(null, { skipTurn })(CurrentPlayer)
+export default connect(
+    (state, ownProps) => {
+        return {
+            activePlayerId: state.roomState.currentTurn,
+            virusCards: ownProps.player.virusField
+        }
+    },
+    { skipTurn }
+)(CurrentPlayer)

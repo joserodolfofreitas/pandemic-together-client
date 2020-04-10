@@ -22,6 +22,7 @@ const reducerMap = {
 }
 
 function reducers(state, action) {
+    console.log(action);
     const reducer = reducerMap[action.type];
     return reducer ? reducer(state, action) : state;
 }

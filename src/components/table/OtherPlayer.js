@@ -8,12 +8,20 @@ class OtherPlayer extends React.Component {
     render() {
         const player = this.props.player;
         const cardCount = player.virusField.length + 2;
+        const isActivePlayer = this.props.player.sessionId === this.props.activePlayerId;
 
-        return <Player player={player} position={this.props.position} isCurrentTurn={this.props.isCurrentTurn} cardCount={cardCount}>
-            <Character player={player} isFaded={!!this.props.draggingCard} />
-            <Viruses player={player} draggingCard={this.props.draggingCard} dragOverCard={this.props.dragOverCard} />
+        return <Player player={player} position={this.props.position} isActivePlayer={isActivePlayer} cardCount={cardCount}>
+            <Character player={player} />
+            <Viruses player={player} />
         </Player>
     }
 }
 
-export default connect(null, null)(OtherPlayer)
+export default connect(
+    (state) => {
+        return {
+            activePlayerId: state.roomState.currentTurn
+        }
+    },
+    null
+)(OtherPlayer)
