@@ -40,7 +40,7 @@ class StartGame extends React.Component {
     }
 
     render() {
-        return <div className="start-game" style={{ backgroundImage: "url(/images/background.jpg)" }}>
+        return <div className="start-game" style={{ backgroundImage: "url(/images/background_table.jpg)" }}>
             <div className="content">
                 <div className="left">
                     <div className="card" style={{ backgroundImage: "url(/images/card-deck.png)" }}></div>

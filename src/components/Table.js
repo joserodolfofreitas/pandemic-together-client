@@ -22,7 +22,7 @@ class Table extends React.Component {
         const currentPlayer = this.getCurrentPlayer();
         const className = `table players-${playerItems.length+1}`;
 
-        return <div className={className} style={{backgroundImage: "url(/images/background.jpg)"}}>
+        return <div className={className} style={{backgroundImage: "url(/images/background_table.jpg)"}}>
             <div className="header">
                 <span className="logo" style={{backgroundImage: "url(/images/logo.png)"}}></span>
                 <h1>Pandemic Together</h1>
