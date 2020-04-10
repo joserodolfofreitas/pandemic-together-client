@@ -6,7 +6,7 @@ import * as Constants from './../common/constants';
 
 class Main extends React.Component {
     render() {
-        console.log("render main")
+
         if (!this.props.gameState || this.props.gameState === Constants.GAME_STATE_WAITING_PLAYERS) {
             return <StartGame />;
         }

@@ -4,6 +4,7 @@ import runStartGame from './thunks/runStartGame';
 import runApplyResourceOnVirus from './thunks/runApplyResourceOnVirus';
 import runRemoveMobileUrlBar from './thunks/runRemoveMobileUrlBar';
 import runSkipTurn from './thunks/runSkipTurn';
+import runPlayVirusPhase from './thunks/runPlayVirusPhase';
 /*
  * redux action types
  */
@@ -15,6 +16,7 @@ export const SET_ROOM_STATE = 'SET_ROOM_STATE';
 export const SET_IS_LOADING = 'SET_IS_LOADING';
 export const SET_DRAGGING_CARD = 'SET_DRAGGING_CARD';
 export const SET_DRAG_OVER_CARD = 'SET_DRAG_OVER_CARD';
+export const SET_VIRUS_PHASE_MESSAGE = 'SET_VIRUS_PHASE_MESSAGE';
 
 /*
  * redux action creators
@@ -51,6 +53,10 @@ export function setDragOverCard(card) {
     return { type: SET_DRAG_OVER_CARD, card }
 }
 
+export function setVirusPhaseMessage(message){
+    return { type: SET_VIRUS_PHASE_MESSAGE, message }
+}
+
 export function startGame() {
     return runStartGame();
 }
@@ -70,3 +76,8 @@ export function removeMobileUrlBar(){
 export function skipTurn(){
     return runSkipTurn()
 }
+
+export function playVirusPhase(){
+    return runPlayVirusPhase()
+}
+

@@ -1,5 +1,6 @@
 import * as Colyseus from "colyseus.js";
-import { setRoom, setRoomState, isLoading } from './../actions'
+import { setRoom, setRoomState, isLoading, playVirusPhase } from './../actions';
+import * as Constants from '../../common/constants';
 const serverUrl = (process.env.NODE_ENV === 'production') ? 'wss://pandemic-together-server.herokuapp.com' : 'ws://localhost:2567'
 //const serverUrl = (window.location.hostname.indexOf("herokuapp") === -1)
 //? "ws://localhost:2567" // development (local)
@@ -35,6 +36,10 @@ function runLogin(username) {
                 room.onStateChange((roomState) => {
                     console.log("the room state has been updated:", roomState);
                     dispatch(setRoomState(roomState));
+                    if(roomState.roundState === Constants.ROUND_STATE_VIRUS_PHASE){
+                        console.log("dispatch(playVirusPhase());")
+                        dispatch(playVirusPhase());
+                    }
                 });
                 // room.state.onChange = (changes) => {
                 //     changes.forEach(change => {

@@ -5,20 +5,20 @@ import { connect } from 'react-redux';
 
 class Character extends React.Component {
     render() {
-        const player = this.props.player;
-        const playerField = [player.advantages[0], player.disadvantages[0]];
         const isFaded = !!this.props.draggingCard;
         return <div className="player-char card-container" style={{ "--card-count": 2 }}>
-            {playerField.map((card, index) => <Card key={card.cardId} card={card} index={index} isFaded={isFaded} />)}
+            {this.props.playerField.map((card, index) => <Card key={card.cardId} card={card} index={index} isFaded={isFaded} />)}
         </div>;
     }
 }
 
 export default connect(
-    (state) => {
+    (state, ownProps) => {
+        const player = state.roomState.players[ownProps.playerId];
         return {
             draggingCard: state.draggingCard,
-            dragOverCard: state.dragOverCard
+            dragOverCard: state.dragOverCard,
+            playerField: [player.advantages[0], player.disadvantages[0]]
         }
     },
     null

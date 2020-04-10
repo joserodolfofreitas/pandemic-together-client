@@ -9,17 +9,16 @@ import { startGame } from './../redux/actions';
 class Table extends React.Component {
     render() {
         const playerItems = this.getOtherPlayerItems();
-        const currentPlayer = this.getCurrentPlayer();
-        console.log("render table");
+        
         return <div className={`table players-${playerItems.length + 1}`} style={{ backgroundImage: "url(/images/background_table.jpg)" }}>
             <div className="header">
                 <span className="logo" style={{ backgroundImage: "url(/images/logo.png)" }}></span>
                 <h1>Pandemic Together</h1>
             </div>
             {playerItems.map((item, index) => {
-                return <OtherPlayer key={index} player={item.player} position={item.position} />
+                return <OtherPlayer key={index} playerId={item.playerId} position={item.position} />
             })}
-            <CurrentPlayer player={currentPlayer} />
+            <CurrentPlayer playerId={this.props.currentPlayerId} />
             <Deck playerItems={playerItems} />
             <ChatRoom />
             <div className="footer">
@@ -35,7 +34,7 @@ class Table extends React.Component {
         for (let id in this.props.players) {
             const player = this.props.players[id];
             if (player.sessionId !== this.props.currentPlayerId) {
-                players.push({ player })
+                players.push({ playerId: player.sessionId })
             } else {
                 currentPlayerIndex = indexCounter;
             }
@@ -47,10 +46,6 @@ class Table extends React.Component {
         return players;
     }
 
-    getCurrentPlayer() {
-        return Object.values(this.props.players).filter(p => p.sessionId === this.props.currentPlayerId)[0]
-    }
-
 }
 
 export default connect(
@@ -59,7 +54,6 @@ export default connect(
             players: state.roomState.players,
             currentPlayerId: state.room.sessionId
         }
-        console.log("connect table", result);
         return result;
     },
     { startGame }

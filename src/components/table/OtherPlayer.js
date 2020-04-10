@@ -3,24 +3,26 @@ import Viruses from './fields/Viruses';
 import { connect } from 'react-redux';
 import Character from './fields/Character';
 import Player from './Player';
+import * as Constants from '../../common/constants';
 
 class OtherPlayer extends React.Component {
     render() {
-        const player = this.props.player;
-        const cardCount = player.virusField.length + 2;
-        const isActivePlayer = this.props.player.sessionId === this.props.activePlayerId;
+        const playerId = this.props.playerId;
+        const cardCount = this.props.virusCards.length + 2;
+        const isActivePlayer = playerId === this.props.activePlayerId;
 
-        return <Player player={player} position={this.props.position} isActivePlayer={isActivePlayer} cardCount={cardCount}>
-            <Character player={player} />
-            <Viruses player={player} />
+        return <Player playerId={playerId} position={this.props.position} isActivePlayer={isActivePlayer} cardCount={cardCount}>
+            <Character playerId={playerId} />
+            <Viruses playerId={playerId} />
         </Player>
     }
 }
 
 export default connect(
-    (state) => {
+    (state, ownProps) => {
         return {
-            activePlayerId: state.roomState.currentTurn
+            activePlayerId: state.roomState.roundState === Constants.ROUND_STATE_PLAYERS_PHASE ? state.roomState.currentTurn : null,
+            virusCards: state.roomState.players[ownProps.playerId].virusField,
         }
     },
     null

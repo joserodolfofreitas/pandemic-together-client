@@ -77,7 +77,7 @@ class Card extends React.Component {
         }
         if (isVirusCard) {
             classNames.push('virus-card');
-            console.log("render virus",card.cardId, card.contained)
+            //console.log("render virus",card.cardId, card.contained)
             if (card.contained) { classNames.push('contained'); }
         }
         if (this.props.isFaded) {

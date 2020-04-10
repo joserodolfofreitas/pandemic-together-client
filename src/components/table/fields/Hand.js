@@ -57,7 +57,7 @@ export default connect(
         return {
             draggingCard: state.draggingCard,
             dragOverCard: state.dragOverCard,
-            handCards: ownProps.player.hand
+            handCards: state.roomState.players[ownProps.playerId].hand
         }
     },
     null

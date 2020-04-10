@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 class Deck extends React.Component {
     render() {
-        const activePlayer = this.props.playerItems.filter(p => p.player.sessionId === this.props.activePlayerId);
+        const activePlayer = this.props.playerItems.filter(p => p.playerID === this.props.activePlayerId);
         const activePlayerPosition = (activePlayer && activePlayer.length) ? activePlayer[0].position : "player-current";
         const className = `deck ${activePlayerPosition}`;
 

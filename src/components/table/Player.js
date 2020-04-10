@@ -10,10 +10,9 @@ class Player extends React.Component {
         if(this.props.isActivePlayer){
             classes += " current-turn";
         }
-        console.log("render player", this.props.player.name)
         return (
             <div className={classes} style={styles}>
-                <div className="player-name">{this.props.player.name}</div>
+                <div className="player-name">{this.props.playerName}</div>
                 <div className="player-cards card-container" style={{ "--card-count": this.props.cardCount }}>
                     {this.props.children}
                 </div>
@@ -23,6 +22,10 @@ class Player extends React.Component {
 }
 
 export default connect(
-    null,
+    (state, ownProps) => {
+        return {
+            playerName: state.roomState.players[ownProps.playerId].name
+        }
+    },
     null
 )(Player)

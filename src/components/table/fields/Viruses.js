@@ -15,8 +15,10 @@ class Viruses extends React.Component {
         const virusCardItems = this.getCardItems();
         const cardIndicators = this.getCardIndicators(virusCardItems);
         let positionIndex = 0;
+        console.log(this.props.playerId)
         return <div className="virus-infection card-container" style={{ "--card-count": virusCardItems.filter(c => c.state !== "destroyed").length }}>
             {virusCardItems.map((cardItem) => {
+                console.log(cardItem.card.cardId);
                 if (cardItem.state === "destroyed") {
                     return <VirusCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex} isDestroyed={true} dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard} />
                 } else {
@@ -35,13 +37,14 @@ class Viruses extends React.Component {
             const displayCardItem = displayCardItems[displayIndex];
 
             if (activeCard && displayCardItem && activeCard.cardId === displayCardItem.card.cardId) {
+                displayCardItem.card = activeCard;
                 displayCardItem.state = "displayed";
                 activeIndex++;
                 displayIndex++;
                 continue;
             }
             if (!displayCardItem) {
-                displayCardItems.push({ card: Object.assign({}, activeCard), state: "displayed" });
+                displayCardItems.push({ card: activeCard , state: "displayed" });
                 activeIndex++;
                 displayIndex++;
                 continue;
@@ -83,7 +86,7 @@ export default connect(
         return {
             draggingCard: state.draggingCard,
             dragOverCard: state.dragOverCard,
-            virusCards: ownProps.player.virusField
+            virusCards: state.roomState.players[ownProps.playerId].virusField
         }
     },
     null
