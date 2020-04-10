@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './Card';
 import VirusCards from './VirusCards';
+import HandCards from './HandCards';
 import * as Constants from './common/constants';
 import { connect } from 'react-redux';
 
@@ -41,14 +42,7 @@ class CurrentPlayer extends React.Component {
                             {playerField.map((card, index) => <Card key={card.cardId} card={card} index={index} isFaded={isDraggingCard} />)}
                         </div>
                     </div>
-                    <div className="hand-cards card-container" style={{ "--card-count": player.hand.length }}>
-                        {player.hand.map((card, index) => {
-                            const isPlayable = isCurrentTurn; //TODO: disadvantage anwenden
-                            if (!card.graveyard) {
-                                return <Card key={card.cardId} card={card} index={index} isHandCard={true} isPlayable={isPlayable} isFaded={isDraggingCard} isHidden={isDraggingCard && this.props.draggingCard.cardId == card.cardId} />
-                            }
-                        })}
-                    </div>
+                    <HandCards cards={player.hand} player={player} />
                     <div className="actions">
                         <div className="action action-skip" style={{ backgroundImage: "url(/images/action-skip.png)" }} onClick={() => this.onClick_advanceTurn()}></div>
                     </div>

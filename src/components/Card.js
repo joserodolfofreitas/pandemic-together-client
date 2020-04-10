@@ -100,6 +100,9 @@ class Card extends React.Component {
         if (this.props.isHidden) {
             classNames.push('hidden');
         }
+        if (this.props.isDestroyed) {
+            classNames.push('destroyed');
+        }
 
         return classNames.join(' ');
     }
