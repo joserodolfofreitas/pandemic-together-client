@@ -34,7 +34,7 @@ function runLogin(username) {
                 // });
 
                 room.onStateChange((roomState) => {
-                    console.log("the room state has been updated:", roomState);
+                    console.log("#### roomState", roomState);
                     dispatch(setRoomState(roomState));
                     if(roomState.roundState === Constants.ROUND_STATE_VIRUS_PHASE){
                         console.log("dispatch(playVirusPhase());")
