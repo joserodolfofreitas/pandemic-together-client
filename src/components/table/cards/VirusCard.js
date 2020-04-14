@@ -4,6 +4,7 @@ import Card from './../../shared/Card';
 
 class VirusCard extends React.Component {
     render() {
+        console.log("VirusCard render",this.props.card.cardId, this.props.card);
         return <Card card={this.props.card} index={this.props.index} isDestroyed={this.props.isDestroyed} dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard}>
             {this.renderVirusTokens()}
             {this.renderVirusIndicators()}

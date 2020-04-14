@@ -15,10 +15,11 @@ class Viruses extends React.Component {
         const virusCardItems = this.getCardItems();
         const cardIndicators = this.getCardIndicators(virusCardItems);
         let positionIndex = 0;
-        console.log(this.props.playerId)
+        console.log("Viruses render", this.props.playerId, virusCardItems)
         return <div className="virus-infection card-container" style={{ "--card-count": virusCardItems.filter(c => c.state !== "destroyed").length }}>
             {virusCardItems.map((cardItem) => {
-                console.log(cardItem.card.cardId);
+                console.log("Viruses card",cardItem.card.cardId,cardItem);
+                //FIXME: properties dont change, even if card-state or card tokens changed, so virus card isn't rendered
                 if (cardItem.state === "destroyed") {
                     return <VirusCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex} isDestroyed={true} dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard} />
                 } else {
