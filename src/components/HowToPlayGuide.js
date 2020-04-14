@@ -116,8 +116,9 @@ class HowToPlayGuide extends React.Component {
 
                 <h2>Table Layout</h2>
 
-                When  the game starts, the main deck is placed on the center of the screen, and you'll be able to see all your friends advantages, disadvantages and virus cards. Each one of your at one side of the screen. async.
-                The bottom of the screen is reserved for your own cards
+                When  the game starts, the main deck is placed on the center of the screen, and you'll be able to see all your friends advantages, disadvantages and virus cards. Each one at a side of the screen. async.
+                The bottom of the screen is reserved for your own cards. You'll see your advantage and disadvantage on the left, your virus field on the center, and your hand on the right.
+                Following you can see an example of table layout.
                 <div style={{height:400}} className="img-example">
                     <img className="table-layout" src="/images/pt-table-layout.jpg"></img>
                 </div>
