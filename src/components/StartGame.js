@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { login, startGame, removeMobileUrlBar } from './redux/actions'
 import ChatRoom from './ChatRoom';
+import HowToPlayGuide from './HowToPlayGuide';
 import * as Constants from './common/constants';
 
 
@@ -51,6 +52,7 @@ class StartGame extends React.Component {
                     </div>
                 </div>
             </div>
+            <HowToPlayGuide />
         </div>
     }
 
