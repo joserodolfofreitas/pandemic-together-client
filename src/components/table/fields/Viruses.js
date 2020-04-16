@@ -38,14 +38,15 @@ class Viruses extends React.Component {
             const displayCardItem = displayCardItems[displayIndex];
 
             if (activeCard && displayCardItem && activeCard.cardId === displayCardItem.card.cardId) {
-                displayCardItem.card = activeCard;
+                displayCardItem.card = Object.assign({}, activeCard); //clone card, to avoid reference problems for now
                 displayCardItem.state = "displayed";
                 activeIndex++;
                 displayIndex++;
                 continue;
             }
             if (!displayCardItem) {
-                displayCardItems.push({ card: activeCard, state: "displayed" });
+                const newItem = { card: Object.assign({}, activeCard), state: "displayed" }; //clone card, to avoid reference problems for now
+                displayCardItems.push(newItem);
                 activeIndex++;
                 displayIndex++;
                 continue;
