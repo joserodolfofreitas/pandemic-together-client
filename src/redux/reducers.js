@@ -34,7 +34,7 @@ const reducerMap = {
     [SET_VIRUS_PHASE_MESSAGE]: (state, action) => setVirusPhaseMessage(state, action.message),
     [PUSH_GAME_MESSAGE]: (state, action) => pushGameMessage(state, action.gameMessage),
     [REMOVE_GAME_MESSAGE]: (state, action) => removeGameMessage(state, action.gameMessage),
-    [RESET_GAME_MESSAGES]: (state, action) => resetGameMessages(state)
+    [RESET_GAME_MESSAGES]: (state, action) => resetGameMessages(state),
     [SET_CURRENT_PLAYER_SESSION_ID]: (state, action) => setCurrentPlayerSessionId(state, action.sessionId),
 }
 

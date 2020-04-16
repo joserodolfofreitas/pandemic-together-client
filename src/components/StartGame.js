@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { login, startGame, removeMobileUrlBar } from './../redux/actions'
+import { login, startGame, removeMobileUrlBar, startBot } from './../redux/actions'
 import ChatRoom from './shared/ChatRoom';
 import HowToPlayGuide from './HowToPlayGuide';
 import * as Constants from './../common/constants';

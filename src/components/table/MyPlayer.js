@@ -3,11 +3,11 @@ import Viruses from './fields/Viruses';
 import Hand from './fields/Hand';
 import Character from './fields/Character';
 import { connect } from 'react-redux';
-import { skipTurn } from './../../redux/actions';
+import { skipTurn } from '../../redux/actions';
 import Player from './Player';
 import * as Constants from '../../common/constants';
 
-class CurrentPlayer extends React.Component {
+class MyPlayer extends React.Component {
     onClick_skipTurn() {
         if (this.props.playerId !== this.props.activePlayerId) {
             return;
@@ -41,4 +41,4 @@ export default connect(
         }
     },
     { skipTurn }
-)(CurrentPlayer)
+)(MyPlayer)

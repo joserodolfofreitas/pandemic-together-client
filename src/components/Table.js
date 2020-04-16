@@ -2,12 +2,11 @@ import React from 'react';
 import ChatRoom from './shared/ChatRoom';
 import Deck from './table/Deck';
 import OtherPlayer from './table/OtherPlayer';
-import CurrentPlayer from './table/CurrentPlayer';
+import MyPlayer from './table/MyPlayer';
 import GameMessages from './GameMessages';
 import { connect } from 'react-redux';
 import { startGame } from './../redux/actions';
 
-        currentPlayerSessionId : state.currentPlayerSessionId,
 class Table extends React.Component {
     render() {
         const playerItems = this.getOtherPlayerItems();
@@ -20,7 +19,7 @@ class Table extends React.Component {
             {playerItems.map((item, index) => {
                 return <OtherPlayer key={index} playerId={item.playerId} position={item.position} />
             })}
-            <CurrentPlayer playerId={this.props.currentPlayerId} />
+            <MyPlayer playerId={this.props.myPlayerId} />
             <Deck playerItems={playerItems} />
             <ChatRoom />
             <div className="footer">
@@ -36,7 +35,7 @@ class Table extends React.Component {
         let currentPlayerIndex = 0;
         for (let id in this.props.players) {
             const player = this.props.players[id];
-            if (player.sessionId !== this.props.currentPlayerId) {
+            if (player.sessionId !== this.props.myPlayerId) {
                 players.push({ playerId: player.sessionId })
             } else {
                 currentPlayerIndex = indexCounter;
@@ -55,7 +54,7 @@ export default connect(
     (state) => {
         const result = {
             players: state.roomState.players,
-            currentPlayerId: state.room.sessionId
+            myPlayerId: state.currentPlayerSessionId
         }
         return result;
     },
