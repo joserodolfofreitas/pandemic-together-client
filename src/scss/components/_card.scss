@@ -47,8 +47,8 @@
     animation: add-card 1s 0s 1;
 
     &:hover {
-      transform: scale(1.5, 1.5);
-      z-index: 10;
+        transform: scale(1.5, 1.5);
+        z-index: 10;
     }
 
     &.contained {

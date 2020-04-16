@@ -17,10 +17,26 @@ export const SET_IS_LOADING = 'SET_IS_LOADING';
 export const SET_DRAGGING_CARD = 'SET_DRAGGING_CARD';
 export const SET_DRAG_OVER_CARD = 'SET_DRAG_OVER_CARD';
 export const SET_VIRUS_PHASE_MESSAGE = 'SET_VIRUS_PHASE_MESSAGE';
+export const PUSH_GAME_MESSAGE = 'PUSH_GAME_MESSAGE';
+export const REMOVE_GAME_MESSAGE = 'REMOVE_GAME_MESSAGE';
+export const RESET_GAME_MESSAGES = 'RESET_GAME_MESSAGES';
 
 /*
  * redux action creators
  */
+
+export function pushGameMessage(gameMessage) {
+    return { type: PUSH_GAME_MESSAGE, gameMessage }
+}
+
+export function removeGameMessage(gameMessageToRemove) {
+    return { type: REMOVE_GAME_MESSAGE, gameMessageToRemove }
+}
+
+export function resetGameMessages() {
+    return { type: RESET_GAME_MESSAGES }
+}
+
 export function setRoom(room) {
     return { type: SET_ROOM, room }
 }

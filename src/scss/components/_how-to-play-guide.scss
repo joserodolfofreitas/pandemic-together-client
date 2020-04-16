@@ -1,0 +1,85 @@
+.how-to-play {
+    margin:auto;
+    background-color: rgba(#140c0e, 1);
+    color: #fff;
+    padding: 10px;
+    font-size: 0.8em;
+    overflow: scroll;
+    border-radius: 5px;
+
+    &.quick {
+        width: 80vmin;
+        height: 150px;
+        margin-top: -50px;
+        margin-bottom: 50px;
+    }
+
+    .full-instructions {
+        background-color: rgba(#140c0e, 1);
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        position: absolute;
+        margin: auto;
+        top: 3vh;
+        left: 0px;
+        right: 0px;
+        width: 80vw;
+        height: 94vh;
+        float:left;
+
+        .header {
+
+            width: 100%;
+            text-align: center;
+            font-size: 1.2em;
+
+            .close-button {
+                width: 1em;
+                text-align: center;
+                float: right;
+                padding: 5px;
+                background:  #dc143c;
+            }
+        }
+
+
+
+        .instructions-content {
+            margin: 20px auto;
+            height: 90%;
+            padding: 20px;
+            overflow: scroll;
+            width: 90%;
+
+            .types-of-cards {
+                .description {
+
+                }
+                .card-example {
+                    width: 10%;
+                }
+            }
+
+            .img-example {
+                text-align: center;
+                height: 200px;
+                margin:5px;
+
+                img {
+                    height:100%;
+                    margin:2px;
+                    &:hover {
+                        transform: scale(3, 3);
+                    }
+                }
+
+                .table-layout {
+                    &:hover {
+                        transform: scale(1.5, 1.5);
+                    }
+                }
+            }
+        }
+    }
+}
