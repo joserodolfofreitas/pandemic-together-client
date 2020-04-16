@@ -33,7 +33,13 @@ function runStartBot(username) {
                         console.log("bot onState step change");
                         if (change.field == "currentTurn") {
                             if (change.value == botRoom.sessionId) {
+                                const players = getState().roomState.players;
                                 setTimeout(()=>{
+                                    console.log(" bot will play and iterate over players ");
+                                    for (let id in players) {
+                                        const player = players[id];
+                                        console.log("player.name", player.name);
+                                    }
                                     const message = { type: Constants.GM_ADVANCE_TURN, player: botRoom.sessionId };
                                     botRoom.send(message);
                                 }, 6000);

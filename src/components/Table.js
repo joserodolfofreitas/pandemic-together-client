@@ -66,7 +66,6 @@ class Table extends React.Component {
     getCurrentPlayer(){       
         const roomState = this.props.roomState;
         const currentPlayerSessionId = this.props.currentPlayerSessionId;//this.props.room.sessionId;
-        console.log("!!!!!", "currentPlayerSessionId",currentPlayerSessionId);
         return Object.values(roomState.players).filter(p => p.sessionId === currentPlayerSessionId)[0]
     }
 
