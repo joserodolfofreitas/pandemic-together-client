@@ -24,11 +24,8 @@ class Main extends React.Component {
         if (roomState === null || roomState.gameState === Constants.GAME_STATE_WAITING_PLAYERS) {
             return <StartGame />;
         }
-        else if (roomState.gameState === Constants.GAME_STATE_STARTED) {
+        else if (roomState.gameState === Constants.GAME_STATE_STARTED || roomState.gameState === Constants.GAME_STATE_VICTORY_END ||  roomState.gameState === Constants.GAME_STATE_OVER) {
             return <Table />;
-        }
-        else if (roomState.gameState === Constants.GAME_STATE_VICTORY_END) {
-            return <Table />; //TODO VICTORY SCREEN
         }
         throw new Error("Unknown state")
     }

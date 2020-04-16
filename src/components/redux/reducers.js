@@ -3,7 +3,8 @@ import {
     SET_ROOM_STATE,
     SET_IS_LOADING,
     SET_DRAGGING_CARD,
-    SET_DRAG_OVER_CARD
+    SET_DRAG_OVER_CARD,
+    SET_GAME_MESSAGE,
 } from './actions'
 
 import setRoom from './reducers/setRoom';
@@ -11,6 +12,7 @@ import setRoomState from './reducers/setRoomState';
 import setIsLoading from './reducers/setIsLoading';
 import setDraggingCard from './reducers/setDraggingCard';
 import setDragOverCard from './reducers/setDragOverCard';
+import setGameMessage from './reducers/setGameMessage';
 
 
 const reducerMap = {
@@ -19,6 +21,7 @@ const reducerMap = {
     [SET_IS_LOADING]: (state, action) => setIsLoading(state, action.isLoading),
     [SET_DRAGGING_CARD]: (state, action) => setDraggingCard(state, action.card),
     [SET_DRAG_OVER_CARD]: (state, action) => setDragOverCard(state, action.card),
+    [SET_GAME_MESSAGE]: (state, action) => setGameMessage(state, action.gameMessage),
 }
 
 function reducers(state, action) {

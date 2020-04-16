@@ -3,6 +3,7 @@ import ChatRoom from './ChatRoom';
 import Deck from './Deck';
 import Player from './Player';
 import CurrentPlayer from './CurrentPlayer';
+import GameMessages from './GameMessages';
 import { connect } from 'react-redux';
 import {startGame} from './redux/actions';
 
@@ -36,6 +37,7 @@ class Table extends React.Component {
             <div className="footer">
                 a collaborative effort by lots of people (will add names soon)
             </div>
+            <GameMessages />
         </div>
     }
 

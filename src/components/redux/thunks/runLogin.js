@@ -1,5 +1,5 @@
 import * as Colyseus from "colyseus.js";
-import { setRoom, setRoomState, isLoading } from './../actions'
+import { setRoom, setRoomState, isLoading, setGameMessage } from './../actions'
 const serverUrl = (process.env.NODE_ENV === 'production') ? 'wss://pandemic-together-server.herokuapp.com' : 'ws://localhost:2567'
 //const serverUrl = (window.location.hostname.indexOf("herokuapp") === -1)
 //? "ws://localhost:2567" // development (local)
@@ -38,11 +38,23 @@ function runLogin(username) {
                 });
 		room.state.onChange = (changes) => {
                     changes.forEach(change => {
-                        console.log("******* on state step change")
+                        console.log("******* on state step change");
                         console.log(change.field);
                         console.log(change.value);
                         console.log(change.previousValue);
                         console.log("*******")
+
+
+                        //TODO  extract this into a data processors.
+                        switch (change.field) {
+                            case "currentTurn":
+                            case "roundState":
+                            case "gameState":
+                                dispatch(setGameMessage({type: change.field, value: change.value}));
+                                break;
+                            default:
+                                break;
+                        }
                     });
                 };
 

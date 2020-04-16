@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { login, startGame, removeMobileUrlBar } from './redux/actions'
 import ChatRoom from './ChatRoom';
 import HowToPlayGuide from './HowToPlayGuide';
+import GameMessages from './GameMessages';
 import * as Constants from './common/constants';
 
 

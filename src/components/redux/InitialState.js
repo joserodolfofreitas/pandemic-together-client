@@ -12,6 +12,7 @@ export const initialState = {
     isLoading: false,
     draggingCard: null,
     dragOverCard: null,
+    gameMessage: null,
     cards: [
 
         {
