@@ -1,94 +1,87 @@
 import React from 'react';
+import GameMessage from './GameMessage'
 import { connect } from 'react-redux';
-import { setGameMessage } from './redux/actions'
+import { removeGameMessage } from './redux/actions'
 
 function mapStateToProps(state) {
     return {
-        gameMessage: state.gameMessage,
+        gameMessages: state.gameMessages,
         roomState: state.roomState,
         room: state.room,
     }
 }
 
-
 class GameMessages extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            updates:0
-        }
-    }
-
-    gameMessage;
-    reset = false;
-    timeoutHolder;
-
-    resetFadeAnimation() {
-        if (this.reset) {
-            setTimeout(() => {
-                this.gameMessage = {type:"clean"};
-                this.reset = false;
-                this.setState({updates: this.state.updates + 1})
-            }, 5000);
-        }
-    }
-
-    componentDidMount() {
-        this.resetFadeAnimation();
-    }
-
-    componentDidUpdate() {
-        this.resetFadeAnimation();
-    }
-
-    componentWillUnmount() {
-        clearTimeout(this.timeoutHolder);
-    }
+    messages = [];
 
     render() {
-        var message = "";
-        const players = this.props.roomState.players;
-        var classes = "game-messages ";
-        var imgSrc = "/images/card-D4.png";
 
-        if (this.gameMessage && this.gameMessage.type == "clean") {
-            this.gameMessage = null;
-            return <div class={classes} />
-        }
+        var players = (this.props.roomState) ? this.props.roomState.players : [];
+        const room = this.props.room;
 
-        this.gameMessage = this.props.gameMessage;
-        this.reset = true;
+        const messageTimersIds = Object.keys(this.messages);
 
-        if (this.gameMessage && this.gameMessage.type) {
-            switch (this.gameMessage.type) {
-                case "currentTurn":
-                    const player = players[this.gameMessage.value];
-                    if (player.sessionId == this.props.room.sessionId) {
-                        message = "Your turn.";
-                    } else {
-                        message = player.name + "'s turn.";
-                    }
-                    classes +="fadeinout";
-                    break;
-                case "roundState":
-                    message = this.gameMessage.value;
-                    classes +="fadeinout";
-                    break;
-                case "gameState":
-                    message = this.gameMessage.value;
-                    classes +="fadein";
-                    break;
-                default:
-                    break;
+        for (var i = 0; i < this.props.gameMessages.length; i++) {
+            const gameMessageData = this.props.gameMessages[i];
+            if (!messageTimersIds.includes(gameMessageData.messageId)) {
+                this.messages[gameMessageData.messageId] = Object.assign(gameMessageData, {start: Date.now()});
+
             }
         }
-        return (message != "") ? <div className={classes}>
-                    <div>
-                        <img src={imgSrc} />
-                        <span>{message}</span>
-                    </div>
-                </div> : (null);
+
+        const now = Date.now();
+        //const messagesToRender = this.messages.filter((item, index) => (item.start + 5000) > now);
+        var messagesToRender = [];
+        for (let id in this.messages) {
+            var message = this.messages[id];
+            if ((message.start + 5000) > now) {
+                messagesToRender.push(message);
+            }
+        }
+
+        console.log("this.messages", this.messages);
+        console.log("messagesToRender", messagesToRender);
+
+        return <div className="game-messages">
+                {messagesToRender.map(function(gameMessageData){
+                        var messageText = "";
+                        var classes = "game-message ";
+                        var imgSrc = "/images/card-D4.png";
+
+                        console.log("gameMessageData", gameMessageData);
+
+                        switch (gameMessageData.type) {
+                            case "currentTurn":
+                                console.log("gameMessageData.value", gameMessageData.value);
+                                const player = players[gameMessageData.value];
+                                if (player.sessionId == room.sessionId) {
+                                    messageText = "Your turn.";
+                                } else {
+                                    messageText = player.name + "'s turn.";
+                                }
+                                classes +="fadeinout";
+                                break;
+                            case "roundState":
+                                messageText = gameMessageData.value;
+                                classes +="fadeinout";
+                                break;
+                            case "gameState":
+                                messageText = gameMessageData.value;
+                                classes +="fadein";
+                                break;
+                            case "test":
+                                messageText = gameMessageData.value;
+                                classes +="fadeinout";
+                                break;
+                            default:
+                                break;
+                        }
+
+                        const messageView = {messageId: gameMessageData.messageId, text: messageText, classes: classes, imgSrc: imgSrc};
+                        return <GameMessage key={messageView.messageId} messageView={messageView} />;
+                    })}
+                </div>
     }
 }
 
-export default connect(mapStateToProps, {setGameMessage})(GameMessages)
+export default connect(mapStateToProps, { removeGameMessage })(GameMessages)

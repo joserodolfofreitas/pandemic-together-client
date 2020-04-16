@@ -12,7 +12,10 @@ export const initialState = {
     isLoading: false,
     draggingCard: null,
     dragOverCard: null,
-    gameMessage: null,
+    /*gameMessages: [{messageId: 1, type: "test", value:"test 1 lero"},
+                    {messageId: 2, type: "test", value:"test 2 lero lero"},
+                    {messageId: 3, type: "test", value:"test 1 bla bla bla"}],*/
+    gameMessages: [],
     cards: [
 
         {

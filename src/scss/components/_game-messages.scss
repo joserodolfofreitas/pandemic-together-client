@@ -2,74 +2,78 @@ $gameMessagesHeight: 80px;
 $gameMessagesImgOffset: 10px;
 
 .game-messages {
-    background-color: rgba(#140c0e, 0.8);
     position: absolute;
     width: 100%;
     height: $gameMessagesHeight;
     top: calc(50% - #{$gameMessagesHeight});
     left: 0;
-    color: #FFF;
-    text-align: center;
     z-index: 100;
-    opacity: 0;
     pointer-events: none;
 
-    &.fadein {
-        animation: fadein-anim 2s;
-        opacity: 1;
-    }
-
-    &.fadeout {
-        animation: fadeout-anim 2s;
+    .game-message {
+        background-color: rgba(#140c0e, 0.8);
+        color: #FFF;
+        text-align: center;
         opacity: 0;
-    }
+        pointer-events: none;
 
-    &.fadeinout {
-        animation: fadeinout-anim 4s;
-        //opacity: 0;
-    }
+        &.fadein {
+            animation: fadein-anim 2s;
+            opacity: 1;
+        }
 
-    @keyframes fadein-anim {
-        from {
+        &.fadeout {
+            animation: fadeout-anim 2s;
             opacity: 0;
         }
 
-        to {
-            opacity: 1;
-        }
-    }
-
-    @keyframes fadeout-anim {
-        from {
-            opacity: 1;
-        }
-        to {
-            opacity: 0;
-        }
-    }
-
-    @keyframes fadeinout-anim {
-        0%,100% { opacity: 0; }
-        50% { opacity: 1; }
-    }
-
-    div {
-        width: max-content;
-        margin:auto;
-        display: flex;
-        align-items:center;
-
-        span {
-            padding: 20px;
-            text-align: center;
-            position: relative;
-            top:-$gameMessagesImgOffset;
+        &.fadeinout {
+            animation: fadeinout-anim 4s;
+            //opacity: 0;
         }
 
-        img {
-            height:$gameMessagesHeight + (2 * $gameMessagesImgOffset);
-            position: relative;
-            top:-$gameMessagesImgOffset;
+        @keyframes fadein-anim {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeout-anim {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeinout-anim {
+            0%,100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        div {
+            width: max-content;
+            margin:auto;
+            display: flex;
+            align-items:center;
+
+            span {
+                padding: 20px;
+                text-align: center;
+                position: relative;
+                top:-$gameMessagesImgOffset;
+            }
+
+            img {
+                height:$gameMessagesHeight + (2 * $gameMessagesImgOffset);
+                position: relative;
+                top:-$gameMessagesImgOffset;
+            }
         }
     }
 

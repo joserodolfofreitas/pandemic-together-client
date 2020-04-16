@@ -1,5 +1,6 @@
 import * as Colyseus from "colyseus.js";
-import { setRoom, setRoomState, isLoading, setGameMessage } from './../actions'
+import { setRoom, setRoomState, isLoading, pushGameMessage, removeGameMessage } from './../actions'
+import * as Constants from '../../common/constants';
 const serverUrl = (process.env.NODE_ENV === 'production') ? 'wss://pandemic-together-server.herokuapp.com' : 'ws://localhost:2567'
 //const serverUrl = (window.location.hostname.indexOf("herokuapp") === -1)
 //? "ws://localhost:2567" // development (local)
@@ -45,12 +46,24 @@ function runLogin(username) {
                         console.log("*******")
 
 
-                        //TODO  extract this into a data processors.
+                        //TODO  extract this into a data processors (to allow multiple processors)
                         switch (change.field) {
                             case "currentTurn":
+                                if (change.value && change.value != "") {
+                                    const messageId = change.field + "_" + Date.now();
+                                    const messageData = {messageId: messageId, type: change.field, value: change.value};
+                                    dispatch(pushGameMessage(messageData));
+                                }
                             case "roundState":
+                                if (change.value && (change.value == Constants.ROUND_STATE_VIRUS_PHASE)) {
+                                    const messageId = change.field + "_" + Date.now();
+                                    dispatch(pushGameMessage({messageId: messageId, type: change.field, value: change.value}));
+                                }
                             case "gameState":
-                                dispatch(setGameMessage({type: change.field, value: change.value}));
+                                if (change.value && (change.value == Constants.GAME_STATE_VICTORY_END || change.value == Constants.GAME_STATE_OVER )) {
+                                    const messageId = change.field + "_" + Date.now();
+                                    dispatch(pushGameMessage({messageId: messageId, type: change.field, value: change.value}));
+                                }
                                 break;
                             default:
                                 break;

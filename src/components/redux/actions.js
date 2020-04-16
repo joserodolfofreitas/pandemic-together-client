@@ -14,14 +14,19 @@ export const SET_ROOM_STATE = 'SET_ROOM_STATE';
 export const SET_IS_LOADING = 'SET_IS_LOADING';
 export const SET_DRAGGING_CARD = 'SET_DRAGGING_CARD';
 export const SET_DRAG_OVER_CARD = 'SET_DRAG_OVER_CARD';
-export const SET_GAME_MESSAGE = 'SET_GAME_MESSAGE';
+export const PUSH_GAME_MESSAGE = 'PUSH_GAME_MESSAGE';
+export const REMOVE_GAME_MESSAGE = 'REMOVE_GAME_MESSAGE';
 
 /*
  * redux action creators
  */
 
-export function setGameMessage(gameMessage) {
-    return { type: SET_GAME_MESSAGE, gameMessage }
+export function pushGameMessage(gameMessage) {
+    return { type: PUSH_GAME_MESSAGE, gameMessage }
+}
+
+export function removeGameMessage(gameMessageToRemove) {
+    return { type: REMOVE_GAME_MESSAGE, gameMessageToRemove }
 }
 
 export function setRoom(room) {
