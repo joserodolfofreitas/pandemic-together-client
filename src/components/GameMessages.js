@@ -44,12 +44,8 @@ class GameMessages extends React.Component {
                         var messageText = "";
                         var classes = "game-message ";
                         var imgSrc = "";
-
-                        console.log("gameMessageData", gameMessageData);
-
                         switch (gameMessageData.type) {
                             case "currentTurn":
-                                console.log("gameMessageData.value", gameMessageData.value);
                                 const player = players[gameMessageData.value];
                                 if(!player) {
                                     messageText = "undefined player's turn - player must left";
