@@ -33,7 +33,7 @@ class HowToPlayGuide extends React.Component {
                     <li>At the end of a round virus cards (that are not contained) get stronger. </li>
                     <li>Virus cards with FOUR tokens, infect their neighbours.</li>
                     <li>Players WIN when all the viruses in the game are destroyed.</li>
-                    <li>Players LOSE if the virus gets out of control and there’s no more resources to use OR if any of the players reach a number of FOUR virus cards on their field.</li>
+                    <li>Players LOSE if the virus gets out of control and there’s no more resources to use OR if any of the players reach a number of FIVE virus cards on their field.</li>
                 </ul>
                 <button onClick={() => this.onClick_OpenFullInstruction()}>feel like checking the full instructions?</button>
             </div>
@@ -140,7 +140,7 @@ class HowToPlayGuide extends React.Component {
                 <h2>Defeat Condition</h2>
                 There are two conditions for defeat.
                 The deck is empty and the remaining resources are not enough to eliminate the viruses on the table.
-                A player gets FOUR virus cards displayed on the table. And remeber: if one player loses all player lose.
+                A player gets FIVE virus cards displayed on the table. And remeber: if one player loses all player lose.
 
                 <h2>Playing Tips</h2>
                 <ul>
