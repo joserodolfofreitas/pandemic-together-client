@@ -1,5 +1,6 @@
 $gameMessagesHeight: 80px;
-$gameMessagesImgOffset: 10px;
+$gameMessagesImgOffset: 3px;
+$backgroundColor: #140c0e;
 
 .game-messages {
     position: absolute;
@@ -11,25 +12,28 @@ $gameMessagesImgOffset: 10px;
     pointer-events: none;
 
     .game-message {
-        background-color: rgba(#140c0e, 0.8);
+        //background-color: rgba(#140c0e, 0.95);
+        background: linear-gradient(to right, rgba($backgroundColor, 0) 0%,rgba($backgroundColor, 0.95) 25%, rgba($backgroundColor, 0.95) 75%, rgba($backgroundColor, 0) 100%);
         color: #FFF;
+        font-weight: bold;
         text-align: center;
         opacity: 0;
         pointer-events: none;
+        height: $gameMessagesHeight;
 
         &.fadein {
-            animation: fadein-anim 2s;
+            animation: fadein-anim 3s;
             opacity: 1;
         }
 
         &.fadeout {
-            animation: fadeout-anim 2s;
+            animation: fadeout-anim 3s;
             opacity: 0;
         }
 
         &.fadeinout {
-            animation: fadeinout-anim 4s;
-            //opacity: 0;
+            animation: fadeinout-anim 6s;
+            opacity: 0;
         }
 
         @keyframes fadein-anim {
@@ -55,7 +59,11 @@ $gameMessagesImgOffset: 10px;
             0% {
                 opacity: 0;
             }
-            50% {
+            25% {
+                opacity: 1;
+            }
+
+            75% {
                 opacity: 1;
             }
             100% {
@@ -74,13 +82,13 @@ $gameMessagesImgOffset: 10px;
                 padding: 20px;
                 text-align: center;
                 position: relative;
-                top:-$gameMessagesImgOffset;
+                top:$gameMessagesImgOffset;
             }
 
             img {
-                height:$gameMessagesHeight + (2 * $gameMessagesImgOffset);
+                height:$gameMessagesHeight - (2 * $gameMessagesImgOffset);
                 position: relative;
-                top:-$gameMessagesImgOffset;
+                top:$gameMessagesImgOffset;
             }
         }
     }

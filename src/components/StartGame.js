@@ -54,7 +54,7 @@ class StartGame extends React.Component {
                 </div>
             </div>
             <HowToPlayGuide />
-            <GameMessages />
+            /*<GameMessages />*/
         </div>
     }
 

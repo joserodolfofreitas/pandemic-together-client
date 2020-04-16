@@ -2,6 +2,7 @@ import React from 'react';
 import GameMessage from './GameMessage'
 import { connect } from 'react-redux';
 import { removeGameMessage } from './redux/actions'
+import * as Constants from './common/constants';
 
 function mapStateToProps(state) {
     return {
@@ -30,23 +31,19 @@ class GameMessages extends React.Component {
         }
 
         const now = Date.now();
-        //const messagesToRender = this.messages.filter((item, index) => (item.start + 5000) > now);
         var messagesToRender = [];
         for (let id in this.messages) {
             var message = this.messages[id];
-            if ((message.start + 5000) > now) {
+            if ((message.start + 6000) > now) {
                 messagesToRender.push(message);
             }
         }
-
-        console.log("this.messages", this.messages);
-        console.log("messagesToRender", messagesToRender);
 
         return <div className="game-messages">
                 {messagesToRender.map(function(gameMessageData){
                         var messageText = "";
                         var classes = "game-message ";
-                        var imgSrc = "/images/card-D4.png";
+                        var imgSrc = "";
 
                         console.log("gameMessageData", gameMessageData);
 
@@ -54,24 +51,45 @@ class GameMessages extends React.Component {
                             case "currentTurn":
                                 console.log("gameMessageData.value", gameMessageData.value);
                                 const player = players[gameMessageData.value];
+                                if(!player) {
+                                    messageText = "undefined player's turn - player must left";
+                                    imgSrc = "/images/players-lose.png";
+                                    break;
+                                }
                                 if (player.sessionId == room.sessionId) {
                                     messageText = "Your turn.";
                                 } else {
                                     messageText = player.name + "'s turn.";
                                 }
                                 classes +="fadeinout";
+                                imgSrc = "/images/player-turn.png";
                                 break;
                             case "roundState":
-                                messageText = gameMessageData.value;
+                                messageText = "Round Effects (Virus Turn)";
                                 classes +="fadeinout";
+                                imgSrc = "/images/virus-turn.png";
                                 break;
                             case "gameState":
-                                messageText = gameMessageData.value;
+                                switch (gameMessageData.value) {
+                                    case Constants.GAME_STATE_OVER:
+                                        messageText = "Game Over - The Virus Win.";
+                                        imgSrc = "/images/players-lose.png";
+                                        break;
+                                    case Constants.GAME_STATE_VICTORY_END:
+                                        messageText = "You won";
+                                        imgSrc = "/images/players-win.png";
+                                        break;
+                                    default:
+                                        messageText = gameMessageData.value;
+                                        imgSrc = "/images/unknown-message.png";
+                                        break;
+                                }
                                 classes +="fadein";
                                 break;
                             case "test":
                                 messageText = gameMessageData.value;
                                 classes +="fadeinout";
+                                imgSrc = "/images/players-lose.png";
                                 break;
                             default:
                                 break;
