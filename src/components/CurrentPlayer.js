@@ -9,16 +9,17 @@ function mapStateToProps(state) {
         room: state.room,
         roomState: state.roomState,
         updatesOnRoomState: state.updatesOnRoomState,
-        draggingCard: state.draggingCard
+        draggingCard: state.draggingCard,
+        currentPlayerSessionId : state.currentPlayerSessionId,
     }
 }
 
 class CurrentPlayer extends React.Component {
     onClick_advanceTurn() {
-        if (this.props.roomState.currentTurn !== this.props.room.sessionId) {
+        if (this.props.roomState.currentTurn !== this.props.currentPlayerSessionId) {
             return;
         }
-        const message = { type: Constants.GM_ADVANCE_TURN, player: this.props.room.sessionId };
+        const message = { type: Constants.GM_ADVANCE_TURN, player: this.props.currentPlayerSessionId };
         this.props.room.send(message);
     }
     render() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { login, startGame, removeMobileUrlBar } from './redux/actions'
+import { login, startGame, startBot, removeMobileUrlBar } from './redux/actions'
 import ChatRoom from './ChatRoom';
 import HowToPlayGuide from './HowToPlayGuide';
 import * as Constants from './common/constants';
@@ -40,6 +40,10 @@ class StartGame extends React.Component {
         this.props.startGame();
     }
 
+    onClick_StartBot() {
+        this.props.startBot("zehbot");
+    }
+
     render() {
         return <div className="start-game" style={{ backgroundImage: "url(/images/background_table.jpg)" }}>
             <div className="content">
@@ -77,6 +81,8 @@ class StartGame extends React.Component {
         } else if (roomState.gameState === Constants.GAME_STATE_WAITING_PLAYERS) {
             return <div>
                 <button className="start-button" onClick={() => this.onClick_StartGame()} >Start Game</button>
+                <button onClick={() => this.onClick_StartBot()}>Add a bot</button>
+                <br />
                 <ChatRoom />
             </div>
         }
@@ -88,4 +94,4 @@ class StartGame extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, { login, startGame, removeMobileUrlBar })(StartGame)
+export default connect(mapStateToProps, { login, startGame, startBot, removeMobileUrlBar })(StartGame)

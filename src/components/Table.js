@@ -10,6 +10,7 @@ import {startGame} from './redux/actions';
 function mapStateToProps(state) {
     return {
         clientSessionId : state.clientSessionId,
+        currentPlayerSessionId : state.currentPlayerSessionId,
         player : state.player,
         room : state.room,
         roomState : state.roomState,
@@ -43,7 +44,7 @@ class Table extends React.Component {
 
     getOtherPlayerItems(){
         const roomStatePlayers = this.props.roomState.players;
-        const currentPlayerSessionId = this.props.room.sessionId;
+        const currentPlayerSessionId = this.props.currentPlayerSessionId;
         let players = [];
         let indexCounter = 0;
         let currentPlayerIndex = 0;
@@ -64,7 +65,8 @@ class Table extends React.Component {
 
     getCurrentPlayer(){       
         const roomState = this.props.roomState;
-        const currentPlayerSessionId = this.props.room.sessionId;
+        const currentPlayerSessionId = this.props.currentPlayerSessionId;//this.props.room.sessionId;
+        console.log("!!!!!", "currentPlayerSessionId",currentPlayerSessionId);
         return Object.values(roomState.players).filter(p => p.sessionId === currentPlayerSessionId)[0]
     }
 
