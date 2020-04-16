@@ -6,6 +6,7 @@ import {
     SET_DRAG_OVER_CARD,
     PUSH_GAME_MESSAGE,
     REMOVE_GAME_MESSAGE,
+    RESET_GAME_MESSAGES,
 } from './actions'
 
 import setRoom from './reducers/setRoom';
@@ -15,6 +16,7 @@ import setDraggingCard from './reducers/setDraggingCard';
 import setDragOverCard from './reducers/setDragOverCard';
 import pushGameMessage from './reducers/pushGameMessage';
 import removeGameMessage from './reducers/removeGameMessage';
+import resetGameMessages from './reducers/resetGameMessages';
 
 
 const reducerMap = {
@@ -25,6 +27,7 @@ const reducerMap = {
     [SET_DRAG_OVER_CARD]: (state, action) => setDragOverCard(state, action.card),
     [PUSH_GAME_MESSAGE]: (state, action) => pushGameMessage(state, action.gameMessage),
     [REMOVE_GAME_MESSAGE]: (state, action) => removeGameMessage(state, action.gameMessage),
+    [RESET_GAME_MESSAGES]: (state, action) => resetGameMessages(state),
 }
 
 function reducers(state, action) {

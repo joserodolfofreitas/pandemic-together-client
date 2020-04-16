@@ -1,7 +1,6 @@
 import React from 'react';
 import GameMessage from './GameMessage'
 import { connect } from 'react-redux';
-import { removeGameMessage } from './redux/actions'
 import * as Constants from './common/constants';
 
 function mapStateToProps(state) {
@@ -13,24 +12,23 @@ function mapStateToProps(state) {
 }
 
 class GameMessages extends React.Component {
-    messages = [];
+    messages = []; //messages dictionary
 
     render() {
-
         var players = (this.props.roomState) ? this.props.roomState.players : [];
         const room = this.props.room;
-
         const messageTimersIds = Object.keys(this.messages);
+        const now = Date.now();
 
+        // add new messages from redux store into a member dictionary.
         for (var i = 0; i < this.props.gameMessages.length; i++) {
             const gameMessageData = this.props.gameMessages[i];
             if (!messageTimersIds.includes(gameMessageData.messageId)) {
-                this.messages[gameMessageData.messageId] = Object.assign(gameMessageData, {start: Date.now()});
-
+                this.messages[gameMessageData.messageId] = Object.assign(gameMessageData, {start: now});
             }
         }
 
-        const now = Date.now();
+        // select messages to render based on the time they started.
         var messagesToRender = [];
         for (let id in this.messages) {
             var message = this.messages[id];
@@ -75,19 +73,13 @@ class GameMessages extends React.Component {
                                         messageText = "You won";
                                         imgSrc = "/images/players-win.png";
                                         break;
-                                    default:
-                                        messageText = gameMessageData.value;
-                                        imgSrc = "/images/unknown-message.png";
-                                        break;
                                 }
                                 classes +="fadein";
                                 break;
-                            case "test":
+                            default: // unkonwn messages
                                 messageText = gameMessageData.value;
                                 classes +="fadeinout";
-                                imgSrc = "/images/players-lose.png";
-                                break;
-                            default:
+                                imgSrc = "/images/players-win.png"; //confused virus img
                                 break;
                         }
 
@@ -98,4 +90,4 @@ class GameMessages extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, { removeGameMessage })(GameMessages)
+export default connect(mapStateToProps, null )(GameMessages)

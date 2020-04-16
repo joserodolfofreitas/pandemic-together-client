@@ -16,6 +16,7 @@ export const SET_DRAGGING_CARD = 'SET_DRAGGING_CARD';
 export const SET_DRAG_OVER_CARD = 'SET_DRAG_OVER_CARD';
 export const PUSH_GAME_MESSAGE = 'PUSH_GAME_MESSAGE';
 export const REMOVE_GAME_MESSAGE = 'REMOVE_GAME_MESSAGE';
+export const RESET_GAME_MESSAGES = 'RESET_GAME_MESSAGES';
 
 /*
  * redux action creators
@@ -27,6 +28,10 @@ export function pushGameMessage(gameMessage) {
 
 export function removeGameMessage(gameMessageToRemove) {
     return { type: REMOVE_GAME_MESSAGE, gameMessageToRemove }
+}
+
+export function resetGameMessages() {
+    return { type: RESET_GAME_MESSAGES }
 }
 
 export function setRoom(room) {
