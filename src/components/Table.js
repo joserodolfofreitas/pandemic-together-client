@@ -7,6 +7,7 @@ import GameMessages from './GameMessages';
 import { connect } from 'react-redux';
 import { startGame } from './../redux/actions';
 
+        currentPlayerSessionId : state.currentPlayerSessionId,
 class Table extends React.Component {
     render() {
         const playerItems = this.getOtherPlayerItems();

@@ -1,5 +1,5 @@
 import * as Colyseus from "colyseus.js";
-import { setRoom, setRoomState, isLoading } from './../actions'
+import { setRoom, setRoomState, setCurrentPlayerSessionId, isLoading } from './../actions'
 import { processGameMessages } from './../dataprocessors/GameMessagesProcessor'
 const serverUrl = (process.env.NODE_ENV === 'production') ? 'wss://pandemic-together-server.herokuapp.com' : 'ws://localhost:2567'
 //const serverUrl = (window.location.hostname.indexOf("herokuapp") === -1)
@@ -18,6 +18,7 @@ function runLogin(username) {
         client.joinOrCreate("pandemic-together-room", { name: username })
             .then(room => {
                 console.log(room.sessionId, "joined", room.name);
+                dispatch(setCurrentPlayerSessionId(room.sessionId));
                 console.log("roomState", room.state);
 
                 room.state.players.onAdd = function (player, i) {
