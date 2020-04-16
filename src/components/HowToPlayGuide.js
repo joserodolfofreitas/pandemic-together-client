@@ -61,7 +61,7 @@ class HowToPlayGuide extends React.Component {
                         The virus card represents a place where the virus is spreading. Each virus starts with one token, and at the end of each round, the number of tokens is increased by ONE, making the card harder to eliminate. A Virus card is eliminated when all its tokens are destroyed. Whenever a virus card gets FOUR tokens, it infects two of the player neighbours with a new virus card.
                         </div>
                         <div className="img-example">
-                            <img src="/images/card-V1-example.png"></img>
+                            <img alt="virus example" src="/images/card-V1-example.png"></img>
                         </div>
                     </li>
                     <li>
@@ -70,10 +70,10 @@ class HowToPlayGuide extends React.Component {
                         A resource card represents actions that countries can take. Each player can apply one resource PER TURN and they come in two ways: They can either be used to CONTAIN one or multiple VIRUS cards or to DESTROY one or multiple VIRUS tokens. After use the resource card is consumed and cannot be played again.
                         </div>
                         <div className="img-example">
-                            <img src="/images/card-R1.png"></img>
-                            <img src="/images/card-R2.png"></img>
-                            <img src="/images/card-R3.png"></img>
-                            <img src="/images/card-R4.png"></img>
+                            <img alt="Social Distancing" src="/images/card-R1.png"></img>
+                            <img alt="Quarantine / Lockdown" src="/images/card-R2.png"></img>
+                            <img alt="Masks and Ventilators" src="/images/card-R3.png"></img>
+                            <img alt="Medics" src="/images/card-R4.png"></img>
                         </div>
                     </li>
                     <li>
@@ -83,10 +83,10 @@ class HowToPlayGuide extends React.Component {
                         * There’s one exception to this: The “Safe Ports” card, which is not applied each round, but instead its effect is applied to prevent whenever a neighbour gets too infectious (please refer to the Virus card description to understand when it happens).
                         </div>
                         <div className="img-example">
-                            <img src="/images/card-A1.png"></img>
-                            <img src="/images/card-A2.png"></img>
-                            <img src="/images/card-A3.png"></img>
-                            <img src="/images/card-A4.png"></img>
+                            <img alt="Educated Population" src="/images/card-A1.png"></img>
+                            <img alt="Public Health System" src="/images/card-A2.png"></img>
+                            <img alt="Advanced Research Labs" src="/images/card-A3.png"></img>
+                            <img alt="Safe Ports" src="/images/card-A4.png"></img>
                         </div>
                     </li>
                     <li>
@@ -100,10 +100,10 @@ class HowToPlayGuide extends React.Component {
                         </div>
 
                         <div className="img-example">
-                            <img src="/images/card-D1.png"></img>
-                            <img src="/images/card-D2.png"></img>
-                            <img src="/images/card-D3.png"></img>
-                            <img src="/images/card-D4.png"></img>
+                            <img alt="Social Ignorance" src="/images/card-D1.png"></img>
+                            <img alt="Slums" src="/images/card-D2.png"></img>
+                            <img alt="Fighting Narratives" src="/images/card-D3.png"></img>
+                            <img alt="Overloaded Hospitals" src="/images/card-D4.png"></img>
                         </div>
                     </li>
                 </ul>
@@ -120,7 +120,7 @@ class HowToPlayGuide extends React.Component {
                 The bottom of the screen is reserved for your own cards. You'll see your advantage and disadvantage on the left, your virus field on the center, and your hand on the right.
                 Following you can see an example of table layout.
                 <div style={{height:400}} className="img-example">
-                    <img className="table-layout" src="/images/pt-table-layout.jpg"></img>
+                    <img alt="Table Layout" className="table-layout" src="/images/pt-table-layout.jpg"></img>
                 </div>
 
 
