@@ -4,10 +4,10 @@ import {
     SET_IS_LOADING,
     SET_DRAGGING_CARD,
     SET_DRAG_OVER_CARD,
-    SET_VIRUS_PHASE_MESSAGE
+    SET_VIRUS_PHASE_MESSAGE,
     PUSH_GAME_MESSAGE,
     REMOVE_GAME_MESSAGE,
-    RESET_GAME_MESSAGES,
+    RESET_GAME_MESSAGES
 } from './actions'
 
 import setRoom from './reducers/setRoom';
@@ -26,10 +26,10 @@ const reducerMap = {
     [SET_IS_LOADING]: (state, action) => setIsLoading(state, action.isLoading),
     [SET_DRAGGING_CARD]: (state, action) => setDraggingCard(state, action.card),
     [SET_DRAG_OVER_CARD]: (state, action) => setDragOverCard(state, action.card),
-    [SET_VIRUS_PHASE_MESSAGE]: (state, action) => setVirusPhaseMessage(state, action.message)
+    [SET_VIRUS_PHASE_MESSAGE]: (state, action) => setVirusPhaseMessage(state, action.message),
     [PUSH_GAME_MESSAGE]: (state, action) => pushGameMessage(state, action.gameMessage),
     [REMOVE_GAME_MESSAGE]: (state, action) => removeGameMessage(state, action.gameMessage),
-    [RESET_GAME_MESSAGES]: (state, action) => resetGameMessages(state),
+    [RESET_GAME_MESSAGES]: (state, action) => resetGameMessages(state)
 }
 
 function reducers(state, action) {

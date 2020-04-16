@@ -1,7 +1,7 @@
 import React from 'react';
 import GameMessage from './GameMessage'
 import { connect } from 'react-redux';
-import * as Constants from './common/constants';
+import * as Constants from './../common/constants';
 
 function mapStateToProps(state) {
     return {
