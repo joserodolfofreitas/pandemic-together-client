@@ -27,6 +27,9 @@ function runStartBot(username) {
 
                 botRoom.onStateChange((roomState) => {
                     console.log("bot onStateChange update");
+                    if(roomState.roundState === Constants.ROUND_STATE_VIRUS_PHASE){
+                        botRoom.send({ type: Constants.GM_END_NEW_ROUND_ANIMATIONS, playerId: botRoom.sessionId });
+                    }
                 });
 		        botRoom.state.onChange = (changes) => {
                     changes.forEach(change => {

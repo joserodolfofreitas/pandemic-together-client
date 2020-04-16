@@ -66,6 +66,13 @@ class Card extends React.Component {
 
     getCardClasses() {
         const card = this.props.card;
+
+        //temp hack
+        if(!card || !card.elementId){
+            console.error("card reference error")
+            return null;
+        }
+
         const isVirusCard = card.type === Constants.CARD_TYPE_VIRUS;
         const isPlayable = this.props.isHandCard && this.props.isPlayable;
 

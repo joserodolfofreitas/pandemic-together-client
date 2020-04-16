@@ -1,6 +1,7 @@
 import * as Colyseus from "colyseus.js";
-import { setRoom, setRoomState, setCurrentPlayerSessionId, isLoading } from './../actions'
+import { setRoom, setRoomState, setCurrentPlayerSessionId, isLoading, playVirusPhase } from './../actions'
 import { processGameMessages } from './../dataprocessors/GameMessagesProcessor'
+import * as Constants from './../../common/constants';
 const serverUrl = (process.env.NODE_ENV === 'production') ? 'wss://pandemic-together-server.herokuapp.com' : 'ws://localhost:2567'
 //const serverUrl = (window.location.hostname.indexOf("herokuapp") === -1)
 //? "ws://localhost:2567" // development (local)
@@ -37,46 +38,50 @@ function runLogin(username) {
                 room.onStateChange((roomState) => {
                     console.log("the room state has been updated:", roomState);
                     dispatch(setRoomState(roomState));
+                    if(roomState.roundState === Constants.ROUND_STATE_VIRUS_PHASE){
+                        console.log("dispatch(playVirusPhase());")
+                        dispatch(playVirusPhase());
+                    }
                 });
-		room.state.onChange = (changes) => {
-                    changes.forEach(change => {
-                        console.log("******* on state step change");
-                        console.log(change.field);
-                        console.log(change.value);
-                        console.log(change.previousValue);
-                        console.log("*******")
+                // room.state.onChange = (changes) => {
+                //     changes.forEach(change => {
+                //         console.log("******* on state step change");
+                //         console.log(change.field);
+                //         console.log(change.value);
+                //         console.log(change.previousValue);
+                //         console.log("*******")
 
-                        processGameMessages(dispatch, change);
-                    });
-                };
+                //         processGameMessages(dispatch, change);
+                //     });
+                // };
 
-                room.state.players.onAdd = (player, key) => {
-                    player.hand.onAdd = function(card) {
-                            console.log("******* card added on hand of", player.sessionId, player.name);
-                            console.log(card.cardId);
-                            console.log(card.elementId);
-                            console.log("*******")
-                    }
-                    player.hand.onRemove = function(card) {
-                        console.log("******* card removed on hand of", player.sessionId, player.name);
-                        console.log(card.cardId);
-                        console.log(card.elementId);
-                        console.log("*******")
-                    }
-                    player.virusField.onAdd = function(card) {
-                        console.log("******* card added on virusField of", player.sessionId, player.name);
-                        console.log(card.cardId);
-                        console.log(card.elementId);
-                        console.log("*******")
-                    }
+                // room.state.players.onAdd = (player, key) => {
+                //     player.hand.onAdd = function (card) {
+                //         console.log("******* card added on hand of", player.sessionId, player.name);
+                //         console.log(card.cardId);
+                //         console.log(card.elementId);
+                //         console.log("*******")
+                //     }
+                //     player.hand.onRemove = function (card) {
+                //         console.log("******* card removed on hand of", player.sessionId, player.name);
+                //         console.log(card.cardId);
+                //         console.log(card.elementId);
+                //         console.log("*******")
+                //     }
+                //     player.virusField.onAdd = function (card) {
+                //         console.log("******* card added on virusField of", player.sessionId, player.name);
+                //         console.log(card.cardId);
+                //         console.log(card.elementId);
+                //         console.log("*******")
+                //     }
 
-                    player.virusField.onRemove = function(card) {
-                        console.log("******* card removed on virusField of", player.sessionId, player.name);
-                        console.log(card.cardId);
-                        console.log(card.elementId);
-                        console.log("*******")
-                    }
-                };
+                //     player.virusField.onRemove = function (card) {
+                //         console.log("******* card removed on virusField of", player.sessionId, player.name);
+                //         console.log(card.cardId);
+                //         console.log(card.elementId);
+                //         console.log("*******")
+                //     }
+                // };
 
 
                 dispatch(setRoom(room));
