@@ -32,17 +32,17 @@ class Table extends React.Component {
     getOtherPlayerItems() {
         let players = [];
         let indexCounter = 0;
-        let currentPlayerIndex = 0;
+        let myPlayerIndex = 0;
         for (let id in this.props.players) {
             const player = this.props.players[id];
             if (player.sessionId !== this.props.myPlayerId) {
                 players.push({ playerId: player.sessionId })
             } else {
-                currentPlayerIndex = indexCounter;
+                myPlayerIndex = indexCounter;
             }
             indexCounter++;
         }
-        players = players.concat(players.splice(0, currentPlayerIndex))
+        players = players.concat(players.splice(0, myPlayerIndex))
         let positions = players.length === 2 ? ["player-left", "player-right"] : ["player-left", "player-top", "player-right"];
         positions.forEach((p, i) => players[i].position = p);
         return players;
