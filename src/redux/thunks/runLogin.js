@@ -43,17 +43,17 @@ function runLogin(username) {
                         dispatch(playVirusPhase());
                     }
                 });
-                // room.state.onChange = (changes) => {
-                //     changes.forEach(change => {
-                //         console.log("******* on state step change");
-                //         console.log(change.field);
-                //         console.log(change.value);
-                //         console.log(change.previousValue);
-                //         console.log("*******")
+                room.state.onChange = (changes) => {
+                    changes.forEach(change => {
+                        // console.log("******* on state step change");
+                        // console.log(change.field);
+                        // console.log(change.value);
+                        // console.log(change.previousValue);
+                        // console.log("*******")
 
-                //         processGameMessages(dispatch, change);
-                //     });
-                // };
+                        processGameMessages(dispatch, change);
+                    });
+                };
 
                 // room.state.players.onAdd = (player, key) => {
                 //     player.hand.onAdd = function (card) {

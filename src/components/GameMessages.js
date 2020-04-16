@@ -27,7 +27,7 @@ class GameMessages extends React.Component {
                 this.messages[gameMessageData.messageId] = Object.assign(gameMessageData, {start: now});
             }
         }
-
+        console.log("gamemessages",this.props.gameMessages);
         // select messages to render based on the time they started.
         var messagesToRender = [];
         for (let id in this.messages) {
