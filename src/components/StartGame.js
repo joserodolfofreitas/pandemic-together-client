@@ -9,7 +9,8 @@ import * as Constants from './../common/constants';
 function mapStateToProps(state) {
     return {
         roomState: state.roomState,
-        isLoading: state.isLoading
+        isLoading: state.isLoading,
+        bots: state.bots,
     }
 }
 
@@ -20,6 +21,16 @@ class StartGame extends React.Component {
         this.state = {
             username: ""
         };
+    }
+
+    usedBotNames = [];
+    botNames = ["Dannel", "Giskard", "Andrew", "Norby", "Emma-2", "Brackenridge", "Tony", "Lenny", "Speedie", "Robbie", "Z-1", "Z-2", "Z-3", "L-76", "Ez-27" ];
+    generateBotName() {
+        var arrayOfUnusedNames = this.botNames.filter(item => !this.usedBotNames.includes(item));
+        var index = Math.floor(Math.random() * arrayOfUnusedNames.length);
+        var name = arrayOfUnusedNames[index];
+        this.usedBotNames.push(name);
+        return name + "_bot";
     }
 
     onChange_UpdateUserName = (event) => {
@@ -41,7 +52,7 @@ class StartGame extends React.Component {
     }
 
     onClick_StartBot() {
-        this.props.startBot("zehbot");
+        this.props.startBot(this.generateBotName());
     }
 
     render() {
