@@ -67,6 +67,10 @@
 
   }
 
+  button:disabled {
+    background: #CCC;
+  }
+
   small {
     color: #fdf;
     margin: auto;

@@ -11,6 +11,7 @@ function mapStateToProps(state) {
         roomState: state.roomState,
         isLoading: state.isLoading,
         bots: state.bots,
+        updatesOnRoomState: state.updatesOnRoomState,
     }
 }
 
@@ -90,8 +91,10 @@ class StartGame extends React.Component {
                 </div>
             );
         } else if (roomState.gameState === Constants.GAME_STATE_WAITING_PLAYERS) {
-            return <div>
-                <button className="start-button" onClick={() => this.onClick_StartGame()} >Start Game</button>
+            var numberOfPlayersInTheRoom = Object.keys(roomState.players).length;
+            var disabledStartButton = (Object.keys(roomState.players).length < 3) ? true : false;
+            return <div style={{padding:10}}>
+                <button disabled={disabledStartButton} className="start-button" onClick={() => this.onClick_StartGame()} >{(disabledStartButton) ?  "waiting for players "  : "Start Game"} {" - (" + numberOfPlayersInTheRoom +"/4)"}</button>
                 <button onClick={() => this.onClick_StartBot()}>Add a bot</button>
                 <br />
                 <ChatRoom />

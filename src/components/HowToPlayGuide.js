@@ -26,6 +26,7 @@ class HowToPlayGuide extends React.Component {
             return <div className="how-to-play quick">
                 <h1>How to play (Quick Start) </h1>
                 <ul>
+                    <li>The game can be played with 3 or 4 players (bots are available for playing).</li>
                     <li>Each player have one turn per round. The current player on turn has their name highlighted.</li>
                     <li>On your turn, use one RESOURCE on your hand to CONTAIN or ELIMINATE a VIRUS card. </li>
                     <li>Simply drag the RESOURCE to any VIRUS on the table to make your play.</li>
