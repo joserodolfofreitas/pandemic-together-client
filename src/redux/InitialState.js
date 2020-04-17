@@ -6,6 +6,7 @@ export const initialState = {
     roomState: null,
     updatesOnRoomState: 0,
     currentPlayerTurn: "",
+    currentPlayerSessionId: "",
     selectedCards: [],
     roomPlayers: [],
     deck: [],
@@ -16,6 +17,7 @@ export const initialState = {
                     {messageId: 2, type: "test", value:"test 2 lero lero"},
                     {messageId: 3, type: "test", value:"test 1 bla bla bla"}],*/
     gameMessages: [],
+    bots: [],
     cards: [
 
         {

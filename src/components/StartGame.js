@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { login, startGame, removeMobileUrlBar } from './redux/actions'
-import ChatRoom from './ChatRoom';
+import { login, startGame, removeMobileUrlBar, startBot } from './../redux/actions'
+import ChatRoom from './shared/ChatRoom';
 import HowToPlayGuide from './HowToPlayGuide';
-import * as Constants from './common/constants';
+import * as Constants from './../common/constants';
 
 
 function mapStateToProps(state) {
@@ -38,6 +38,10 @@ class StartGame extends React.Component {
 
     onClick_StartGame() {
         this.props.startGame();
+    }
+
+    onClick_StartBot() {
+        this.props.startBot("zehbot");
     }
 
     render() {
@@ -77,6 +81,8 @@ class StartGame extends React.Component {
         } else if (roomState.gameState === Constants.GAME_STATE_WAITING_PLAYERS) {
             return <div>
                 <button className="start-button" onClick={() => this.onClick_StartGame()} >Start Game</button>
+                <button onClick={() => this.onClick_StartBot()}>Add a bot</button>
+                <br />
                 <ChatRoom />
             </div>
         }
@@ -88,4 +94,4 @@ class StartGame extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, { login, startGame, removeMobileUrlBar })(StartGame)
+export default connect(mapStateToProps, { login, startGame, startBot, removeMobileUrlBar })(StartGame)

@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import MultiBackend from 'react-dnd-multi-backend';
 import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
-import store from './components/redux/store';
+import store from './redux/store';
 import { hot } from 'react-hot-loader/root';
 
 

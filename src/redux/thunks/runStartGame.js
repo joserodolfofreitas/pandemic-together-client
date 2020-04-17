@@ -1,4 +1,4 @@
-import * as Constants from '../../common/constants';
+import * as Constants from './../../common/constants';
 import { resetGameMessages } from './../actions'
 
 function runStartGame() {

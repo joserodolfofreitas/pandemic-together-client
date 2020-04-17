@@ -1,0 +1,55 @@
+.player.player-current {
+  .player-name {
+    text-align: center;
+  }
+
+  .player-cards {
+    grid-gap: 0px;
+    display: grid;
+    grid-template-columns: min-content min-content min-content min-content;
+    grid-template-areas:
+      "player-char virus-infection hand-cards actions";
+
+    margin: auto;
+
+    .player-char {
+      grid-area: player-char;
+    }
+    .virus-infection {
+      grid-area: virus-infection;
+    }
+
+    .hand-cards {
+      border-left: 1px solid #140c0e;
+      grid-area: hand-cards;
+    }
+
+    .actions {
+      grid-area: actions;
+      border-left: 1px solid #140c0e;
+      
+      opacity: 0;
+      transition: 0.5s;
+      .action {
+        width: 0vh;
+        height: $cardHeight;
+        margin: 0;
+        transition: 0.5s;
+        cursor: pointer;
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+  &.current-turn .player-cards .actions {
+    opacity: 1;
+    .action {
+      width: $cardWidth;
+      height: $cardHeight;
+      margin: $cardMargin;
+    }
+  }
+  
+}
+

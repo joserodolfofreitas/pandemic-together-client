@@ -1,13 +1,13 @@
 import React from 'react';
 import GameMessage from './GameMessage'
 import { connect } from 'react-redux';
-import * as Constants from './common/constants';
+import * as Constants from './../common/constants';
 
 function mapStateToProps(state) {
     return {
         gameMessages: state.gameMessages,
         roomState: state.roomState,
-        room: state.room,
+        currentPlayerSessionId: state.currentPlayerSessionId,
     }
 }
 
@@ -16,7 +16,7 @@ class GameMessages extends React.Component {
 
     render() {
         var players = (this.props.roomState) ? this.props.roomState.players : [];
-        const room = this.props.room;
+        const currentPlayerSessionId = this.props.currentPlayerSessionId;
         const messageTimersIds = Object.keys(this.messages);
         const now = Date.now();
 
@@ -27,7 +27,6 @@ class GameMessages extends React.Component {
                 this.messages[gameMessageData.messageId] = Object.assign(gameMessageData, {start: now});
             }
         }
-
         // select messages to render based on the time they started.
         var messagesToRender = [];
         for (let id in this.messages) {
@@ -50,7 +49,7 @@ class GameMessages extends React.Component {
                                     imgSrc = "/images/players-lose.png";
                                     break;
                                 }
-                                if (player.sessionId == room.sessionId) {
+                                if (player.sessionId == currentPlayerSessionId) {
                                     messageText = "Your turn.";
                                 } else {
                                     messageText = player.name + "'s turn.";
