@@ -9,6 +9,7 @@ export const initialState = {
     currentPlayerSessionId: "",
     selectedCards: [],
     roomPlayers: [],
+    chatMessages: [],
     deck: [],
     isLoading: false,
     draggingCard: null,

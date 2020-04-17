@@ -20,6 +20,7 @@ export const SET_DRAGGING_CARD = 'SET_DRAGGING_CARD';
 export const SET_DRAG_OVER_CARD = 'SET_DRAG_OVER_CARD';
 export const SET_VIRUS_PHASE_MESSAGE = 'SET_VIRUS_PHASE_MESSAGE';
 export const PUSH_GAME_MESSAGE = 'PUSH_GAME_MESSAGE';
+export const PUSH_CHAT_MESSAGE = 'PUSH_CHAT_MESSAGE';
 export const REMOVE_GAME_MESSAGE = 'REMOVE_GAME_MESSAGE';
 export const RESET_GAME_MESSAGES = 'RESET_GAME_MESSAGES';
 
@@ -34,6 +35,10 @@ export function setCurrentPlayerSessionId(sessionId) {
 
 export function pushGameMessage(gameMessage) {
     return { type: PUSH_GAME_MESSAGE, gameMessage }
+}
+
+export function pushChatMessage(chatMessage) {
+    return { type: PUSH_CHAT_MESSAGE, chatMessage }
 }
 
 export function removeGameMessage(gameMessageToRemove) {
