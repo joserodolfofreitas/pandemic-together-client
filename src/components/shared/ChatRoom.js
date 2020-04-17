@@ -47,6 +47,18 @@ class ChatRoom extends React.Component {
         this.setState({messageText: ""});
     }
 
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }
+
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
+
     render() {
         const roomState = this.props.roomState;
         let players = [];
@@ -82,8 +94,11 @@ class ChatRoom extends React.Component {
                         {chatMessages.map(function(chatMessage){
                             return <div>{chatMessage.playerName}: {chatMessage.text}</div>
                         })}
-
+                        <div style={{ float:"left", clear: "both" }}
+                             ref={(el) => { this.messagesEnd = el; }}>
+                        </div>
                     </div>
+
                     <div className="chat-input-box">
                         <input placeholder="type your message here" value={this.state.messageText}  onChange={this.onChange_UpdateMessageText} onKeyUp={this.onKeyUp_SubmitOnEnter} />
                         <button onClick={() => this.sendMessage()}>SEND</button>
