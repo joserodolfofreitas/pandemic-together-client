@@ -1,14 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { login, startGame, removeMobileUrlBar } from './redux/actions'
-import ChatRoom from './ChatRoom';
-import * as Constants from './common/constants';
+import { login, startGame, removeMobileUrlBar, startBot } from './../redux/actions'
+import ChatRoom from './shared/ChatRoom';
+import HowToPlayGuide from './HowToPlayGuide';
+import * as Constants from './../common/constants';
 
 
 function mapStateToProps(state) {
     return {
         roomState: state.roomState,
-        isLoading: state.isLoading
+        isLoading: state.isLoading,
+        bots: state.bots,
+        updatesOnRoomState: state.updatesOnRoomState,
     }
 }
 
@@ -19,6 +22,16 @@ class StartGame extends React.Component {
         this.state = {
             username: ""
         };
+    }
+
+    usedBotNames = [];
+    botNames = ["Dannel", "Giskard", "Andrew", "Norby", "Emma-2", "Brackenridge", "Tony", "Lenny", "Speedie", "Robbie", "Z-1", "Z-2", "Z-3", "L-76", "Ez-27" ];
+    generateBotName() {
+        var arrayOfUnusedNames = this.botNames.filter(item => !this.usedBotNames.includes(item));
+        var index = Math.floor(Math.random() * arrayOfUnusedNames.length);
+        var name = arrayOfUnusedNames[index];
+        this.usedBotNames.push(name);
+        return name + "_bot";
     }
 
     onChange_UpdateUserName = (event) => {
@@ -39,6 +52,10 @@ class StartGame extends React.Component {
         this.props.startGame();
     }
 
+    onClick_StartBot() {
+        this.props.startBot(this.generateBotName());
+    }
+
     render() {
         return <div className="start-game" style={{ backgroundImage: "url(/images/background_table.jpg)" }}>
             <div className="content">
@@ -51,6 +68,7 @@ class StartGame extends React.Component {
                     </div>
                 </div>
             </div>
+            <HowToPlayGuide />
         </div>
     }
 
@@ -73,8 +91,13 @@ class StartGame extends React.Component {
                 </div>
             );
         } else if (roomState.gameState === Constants.GAME_STATE_WAITING_PLAYERS) {
-            return <div>
-                <button className="start-button" onClick={() => this.onClick_StartGame()} >Start Game</button>
+            var numberOfPlayersInTheRoom = Object.keys(roomState.players).length;
+            var disabledStartButton = (Object.keys(roomState.players).length < 3) ? true : false;
+            var disabledAddBotButton = (Object.keys(roomState.players).length < 4) ? false : true;
+            return <div style={{padding:10}}>
+                <button disabled={disabledStartButton} className="start-button" onClick={() => this.onClick_StartGame()} >{(disabledStartButton) ?  "waiting for players "  : "Start Game"} {" - (" + numberOfPlayersInTheRoom +"/4)"}</button>
+                <button disabled={disabledAddBotButton} onClick={() => this.onClick_StartBot()}>Add a bot</button>
+                <br />
                 <ChatRoom />
             </div>
         }
@@ -86,4 +109,4 @@ class StartGame extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, { login, startGame, removeMobileUrlBar })(StartGame)
+export default connect(mapStateToProps, { login, startGame, startBot, removeMobileUrlBar })(StartGame)

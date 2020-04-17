@@ -44,7 +44,8 @@
   }
 
   input {
-    margin: 10px auto;
+    margin: auto;
+    margin-top:10px;
     display: block;
     border-radius: 5px;
     height: 20px;
@@ -53,7 +54,7 @@
     width: calc(90% - 10px);
   }
   button {
-    margin: auto;
+    margin: 10px auto;
     display: block;
     width: 90%;
     border-radius: 5px;
@@ -63,6 +64,11 @@
     font-weight: bold;
     height: 30px;
     cursor: pointer;
+
+  }
+
+  button:disabled {
+    background: #CCC;
   }
 
   small {

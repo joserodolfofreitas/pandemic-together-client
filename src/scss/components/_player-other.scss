@@ -1,0 +1,52 @@
+.player:not(.player-current) {
+
+  .player-cards{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-areas: "player-char virus-infection";
+    .player-char{
+      grid-area: player-char;
+    }
+    .virus-infection{
+      grid-area: virus-infection;
+    }
+  }
+
+  &.player-left {
+    .player-cards {
+      transform: rotate(90deg) translate(0, -110%);
+      transform-origin: top left;
+      .card:hover {
+        transform: rotate(-90deg) scale(1.5, 1.5);
+      }
+    }
+  }
+
+  &.player-top {
+    justify-items: center;
+
+    .player-cards {
+      transform: rotate(-180deg);
+      transform-origin: center center;
+
+      .card:hover {
+        transform: rotate(180deg) scale(1.5, 1.5);
+      }
+    }
+  }
+
+
+  &.player-right {
+    .player-cards {
+      transform: rotate(-90deg) translate(-100%, 10%);
+      transform-origin: top left;
+
+      .card:hover {
+        transform: rotate(90deg) scale(1.5, 1.5);
+      }
+    }
+    .player-name {
+      text-align: right;
+    }
+  }
+}

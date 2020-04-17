@@ -1,123 +1,13 @@
 .player {
   display: grid;
-
-  &.player-left {
-    .player-cards {
-      transform: rotate(90deg) translate(0, -110%);
-      transform-origin: top left;
-      .card:hover {
-        transform: rotate(-90deg) scale(1.5, 1.5);
-      }
-    }
-  }
-
-  &.player-top {
-    justify-items: center;
-
-    .player-cards {
-      transform: rotate(-180deg);
-      transform-origin: center center;
-
-      .card:hover {
-        transform: rotate(180deg) scale(1.5, 1.5);
-      }
-    }
-  }
-
-
-  &.player-right {
-    .player-cards {
-      transform: rotate(-90deg) translate(-100%, 10%);
-      transform-origin: top left;
-
-      .card:hover {
-        transform: rotate(90deg) scale(1.5, 1.5);
-      }
-    }
-    .player-name {
-      text-align: right;
-    }
-  }
-
-  &:not(.player-current) {
-    grid-gap: 0px;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: calc(5vmin - (2 * #{$cardMargin})) auto;
-    grid-template-areas:
-      "player-name"
-      "player-cards";
-    align-items: start;
-
-    .player-cards{
-      grid-area: player-cards;
-      height: $cardHeight;
-      display: grid;
-      grid-template-columns: auto auto;
-      grid-template-areas: "player-char virus-infection";
-      .player-char{
-        grid-area: player-char;
-      }
-      .virus-infection{
-        grid-area: virus-infection;
-      }
-    }
-  }
-
-  &.player-current {
-    .player-cards {
-      grid-gap: 0px;
-      display: grid;
-      grid-template-columns: min-content auto min-content;
-      grid-template-rows: calc(5vmin - (2 * #{$cardMargin})) calc(#{$cardHeight} + (2 * #{$cardMargin}));
-      grid-template-areas:
-        "player-name player-name player-name"
-        "status-cards hand-cards actions";
-
-      margin: auto;
-
-      .player-name {
-        text-align: center;
-      }
-      .status-cards {
-        grid-area: status-cards;
-        grid-gap: 0px;
-        display: grid;
-        grid-template-columns: auto auto;
-        grid-template-areas: "player-char virus-infection";
-
-        border-right: 1px solid #140c0e;
-
-        .player-char{
-          grid-area: player-char;
-        }
-        .virus-infection{
-          grid-area: virus-infection;
-        }
-      }
-
-      .hand-cards {
-        grid-area: hand-cards;
-      }
-
-      .actions{
-        border-left: 1px solid #140c0e;
-        opacity: 0;        
-        transition: 0.5s;
-        .action{
-          width: 0vh;
-          height: $cardHeight;        
-          margin: 0;               
-          transition: 0.5s;
-          cursor: pointer;
-          background-size: contain;
-          background-position: center center;
-          background-repeat: no-repeat;
-        }
-      }
-    }
-  }
+  grid-gap: 0px;
+  width: 100%;
+  grid-template-columns: 100%;
+  grid-template-rows: calc(5vmin - (2 * #{$cardMargin})) auto;
+  grid-template-areas:
+    "player-name"
+    "player-cards";
+  align-items: start;
 
   .player-name {
     grid-area: player-name;
@@ -130,19 +20,14 @@
     text-shadow: 1px 1px 1px #140c0e, 1px -1px 1px #140c0e, -1px 1px 1px #140c0e, -1px -1px 1px #140c0e;
   }
 
-
+  .player-cards{
+    grid-area: player-cards;
+    height: $cardHeight;
+  }
 
   &.current-turn {
     .player-name {
       text-shadow: 2px 2px 2px #dc143c, 2px -2px 2px #dc143c, -2px 2px 2px #dc143c, -2px -2px 2px #dc143c;
-    }
-    &.player-current .player-cards .actions{
-      opacity: 1;
-      .action{
-        width: $cardWidth;
-        height: $cardHeight;        
-        margin: $cardMargin;        
-      }
     }
   }
 }

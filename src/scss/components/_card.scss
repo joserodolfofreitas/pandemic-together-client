@@ -30,25 +30,46 @@
     }
   }
 
-  &.hand-card {  
+  &.hand-card {
     animation: add-card 1s 0s 1;
 
-    &.playable{
+    &.playable {
       cursor: move;
+    }
+
+    &.destroyed{
+      display: none;
     }
   }
 
   &.virus-card {
     transform: scale(0.9);
     animation: add-card 1s 0s 1;
-    
+
     &:hover {
-      transform: scale(1.5, 1.5);
-      z-index: 10;
+        transform: scale(1.5, 1.5);
+        z-index: 10;
     }
 
     &.contained {
       box-shadow: 0px 0px 5px 5px rgba(#0f0, 1);
+    }
+
+    @keyframes destroy-card {
+      0% {
+        display: block;
+        opacity: 1;
+      }
+      100% {
+        display: none;
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+
+    &.destroyed{
+      opacity: 0;
+      animation: destroy-card 1s ease-out 0s 1 forwards;
     }
 
     .card-tokens {
@@ -63,11 +84,12 @@
         0% {
           transform: translate(0, -100%);
           opacity: 0;
-          width: 0; height: 0;
+          width: 0;
+          height: 0;
         }
         33% {
           transform: translate(0, 0);
-          opacity: 1;        
+          opacity: 1;
           width: $cardWidth / 5;
           height: $cardWidth / 5;
         }
@@ -78,7 +100,7 @@
           transform: scale(1);
         }
       }
-  
+
       .token {
         background-size: contain;
         background-position: center center;
@@ -91,20 +113,23 @@
     }
   }
 
-  &.faded{
+  &.faded {
     filter: brightness(0.7);
   }
 
-  &.hidden{
+  &.hidden {
     opacity: 0;
   }
 
-  .overlay{
+  .overlay {
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
     position: absolute;
-    left:0;right:0;top:0;bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     pointer-events: none;
   }
 }
