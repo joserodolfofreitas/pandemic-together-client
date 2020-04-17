@@ -26,7 +26,7 @@ import resetGameMessages from './reducers/resetGameMessages';
 
 const reducerMap = {
     [SET_ROOM]: (state, action) => setRoom(state, action.room),
-    [ADD_BOT]: (state, action) => setRoom(state, action.botRoom),
+    [ADD_BOT]: (state, action) => addBot(state, action.botRoom),
     [SET_ROOM_STATE]: (state, action) => setRoomState(state, action.roomState),
     [SET_IS_LOADING]: (state, action) => setIsLoading(state, action.isLoading),
     [SET_DRAGGING_CARD]: (state, action) => setDraggingCard(state, action.card),
