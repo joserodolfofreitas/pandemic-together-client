@@ -93,9 +93,10 @@ class StartGame extends React.Component {
         } else if (roomState.gameState === Constants.GAME_STATE_WAITING_PLAYERS) {
             var numberOfPlayersInTheRoom = Object.keys(roomState.players).length;
             var disabledStartButton = (Object.keys(roomState.players).length < 3) ? true : false;
+            var disabledAddBotButton = (Object.keys(roomState.players).length < 4) ? false : true;
             return <div style={{padding:10}}>
                 <button disabled={disabledStartButton} className="start-button" onClick={() => this.onClick_StartGame()} >{(disabledStartButton) ?  "waiting for players "  : "Start Game"} {" - (" + numberOfPlayersInTheRoom +"/4)"}</button>
-                <button onClick={() => this.onClick_StartBot()}>Add a bot</button>
+                <button disabled={disabledAddBotButton} onClick={() => this.onClick_StartBot()}>Add a bot</button>
                 <br />
                 <ChatRoom />
             </div>
