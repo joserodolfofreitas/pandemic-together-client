@@ -1,5 +1,6 @@
 import * as Colyseus from "colyseus.js";
-import { addBot, isLoading } from './../actions'
+import { addBot, isLoading } from './../actions';
+import { generateBotPlayDecision } from './Bot';
 import * as Constants from '../../common/constants';
 
 const serverUrl = (process.env.NODE_ENV === 'production') ? 'wss://pandemic-together-server.herokuapp.com' : 'ws://localhost:2567'
@@ -30,11 +31,18 @@ function runStartBot(username) {
                     if(roomState.roundState === Constants.ROUND_STATE_VIRUS_PHASE){
                         botRoom.send({ type: Constants.GM_END_NEW_ROUND_ANIMATIONS, playerId: botRoom.sessionId });
                     }
+                    if (roomState.currentTurn == botRoom.sessionId) {
+                        const players = roomState.players;
+                        setTimeout(()=>{
+                            const message = generateBotPlayDecision(players, botRoom.sessionId);
+                            botRoom.send(message);
+                        }, 6000);
+                    }
                 });
 		        botRoom.state.onChange = (changes) => {
                     changes.forEach(change => {
                         console.log("bot onState step change");
-                        if (change.field == "currentTurn") {
+                        /*if (change.field == "currentTurn") {
                             if (change.value == botRoom.sessionId) {
                                 const players = getState().roomState.players;
                                 setTimeout(()=>{
@@ -47,7 +55,7 @@ function runStartBot(username) {
                                     botRoom.send(message);
                                 }, 6000);
                             }
-                        }
+                        }*/
                     });
                 };
                 dispatch(addBot(botRoom));

@@ -21,7 +21,7 @@ class Table extends React.Component {
             })}
             <MyPlayer playerId={this.props.myPlayerId} />
             <Deck playerItems={playerItems} />
-            <ChatRoom />
+            <ChatRoom collapsed={true}/>
             <div className="footer">
                 a collaborative effort by lots of people (will add names soon)
             </div>

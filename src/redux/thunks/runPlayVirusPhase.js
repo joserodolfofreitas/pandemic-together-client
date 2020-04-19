@@ -16,7 +16,7 @@ function runPlayVirusPhase() {
             }else{
                 dispatch(setVirusPhaseMessage(null));
                 //inform server, that all rounds where played
-                state.room.send({ type: Constants.GM_END_NEW_ROUND_ANIMATIONS, playerId: state.room.sessionId });
+                state.room.send({ type: Constants.GM_END_NEW_ROUND_ANIMATIONS, playerId: state.currentPlayerSessionId });
             }
         }
         processNextRoundMessage();

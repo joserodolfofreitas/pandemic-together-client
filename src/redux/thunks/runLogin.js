@@ -1,5 +1,5 @@
 import * as Colyseus from "colyseus.js";
-import { setRoom, setRoomState, setCurrentPlayerSessionId, isLoading, playVirusPhase } from './../actions'
+import { setRoom, setRoomState, setCurrentPlayerSessionId, isLoading, playVirusPhase, pushChatMessage } from './../actions'
 import { processGameMessages } from './../dataprocessors/GameMessagesProcessor'
 import * as Constants from './../../common/constants';
 const serverUrl = (process.env.NODE_ENV === 'production') ? 'wss://pandemic-together-server.herokuapp.com' : 'ws://localhost:2567'
@@ -28,6 +28,9 @@ function runLogin(username) {
 
                 room.onMessage((message) => {
                     console.log(message);
+                    if (message.type == Constants.GM_CHAT_MESSAGE) {
+                        dispatch(pushChatMessage(message));
+                    }
                 });
 
                 room.onStateChange.once((state) => {
