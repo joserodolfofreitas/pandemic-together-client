@@ -4,7 +4,8 @@
     color: #fff;
     padding: 10px;
     font-size: 0.8em;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     border-radius: 5px;
 
     &.quick {
@@ -19,38 +20,42 @@
         color: #fff;
         padding: 10px;
         border-radius: 5px;
-        position: absolute;
+        position: fixed;
         margin: auto;
         top: 3vh;
         left: 0px;
         right: 0px;
         width: 80vw;
-        height: 94vh;
-        float:left;
+        bottom: 3vh;
 
         .header {
-
             width: 100%;
             text-align: center;
             font-size: 1.2em;
-
+            position: relative;
+            height: 35px;
             .close-button {
-                width: 1em;
+                height: 20px; width: 20px;
                 text-align: center;
-                float: right;
                 padding: 5px;
                 background:  #dc143c;
+                cursor: pointer;
+                position: absolute;
+                top:0; right: 0;
             }
         }
 
 
 
         .instructions-content {
-            margin: 20px auto;
-            height: 90%;
             padding: 20px;
-            overflow: scroll;
-            width: 90%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+
+            position: absolute;
+            bottom: 1vh;
+            top: calc(35px + 1vh);
+            left: 1vh; right: 1vh;
 
             .types-of-cards {
                 .description {
