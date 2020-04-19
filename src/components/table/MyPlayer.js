@@ -8,7 +8,7 @@ import Player from './Player';
 
 class MyPlayer extends React.Component {
     onClick_skipTurn() {
-        if (this.props.playerId !== this.props.activePlayerId) {
+        if (this.props.playerId !== this.props.currentTurnPlayerSessionId) {
             return;
         }
         this.props.skipTurn();
@@ -33,8 +33,6 @@ class MyPlayer extends React.Component {
 
 export default connect(
     (state, ownProps) => {
-        console.log("connect", state, ownProps)
-
         return {
             currentTurnPlayerSessionId: state.gameFlow.currentTurnPlayerSessionId,
             virusCards: state.cards.players[ownProps.playerId].viruses,
