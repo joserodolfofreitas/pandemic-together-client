@@ -57,14 +57,6 @@ class Card extends React.Component {
     }
 
     render() {
-        const connectDragSource = this.props.connectDragSource;
-        const connectDropTarget = this.props.connectDropTarget;
-        return connectDropTarget(connectDragSource(<div className={this.getCardClasses()} style={{ "--card-index": this.props.index, backgroundImage: `url("/images/card-${this.props.card.elementId.toLowerCase()}.png")` }}>
-            {this.props.children}
-        </div>));
-    }
-
-    getCardClasses() {
         const card = this.props.card;
 
         //temp hack
@@ -73,6 +65,14 @@ class Card extends React.Component {
             return null;
         }
 
+        const connectDragSource = this.props.connectDragSource;
+        const connectDropTarget = this.props.connectDropTarget;
+        return connectDropTarget(connectDragSource(<div className={this.getCardClasses(card)} style={{ "--card-index": this.props.index, backgroundImage: `url("/images/card-${card.elementId.toLowerCase()}.png")` }}>
+            {this.props.children}
+        </div>));
+    }
+
+    getCardClasses(card) {
         const isVirusCard = card.type === Constants.CARD_TYPE_VIRUS;
         const isPlayable = this.props.isHandCard && this.props.isPlayable;
 

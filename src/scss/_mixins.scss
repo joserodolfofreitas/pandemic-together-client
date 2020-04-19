@@ -1,5 +1,0 @@
-@mixin hs-animate($animation, $time, $modifier) {
-    @each $attribute in -webkit-animation -moz-animation -o-animation animation {
-        #{$attribute}: $animation $time $modifier;
-    }
-}

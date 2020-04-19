@@ -54,7 +54,8 @@ export function generateBotPlayDecision(players, botSessionId) {
         var onCardIds = [mostDangerousCard.cardId];
 
         if (bestCardToPlay.maxCardsImpact > 1) {
-            var player = mostDangerousCard.cardId.cardHolder;
+            var player = players[mostDangerousCard.cardHolder];
+            
             for (var i = 1; i < player.virusField.length && i <= bestCardToPlay.maxCardsImpact; i++) {
                 var virus = player.virusField[i];
                 if (!onCardIds.includes(virus.cardId)) {
