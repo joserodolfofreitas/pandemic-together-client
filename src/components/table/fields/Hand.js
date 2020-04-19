@@ -1,6 +1,7 @@
 import React from 'react';
 import HandCard from './../cards/HandCard';
 import { connect } from 'react-redux';
+import _getCardItems from './_getCardItems';
 
 class Hand extends React.Component {
     displayCardItems = [];
@@ -22,35 +23,7 @@ class Hand extends React.Component {
     }
 
     getCardItems() {
-        let activeCards = this.props.handCards;
-        let displayCardItems = this.displayCardItems;
-        let activeIndex = 0, displayIndex = 0;
-        while (activeIndex < activeCards.length || displayIndex < displayCardItems.length) {
-            const activeCard = activeCards[activeIndex];
-            const displayCardItem = displayCardItems[displayIndex];
-
-            if (activeCard && displayCardItem && activeCard.cardId === displayCardItem.card.cardId) {
-                displayCardItem.card = Object.assign({}, activeCard); //clone card, to avoid reference problems for now
-                displayCardItem.state = "displayed";
-                activeIndex++;
-                displayIndex++;
-                continue;
-            }
-            if (!displayCardItem) {
-                const newItem = { card: Object.assign({}, activeCard), state: "displayed" }; //clone card, to avoid reference problems for now
-                displayCardItems.push(newItem);
-                activeIndex++;
-                displayIndex++;
-                continue;
-            }
-            if (!activeCard || activeCard.cardId !== displayCardItem.card.cardId) {
-                displayCardItem.state = "destroyed";
-                displayIndex++;
-                continue;
-            }
-            throw new Error("unreachable state");
-        }
-        return this.displayCardItems = displayCardItems;
+        return this.displayCardItems = _getCardItems(this.props.handCards, this.displayCardItems);
     }
 }
 

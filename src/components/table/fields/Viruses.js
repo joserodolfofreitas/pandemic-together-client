@@ -2,6 +2,7 @@ import React from 'react';
 import VirusCard from './../cards/VirusCard';
 import { connect } from 'react-redux';
 import * as Constants from '../../../common/constants';
+import _getCardItems from './_getCardItems';
 
 const action2indicatorMap = {
     [Constants.ACTION_DESTROY_VIRUS_TOKEN]: "reduce-tokens",
@@ -30,35 +31,7 @@ class Viruses extends React.Component {
     }
 
     getCardItems() {
-        let activeCards = this.props.virusCards;
-        let displayCardItems = this.displayCardItems;
-        let activeIndex = 0, displayIndex = 0;
-        while (activeIndex < activeCards.length || displayIndex < displayCardItems.length) {
-            const activeCard = activeCards[activeIndex];
-            const displayCardItem = displayCardItems[displayIndex];
-
-            if (activeCard && displayCardItem && activeCard.cardId === displayCardItem.card.cardId) {
-                displayCardItem.card = Object.assign({}, activeCard); //clone card, to avoid reference problems for now
-                displayCardItem.state = "displayed";
-                activeIndex++;
-                displayIndex++;
-                continue;
-            }
-            if (!displayCardItem) {
-                const newItem = { card: Object.assign({}, activeCard), state: "displayed" }; //clone card, to avoid reference problems for now
-                displayCardItems.push(newItem);
-                activeIndex++;
-                displayIndex++;
-                continue;
-            }
-            if (!activeCard || activeCard.cardId !== displayCardItem.card.cardId) {
-                displayCardItem.state = "destroyed";
-                displayIndex++;
-                continue;
-            }
-            throw new Error("unreachable state");
-        }
-        return this.displayCardItems = displayCardItems;
+        return this.displayCardItems = _getCardItems(this.props.virusCards, this.displayCardItems);
     }
 
     getCardIndicators(cardItems) {
