@@ -9,7 +9,7 @@ import * as Constants from './../common/constants';
 function mapStateToProps(state) {
     return {
         isLoading: state.isLoading,
-        gameState: state.gameState,
+        gameState: state.gameFlow.gameState,
         bots: state.bots,
         players: state.players
     }

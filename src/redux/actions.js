@@ -25,6 +25,8 @@ export const PUSH_GAME_MESSAGE = 'PUSH_GAME_MESSAGE';
 export const REMOVE_GAME_MESSAGE = 'REMOVE_GAME_MESSAGE';
 export const RESET_GAME_MESSAGES = 'RESET_GAME_MESSAGES';
 
+export const UPDATE_GAME_FLOW = 'UPDATE_GAME_FLOW'
+
 
 /*
  * redux action creators
@@ -69,6 +71,10 @@ export function setDragOverCard(card) {
 
 export function setVirusPhaseMessage(message){
     return { type: SET_VIRUS_PHASE_MESSAGE, message }
+}
+
+export function updateGameFlow(gameFlow, cards){
+    return { type: UPDATE_GAME_FLOW, gameFlow, cards }
 }
 
 export function startGame() {

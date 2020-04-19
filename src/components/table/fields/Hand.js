@@ -32,7 +32,7 @@ export default connect(
         return {
             draggingCard: state.draggingCard,
             dragOverCard: state.dragOverCard,
-            handCards: state.players[ownProps.playerId].handCards
+            handCards: state.players[ownProps.playerId].hand
         }
     },
     null

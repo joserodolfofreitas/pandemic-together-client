@@ -1,34 +1,41 @@
 
-import { setRoom, playVirusPhase, pushChatMessage } from '../actions'
-import { processGameMessages } from './dataprocessors/GameMessagesProcessor'
+import { setRoom, playVirusPhase, pushChatMessage, pushGameMessage, updateGameFlow } from '../actions'
 import * as Constants from './../../common/constants';
-
-function transformChatMessage(message){
-    return Object.assign({}, message);
-}
+import { mapStateChangeToGameMessage } from './dataMappers/mapStateChangeToGameMessage'
+import { mapRoomMessageToChatMessage } from './dataMappers/mapRoomMessageToChatMessage';
+import { mapRoomStateToGameFlow, mapRoomStateToVirusPhaseMessages, mapRoomStateToCards } from './dataMappers/mapRoomState';
 
 function runSetMyPlayerRoom(room){
     return (dispatch, getState) => {
-        dispatch(setRoom(room, false));
+        dispatch(setRoom(room));
 
         room.onMessage((message) => {
-            if (message.type == Constants.GM_CHAT_MESSAGE) {
-                dispatch(pushChatMessage(transformChatMessage(message)));
+            const chatMessage = mapRoomMessageToChatMessage(message);
+            if(chatMessage){
+                dispatch(pushChatMessage(chatMessage));
             }
         });
 
         room.state.onChange = (changes) => {
             changes.forEach(change => {
-                processGameMessages(dispatch, change);
+                const message = mapStateChangeToGameMessage(change)
+                if(message){
+                    dispatch(pushGameMessage(message));
+                }
             });
         };    
 
         room.onStateChange((roomState) => {
             console.log("### ROOMSTATE ###", roomState);
 
-            if(roomState.roundState === Constants.ROUND_STATE_VIRUS_PHASE){
-                console.log("dispatch(playVirusPhase());")
-                dispatch(playVirusPhase());
+            const gameFlow = mapRoomStateToGameFlow(roomState);
+            const cards = mapRoomStateToCards(roomState);
+
+            if(gameFlow.roundState === Constants.ROUND_STATE_VIRUS_PHASE){
+                const messages = mapRoomStateToVirusPhaseMessages(roomState);
+                dispatch(playVirusPhase(gameFlow, cards, messages));
+            }else{
+                updateGameFlow(gameFlow, cards);
             }
         });
     };

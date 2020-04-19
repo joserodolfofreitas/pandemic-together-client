@@ -1,33 +1,33 @@
 import * as Constants from '../common/constants';
 
 export const initialState = {
-    room: null, //FIXME referenzen finden
+    room: null, //via setRoom //FIXME referenzen finden
 
-    currentTurnPlayerSessionId: "", //currentTurn -> ChatRoom, activePlayerId -> Deck, MyPlayer, OtherPlayer
-    myPlayerSessionId: "",
+    myPlayerSessionId: "", //via setRoom
 
-    chatMessages: [],
-
-    deck: [],
-    players: {
-        handCards: [], //hand
-        virusCards: [] //virusField
-    },
-    roundState: null,
-    gameState: null, //state.roomState ? state.roomState.gameState : null
-    round: 0, //
+    chatMessages: [], //via runSetMyPlayerRoom room.onMessage
+    gameMessages: [], //via runSetMyPlayerRoom room.state.onChange  [{messageId: 1, type: "test", value:"test 1 lero"}, ...]
     virusPhaseMessages: [], //newRoundMessages
+
+    gameFlow: { //via runSetMyPlayerRoom room.onStateChange 
+        gameState: null,
+        roundState: null,
+        roundCount: 0,
+        currentTurnPlayerSessionId: ""
+    },
+
+    cards: { //via runSetMyPlayerRoom room.onStateChange 
+        deck: [], 
+        players: {}, // {[playerId] : {hand: [], viruses: [], character: [] } } ,
+    },
 
     isLoading: false,
 
     draggingCard: null,
     dragOverCard: null,
-    
-    /*gameMessages: [{messageId: 1, type: "test", value:"test 1 lero"},
-                    {messageId: 2, type: "test", value:"test 2 lero lero"},
-                    {messageId: 3, type: "test", value:"test 1 bla bla bla"}],*/
-    gameMessages: [],
+
     bots: [],
+
     cards: [
         {
             elementId: "V1",

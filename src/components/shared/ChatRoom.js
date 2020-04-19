@@ -5,14 +5,11 @@ import { connect } from 'react-redux';
 
 function mapStateToProps(state) {
     return {
-        player: state.player,
         room: state.room, 
-        gameState: state.gameState,
         players: state.players,
         myPlayerSessionId: state.myPlayerSessionId,
-        currentTurnPlayerSessionId: state.currentTurnPlayerSessionId,
         chatMessages: state.chatMessages,
-        round: state.round,
+        gameFlow: state.gameFlow
     }
 }
 
@@ -63,15 +60,15 @@ class ChatRoom extends React.Component {
 
     render() {
         const players = this.props.players;
-        const gameState = this.props.gameState;
-        const currentTurnPlayerSessionId = this.props.currentTurnPlayerSessionId;
+        const gameState = this.props.gameFlow.gameState;
+        const currentTurnPlayerSessionId = this.props.gameFlow.currentTurnPlayerSessionId;
         let playerList = [];
         let index = 0;
         for (let id in players) {
             const player = players[id];
             playerList[index++] = player;
         }
-        const round = (gameState === Constants.GAME_STATE_STARTED) ? "round " + this.props.round : "";
+        const round = (gameState === Constants.GAME_STATE_STARTED) ? "round " + this.props.gameFlow.roundCount : "";
         const chatMessages = this.props.chatMessages;
 
         /*<div>player1: lerolero</div>

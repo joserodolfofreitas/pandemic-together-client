@@ -14,11 +14,10 @@ class Character extends React.Component {
 
 export default connect(
     (state, ownProps) => {
-        const player = state.players[ownProps.playerId];
         return {
             draggingCard: state.draggingCard,
             dragOverCard: state.dragOverCard,
-            playerField: [player.advantages[0], player.disadvantages[0]]
+            playerField: state.players[ownProps.playerId].character
         }
     },
     null

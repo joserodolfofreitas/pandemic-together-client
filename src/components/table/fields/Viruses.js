@@ -61,7 +61,7 @@ export default connect(
         return {
             draggingCard: state.draggingCard,
             dragOverCard: state.dragOverCard,
-            virusCards: state.players[ownProps.playerId].virusCards
+            virusCards: state.players[ownProps.playerId].viruses
         }
     },
     null

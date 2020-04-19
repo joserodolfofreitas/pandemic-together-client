@@ -22,7 +22,7 @@ class Main extends React.Component {
 export default connect(
     (state) => {
         return {
-            gameState: state.gameState
+            gameState: state.gameFlow.gameState
         }
     },
     null

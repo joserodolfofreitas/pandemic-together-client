@@ -8,7 +8,9 @@ import {
     PUSH_GAME_MESSAGE,
     PUSH_CHAT_MESSAGE,
     REMOVE_GAME_MESSAGE,
-    RESET_GAME_MESSAGES
+    RESET_GAME_MESSAGES,
+    UPDATE_GAME_FLOW,
+    updateGameFlow
 } from './actions'
 
 import setRoom from './reducers/setRoom';
@@ -37,7 +39,9 @@ const reducerMap = {
     
     [PUSH_GAME_MESSAGE]: (state, action) => pushGameMessage(state, action.gameMessage),
     [REMOVE_GAME_MESSAGE]: (state, action) => removeGameMessage(state, action.gameMessage),
-    [RESET_GAME_MESSAGES]: (state, action) => resetGameMessages(state)
+    [RESET_GAME_MESSAGES]: (state, action) => resetGameMessages(state),
+
+    [UPDATE_GAME_FLOW]: (state, action) => updateGameFlow(state, action.gameFlow, action.cards)
 }
 
 function reducers(state, action) {
