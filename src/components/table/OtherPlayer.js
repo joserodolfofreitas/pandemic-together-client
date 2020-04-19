@@ -21,8 +21,8 @@ class OtherPlayer extends React.Component {
 export default connect(
     (state, ownProps) => {
         return {
-            activePlayerId: state.roomState.roundState === Constants.ROUND_STATE_PLAYERS_PHASE ? state.roomState.currentTurn : null,
-            virusCards: state.roomState.players[ownProps.playerId].virusField,
+            activePlayerId: state.roundState === Constants.ROUND_STATE_PLAYERS_PHASE ? state.currentTurn : null,
+            virusCards: state.players[ownProps.playerId].virusCards,
         }
     },
     null

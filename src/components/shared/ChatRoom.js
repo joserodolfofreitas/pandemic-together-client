@@ -6,11 +6,12 @@ import { connect } from 'react-redux';
 function mapStateToProps(state) {
     return {
         player: state.player,
-        room: state.room,
-        roomState: state.roomState,
-        currentPlayerSessionId: state.currentPlayerSessionId,
+        room: state.room, 
+        gameState: state.gameState,
+        players: state.players,
+        myPlayerSessionId: state.myPlayerSessionId,
         chatMessages: state.chatMessages,
-        updatesOnRoomState: state.updatesOnRoomState,
+        round: state.round,
     }
 }
 
@@ -40,7 +41,7 @@ class ChatRoom extends React.Component {
     sendMessage() {
         const message = {
             type: Constants.GM_CHAT_MESSAGE,
-            playerName: this.props.roomState.players[this.props.currentPlayerSessionId].name,
+            playerName: this.props.players[this.props.myPlayerSessionId].name,
             text: this.state.messageText,
         };
         this.props.room.send(message)
@@ -60,14 +61,16 @@ class ChatRoom extends React.Component {
     }
 
     render() {
-        const roomState = this.props.roomState;
-        let players = [];
+        const players = this.props.players;
+        const gameState = this.props.gameState;
+        const currentTurn = this.props.currentTurn;
+        let playerList = [];
         let index = 0;
-        for (let id in roomState.players) {
-            const player = roomState.players[id];
-            players[index++] = player;
+        for (let id in players) {
+            const player = players[id];
+            playerList[index++] = player;
         }
-        const round = (roomState.gameState === Constants.GAME_STATE_STARTED) ? "round " + roomState.round : "";
+        const round = (gameState === Constants.GAME_STATE_STARTED) ? "round " + this.props.round : "";
         const chatMessages = this.props.chatMessages;
 
         /*<div>player1: lerolero</div>
@@ -82,12 +85,12 @@ class ChatRoom extends React.Component {
                     <h2>Players in the room</h2>
                 </div>
                 <div className="chat-content">
-                    {players.map(function (player, index) {
-                        var playerCurrentTurn = roomState.currentTurn === player.sessionId;
+                    {playerList.map(function (player, index) {
+                        var playerCurrentTurn = currentTurn === player.sessionId;
                         return <div key={index} style={{ textAlign: "center" }}>{playerCurrentTurn ? <span style={{ float: "left", color: "#050" }}>=></span> : ""}<span>{player.name}</span></div>
                     })}
                     <div><hr /></div>
-                    <div style={{ fontSize: "0.6em", color: "#333", textAlign: "center" }}>{roomState.gameState}</div>
+                    <div style={{ fontSize: "0.6em", color: "#333", textAlign: "center" }}>{gameState}</div>
                     <div style={{ fontSize: "0.7em", color: "#333", textAlign: "center" }}>{round}</div>
                     <div><hr /></div>
                     <div className="chat-messages">

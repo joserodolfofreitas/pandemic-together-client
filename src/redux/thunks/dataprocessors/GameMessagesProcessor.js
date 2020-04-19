@@ -1,5 +1,5 @@
-import { pushGameMessage } from './../actions'
-import * as Constants from '../../common/constants';
+import { pushGameMessage } from '../../actions'
+import * as Constants from '../../../common/constants';
 
 export function processGameMessages(dispatch, dataChange) {
     switch (dataChange.field) {

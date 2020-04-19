@@ -5,7 +5,7 @@ import {setVirusPhaseMessage} from './../actions'
 function runPlayVirusPhase() {
     return (dispatch, getState) => {
         const state = getState();        
-        let roundMessages = [].concat(state.roomState.newRoundMessages || [])
+        let roundMessages = [].concat(state.newRoundMessages || [])
         console.log("runPlayVirusPhase");
 
         function processNextRoundMessage(){
@@ -16,7 +16,7 @@ function runPlayVirusPhase() {
             }else{
                 dispatch(setVirusPhaseMessage(null));
                 //inform server, that all rounds where played
-                state.room.send({ type: Constants.GM_END_NEW_ROUND_ANIMATIONS, playerId: state.currentPlayerSessionId });
+                state.room.send({ type: Constants.GM_END_NEW_ROUND_ANIMATIONS, playerId: state.myPlayerSessionId });
             }
         }
         processNextRoundMessage();

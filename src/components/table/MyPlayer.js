@@ -35,9 +35,9 @@ class MyPlayer extends React.Component {
 export default connect(
     (state, ownProps) => {
         return {
-            activePlayerId: state.roomState.currentTurn, //TODO: reintegrate to lock myPlayer while runing VirusPhase state.roomState.roundState === Constants.ROUND_STATE_PLAYERS_PHASE ? state.roomState.currentTurn : null,
-            virusCards: state.roomState.players[ownProps.playerId].virusField,
-            handCards: state.roomState.players[ownProps.playerId].hand
+            activePlayerId: state.currentTurn, //TODO: reintegrate to lock myPlayer while runing VirusPhase state.roomState.roundState === Constants.ROUND_STATE_PLAYERS_PHASE ? state.roomState.currentTurn : null,
+            virusCards: state.players[ownProps.playerId].virusCards,
+            handCards: state.players[ownProps.playerId].handCards
         }
     },
     { skipTurn }

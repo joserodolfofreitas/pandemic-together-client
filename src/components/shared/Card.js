@@ -104,9 +104,7 @@ class Card extends React.Component {
 }
 
 export default connect(
-    (state) => {
-        return { updatesOnRoomState: state.updatesOnRoomState } // every state update, to assure card state changes are displayed
-    }, 
+    null, 
     { applyResourceOnVirus, setDraggingCard, setDragOverCard })
     (
     DragSource(Constants.DndItemTypes.CARD, dndDragSource, dndDragCollect)(

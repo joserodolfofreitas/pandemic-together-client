@@ -14,7 +14,7 @@ class Character extends React.Component {
 
 export default connect(
     (state, ownProps) => {
-        const player = state.roomState.players[ownProps.playerId];
+        const player = state.players[ownProps.playerId];
         return {
             draggingCard: state.draggingCard,
             dragOverCard: state.dragOverCard,

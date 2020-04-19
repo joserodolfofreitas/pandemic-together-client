@@ -27,8 +27,8 @@ class Deck extends React.Component {
 export default connect(
     (state) => {
         return {
-            activePlayerId: state.roomState.currentTurn,
-            cardsOnStack: Math.min(state.roomState.deck.length, 4)
+            activePlayerId: state.currentTurn,
+            cardsOnStack: Math.min(state.deck.length, 4)
         }
     },
     null

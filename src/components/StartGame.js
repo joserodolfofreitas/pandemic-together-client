@@ -8,10 +8,10 @@ import * as Constants from './../common/constants';
 
 function mapStateToProps(state) {
     return {
-        roomState: state.roomState,
         isLoading: state.isLoading,
+        gameState: state.gameState,
         bots: state.bots,
-        updatesOnRoomState: state.updatesOnRoomState,
+        players: state.players
     }
 }
 
@@ -73,13 +73,14 @@ class StartGame extends React.Component {
     }
 
     renderUserArea() {
-        const roomState = this.props.roomState;
+        const gameState = this.props.gameState;
+        const players = this.props.players;
         if (this.props.isLoading) {
             return <div className="loading">
                 <span className="logo" style={{backgroundImage: "url(/images/logo.png)"}}></span>
                 <small>loading</small>
             </div>
-        } else if (roomState === null) {
+        } else if (!gameState) {
             return (
                 <div className="login-box">
                     <h1>Pandemic Together</h1>
@@ -90,10 +91,10 @@ class StartGame extends React.Component {
                     <small>a collaborative game for staysafe gamejam</small>
                 </div>
             );
-        } else if (roomState.gameState === Constants.GAME_STATE_WAITING_PLAYERS) {
-            var numberOfPlayersInTheRoom = Object.keys(roomState.players).length;
-            var disabledStartButton = (Object.keys(roomState.players).length < 3) ? true : false;
-            var disabledAddBotButton = (Object.keys(roomState.players).length < 4) ? false : true;
+        } else if (gameState === Constants.GAME_STATE_WAITING_PLAYERS) {
+            var numberOfPlayersInTheRoom = Object.keys(players).length;
+            var disabledStartButton = (Object.keys(players).length < 3) ? true : false;
+            var disabledAddBotButton = (Object.keys(players).length < 4) ? false : true;
             return <div style={{padding:10}}>
                 <button disabled={disabledStartButton} className="start-button" onClick={() => this.onClick_StartGame()} >{(disabledStartButton) ?  "waiting for players "  : "Start Game"} {" - (" + numberOfPlayersInTheRoom +"/4)"}</button>
                 <button disabled={disabledAddBotButton} onClick={() => this.onClick_StartBot()}>Add a bot</button>

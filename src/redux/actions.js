@@ -5,12 +5,12 @@ import runApplyResourceOnVirus from './thunks/runApplyResourceOnVirus';
 import runRemoveMobileUrlBar from './thunks/runRemoveMobileUrlBar';
 import runSkipTurn from './thunks/runSkipTurn';
 import runPlayVirusPhase from './thunks/runPlayVirusPhase';
+import runSetMyPlayerRoom from './thunks/runSetMyPlayerRoom';
 /*
  * redux action types
  */
 export const SET_ROOM = 'SET_ROOM';
 export const ADD_BOT = 'ADD_BOT';
-export const SET_CURRENT_PLAYER_SESSION_ID = 'SET_CURRENT_PLAYER_SESSION_ID';
 export const SHUFFLE_DECK = 'SHUFFLE_DECK';
 export const DRAW_CARD = 'DRAW_CARD';
 export const UPDATE_PLAYER = 'UPDATE_PLAYER';
@@ -29,9 +29,6 @@ export const RESET_GAME_MESSAGES = 'RESET_GAME_MESSAGES';
  * redux action creators
  */
 
-export function setCurrentPlayerSessionId(sessionId) {
-    return { type: SET_CURRENT_PLAYER_SESSION_ID, sessionId }
-}
 
 export function pushGameMessage(gameMessage) {
     return { type: PUSH_GAME_MESSAGE, gameMessage }
@@ -49,29 +46,17 @@ export function resetGameMessages() {
     return { type: RESET_GAME_MESSAGES }
 }
 
-export function setRoom(room) {
-    return { type: SET_ROOM, room }
+export function setRoom(room, isLoading) {
+    return { type: SET_ROOM, room, isLoading }
 }
 
-export function addBot(botRoom) {
-    return { type: ADD_BOT, botRoom }
+export function addBot(botRoom, isLoading) {
+    return { type: ADD_BOT, botRoom, isLoading }
 }
 
-export function setRoomState(roomState) {
-    return { type: SET_ROOM_STATE, roomState }
-}
-
-export function drawCard(card) {
-    return { type: DRAW_CARD, card }
-}
-
-export function shuffleDeck() {
-    return { type: SHUFFLE_DECK }
-}
-
-export function updatePlayer(player) {
-    return { type: UPDATE_PLAYER, player }
-}
+// export function updatePlayer(player) {
+//     return { type: UPDATE_PLAYER, player }
+// }
 
 export function isLoading(isLoading) {
     return { type: SET_IS_LOADING, isLoading }
@@ -115,5 +100,9 @@ export function skipTurn(){
 
 export function playVirusPhase(){
     return runPlayVirusPhase()
+}
+
+export function setMyPlayerRoom(room){
+    return runSetMyPlayerRoom(room)
 }
 

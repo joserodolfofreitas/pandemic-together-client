@@ -1,16 +1,24 @@
 import * as Constants from '../common/constants';
 
 export const initialState = {
-    player: null,
-    room: null,
-    roomState: null,
-    updatesOnRoomState: 0,
-    currentPlayerTurn: "",
-    currentPlayerSessionId: "",
+    player: null, //FIXME wer ist das
+    room: null, //FIXME referenzen finden
+    currentPlayerTurn: "", //currentTurn -> ChatRoom, activePlayerId -> Deck, MyPlayer, OtherPlayer
+    myPlayerSessionId: "",
     selectedCards: [],
     roomPlayers: [],
     chatMessages: [],
+
     deck: [],
+    players: {
+        handCards: [], //hand
+        virusCards: [] //virusField
+    },
+    roundState: null,
+    gameState: null, //state.roomState ? state.roomState.gameState : null
+    round: 0, //
+    newRoundMessages: [], //refactor
+
     isLoading: false,
     draggingCard: null,
     dragOverCard: null,
@@ -20,7 +28,6 @@ export const initialState = {
     gameMessages: [],
     bots: [],
     cards: [
-
         {
             elementId: "V1",
             type: Constants.CARD_TYPE_VIRUS,

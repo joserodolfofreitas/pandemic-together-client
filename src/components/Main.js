@@ -22,7 +22,7 @@ class Main extends React.Component {
 export default connect(
     (state) => {
         return {
-            gameState: state.roomState ? state.roomState.gameState : null // null = not connected
+            gameState: state.gameState
         }
     },
     null

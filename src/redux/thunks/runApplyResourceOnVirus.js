@@ -3,7 +3,7 @@ import * as Constants from './../../common/constants';
 function runApplyResourceOnVirus(resourceCard, virusCard) {
     return (dispatch, getState) => {
         const room =  getState().room;
-        const sessionId = getState().currentPlayerSessionId;
+        const sessionId = getState().myPlayerSessionId;
         const message = {
             type: Constants.GM_PLAY_CARD,
             player: sessionId,

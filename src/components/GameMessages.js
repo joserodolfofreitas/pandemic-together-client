@@ -6,8 +6,8 @@ import * as Constants from './../common/constants';
 function mapStateToProps(state) {
     return {
         gameMessages: state.gameMessages,
-        roomState: state.roomState,
-        currentPlayerSessionId: state.currentPlayerSessionId,
+        players: state.players,
+        myPlayerSessionId: state.myPlayerSessionId,
     }
 }
 
@@ -15,8 +15,8 @@ class GameMessages extends React.Component {
     messages = []; //messages dictionary
 
     render() {
-        var players = (this.props.roomState) ? this.props.roomState.players : [];
-        const currentPlayerSessionId = this.props.currentPlayerSessionId;
+        var players = this.props.players || {};
+        const myPlayerSessionId = this.props.myPlayerSessionId;
         const messageTimersIds = Object.keys(this.messages);
         const now = Date.now();
 
@@ -49,7 +49,7 @@ class GameMessages extends React.Component {
                                     imgSrc = "/images/players-lose.png";
                                     break;
                                 }
-                                if (player.sessionId == currentPlayerSessionId) {
+                                if (player.sessionId == myPlayerSessionId) {
                                     messageText = "Your turn.";
                                 } else {
                                     messageText = player.name + "'s turn.";

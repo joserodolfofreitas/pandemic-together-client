@@ -35,7 +35,7 @@ class Table extends React.Component {
         let myPlayerIndex = 0;
         for (let id in this.props.players) {
             const player = this.props.players[id];
-            if (player.sessionId !== this.props.myPlayerId) {
+            if (player.sessionId !== this.props.myPlayerSessionId) {
                 players.push({ playerId: player.sessionId })
             } else {
                 myPlayerIndex = indexCounter;
@@ -53,8 +53,8 @@ class Table extends React.Component {
 export default connect(
     (state) => {
         const result = {
-            players: state.roomState.players,
-            myPlayerId: state.currentPlayerSessionId
+            players: state.players,
+            myPlayerSessionId: state.myPlayerSessionId
         }
         return result;
     },
