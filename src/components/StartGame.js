@@ -5,16 +5,6 @@ import ChatRoom from './shared/ChatRoom';
 import HowToPlayGuide from './HowToPlayGuide';
 import * as Constants from './../common/constants';
 
-
-function mapStateToProps(state) {
-    return {
-        isLoading: state.isLoading,
-        gameState: state.gameFlow.gameState,
-        bots: state.bots,
-        players: state.players
-    }
-}
-
 class StartGame extends React.Component {
 
     constructor(props) {
@@ -25,7 +15,7 @@ class StartGame extends React.Component {
     }
 
     usedBotNames = [];
-    botNames = ["Dannel", "Giskard", "Andrew", "Norby", "Emma-2", "Brackenridge", "Tony", "Lenny", "Speedie", "Robbie", "Z-1", "Z-2", "Z-3", "L-76", "Ez-27" ];
+    botNames = ["Dannel", "Giskard", "Andrew", "Norby", "Emma-2", "Brackenridge", "Tony", "Lenny", "Speedie", "Robbie", "Z-1", "Z-2", "Z-3", "L-76", "Ez-27"];
     generateBotName() {
         var arrayOfUnusedNames = this.botNames.filter(item => !this.usedBotNames.includes(item));
         var index = Math.floor(Math.random() * arrayOfUnusedNames.length);
@@ -77,7 +67,7 @@ class StartGame extends React.Component {
         const players = this.props.players;
         if (this.props.isLoading) {
             return <div className="loading">
-                <span className="logo" style={{backgroundImage: "url(/images/logo.png)"}}></span>
+                <span className="logo" style={{ backgroundImage: "url(/images/logo.png)" }}></span>
                 <small>loading</small>
             </div>
         } else if (!gameState) {
@@ -95,8 +85,8 @@ class StartGame extends React.Component {
             var numberOfPlayersInTheRoom = Object.keys(players).length;
             var disabledStartButton = (Object.keys(players).length < 3) ? true : false;
             var disabledAddBotButton = (Object.keys(players).length < 4) ? false : true;
-            return <div style={{padding:10}}>
-                <button disabled={disabledStartButton} className="start-button" onClick={() => this.onClick_StartGame()} >{(disabledStartButton) ?  "waiting for players "  : "Start Game"} {" - (" + numberOfPlayersInTheRoom +"/4)"}</button>
+            return <div style={{ padding: 10 }}>
+                <button disabled={disabledStartButton} className="start-button" onClick={() => this.onClick_StartGame()} >{(disabledStartButton) ? "waiting for players " : "Start Game"} {" - (" + numberOfPlayersInTheRoom + "/4)"}</button>
                 <button disabled={disabledAddBotButton} onClick={() => this.onClick_StartBot()}>Add a bot</button>
                 <br />
                 <ChatRoom />
@@ -110,4 +100,14 @@ class StartGame extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, { login, startGame, startBot, removeMobileUrlBar })(StartGame)
+export default connect(
+    (state) => {
+        return {
+            isLoading: state.isLoading,
+            gameState: state.gameFlow.gameState,
+            bots: state.bots,
+            players: state.cards.players
+        }
+    },
+    { login, startGame, startBot, removeMobileUrlBar }
+)(StartGame)

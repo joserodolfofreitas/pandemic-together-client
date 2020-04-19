@@ -18,6 +18,7 @@ function mapCards(cards){
 function mapPlayers(players){
     return Object.keys(players).reduce((result, key) => {
         const player = players[key];
+        
         return {
             ...result,
             [key]: {
@@ -28,7 +29,7 @@ function mapPlayers(players){
                 character: mapCards([player.advantages[0], player.disadvantages[0]]),
             }
         }
-    });
+    },{});
 }
 
 export function mapRoomStateToCards(roomState){

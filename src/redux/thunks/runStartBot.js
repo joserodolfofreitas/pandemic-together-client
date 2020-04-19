@@ -31,7 +31,7 @@ function runStartBot(username) {
                     if(roomState.roundState === Constants.ROUND_STATE_VIRUS_PHASE){
                         botRoom.send({ type: Constants.GM_END_NEW_ROUND_ANIMATIONS, playerId: botRoom.sessionId });
                     }
-                    if (roomState.currentTurn == botRoom.sessionId) {
+                    if (roomState.currentTurn === botRoom.sessionId) {
                         const players = roomState.players;
                         setTimeout(()=>{
                             const message = generateBotPlayDecision(players, botRoom.sessionId);

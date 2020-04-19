@@ -5,7 +5,6 @@ import Character from './fields/Character';
 import { connect } from 'react-redux';
 import { skipTurn } from '../../redux/actions';
 import Player from './Player';
-import * as Constants from '../../common/constants';
 
 class MyPlayer extends React.Component {
     onClick_skipTurn() {
@@ -34,10 +33,12 @@ class MyPlayer extends React.Component {
 
 export default connect(
     (state, ownProps) => {
+        console.log("connect", state, ownProps)
+
         return {
             currentTurnPlayerSessionId: state.gameFlow.currentTurnPlayerSessionId,
-            virusCards: state.players[ownProps.playerId].viruses,
-            handCards: state.players[ownProps.playerId].hand
+            virusCards: state.cards.players[ownProps.playerId].viruses,
+            handCards: state.cards.players[ownProps.playerId].hand
         }
     },
     { skipTurn }

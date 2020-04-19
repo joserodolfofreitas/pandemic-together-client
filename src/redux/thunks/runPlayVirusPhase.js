@@ -6,8 +6,7 @@ function runPlayVirusPhase() {
     return (dispatch, getState) => {
         const state = getState();        
         let virusPhaseMessages = [].concat(state.virusPhaseMessages || [])
-        console.log("runPlayVirusPhase");
-
+        
         function processNextRoundMessage(){
             if(virusPhaseMessages.length){
                 var message = virusPhaseMessages.splice(0,1)[0];

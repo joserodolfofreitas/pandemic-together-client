@@ -12,7 +12,7 @@ class Main extends React.Component {
         else if (this.props.gameState === Constants.GAME_STATE_STARTED) {
             return <Table />;
         }
-        else if (this.props.gameState === Constants.GAME_STATE_VICTORY_END || this.props.gameState == Constants.GAME_STATE_OVER) {
+        else if (this.props.gameState === Constants.GAME_STATE_VICTORY_END || this.props.gameState === Constants.GAME_STATE_OVER) {
             return <Table />; //TODO VICTORY / GAME OVER SCREEN
         }
         throw new Error("Unknown state")

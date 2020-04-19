@@ -28,7 +28,7 @@ export default connect(
     (state) => {
         return {
             currentTurnPlayerSessionId: state.gameFlow.currentTurnPlayerSessionId,
-            cardsOnStack: Math.min(state.deck.length, 4)
+            cardsOnStack: Math.min(state.cards.deck.length, 4)
         }
     },
     null

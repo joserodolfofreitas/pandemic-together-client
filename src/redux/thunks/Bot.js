@@ -35,12 +35,12 @@ export function generateBotPlayDecision(players, botSessionId) {
         for (var i = 0; i < me.hand.length; i++) {
             const resourceCard = me.hand[i];
 
-            if (bestCardToPlay == null) {
+            if (bestCardToPlay === null) {
                 bestCardToPlay = resourceCard;
                 continue;
             }
 
-            if (resourceCard.maxTokensImpact == mostDangerousCard.tokens) {
+            if (resourceCard.maxTokensImpact === mostDangerousCard.tokens) {
                 bestCardToPlay = resourceCard;
                 break;
             }

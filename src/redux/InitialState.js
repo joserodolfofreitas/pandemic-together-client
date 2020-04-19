@@ -28,7 +28,7 @@ export const initialState = {
 
     bots: [],
 
-    cards: [
+    allCards: [
         {
             elementId: "V1",
             type: Constants.CARD_TYPE_VIRUS,

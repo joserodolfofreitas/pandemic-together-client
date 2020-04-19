@@ -15,7 +15,7 @@ function runLogin(username) {
                 dispatch(setMyPlayerRoom(room));
                 dispatch(isLoading(false));
             }).catch(e => {
-                console.log("JOIN ERROR", e);
+                console.error("JOIN ERROR", e);
             });
     }
 }

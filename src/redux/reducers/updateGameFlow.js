@@ -1,4 +1,5 @@
 function updateGameFlow(state, gameFlow, cards) {
+    console.log("updateGameFlow", gameFlow, cards)
     return {
         ...state,
         gameFlow,

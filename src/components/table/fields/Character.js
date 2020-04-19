@@ -7,7 +7,7 @@ class Character extends React.Component {
     render() {
         const isFaded = !!this.props.draggingCard;
         return <div className="player-char card-container" style={{ "--card-count": 2 }}>
-            {this.props.playerField.map((card, index) => <Card key={card.cardId} card={card} index={index} isFaded={isFaded} />)}
+            {this.props.characterCards.map((card, index) => <Card key={card.cardId} card={card} index={index} isFaded={isFaded} />)}
         </div>;
     }
 }
@@ -17,7 +17,7 @@ export default connect(
         return {
             draggingCard: state.draggingCard,
             dragOverCard: state.dragOverCard,
-            playerField: state.players[ownProps.playerId].character
+            characterCards: state.cards.players[ownProps.playerId].character
         }
     },
     null

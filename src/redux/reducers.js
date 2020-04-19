@@ -9,8 +9,7 @@ import {
     PUSH_CHAT_MESSAGE,
     REMOVE_GAME_MESSAGE,
     RESET_GAME_MESSAGES,
-    UPDATE_GAME_FLOW,
-    updateGameFlow
+    UPDATE_GAME_FLOW
 } from './actions'
 
 import setRoom from './reducers/setRoom';
@@ -23,6 +22,7 @@ import pushGameMessage from './reducers/pushGameMessage';
 import setVirusPhaseMessage from './reducers/setVirusPhaseMessage';
 import removeGameMessage from './reducers/removeGameMessage';
 import resetGameMessages from './reducers/resetGameMessages';
+import updateGameFlow from './reducers/updateGameFlow';
 
 const reducerMap = {
     [SET_ROOM]: (state, action) => setRoom(state, action.room),

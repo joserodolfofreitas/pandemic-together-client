@@ -46,12 +46,10 @@ class Card extends React.Component {
         if (this.props.canDrop) {
             if (this.props.isDragOver) {
                 if (!this.props.dragOverCard || this.props.dragOverCard.cardId !== this.props.card.cardId) {
-                    console.log("this.props.setDragOverCard(this.props.card);", this.props.card)
                     this.props.setDragOverCard(this.props.card);
                 }
             } else {
                 if (this.props.dragOverCard && this.props.dragOverCard.cardId === this.props.card.cardId) {
-                    console.log("this.props.setDragOverCard(null);");
                     this.props.setDragOverCard(null);
                 }
             }
@@ -86,7 +84,6 @@ class Card extends React.Component {
         }
         if (isVirusCard) {
             classNames.push('virus-card');
-            //console.log("render virus",card.cardId, card.contained)
             if (card.contained) { classNames.push('contained'); }
         }
         if (this.props.isFaded) {

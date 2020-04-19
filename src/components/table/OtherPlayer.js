@@ -3,7 +3,6 @@ import Viruses from './fields/Viruses';
 import { connect } from 'react-redux';
 import Character from './fields/Character';
 import Player from './Player';
-import * as Constants from '../../common/constants';
 
 class OtherPlayer extends React.Component {
     render() {
@@ -22,7 +21,7 @@ export default connect(
     (state, ownProps) => {
         return {
             currentTurnPlayerSessionId: state.gameFlow.currentTurnPlayerSessionId,
-            virusCards: state.players[ownProps.playerId].viruses,
+            virusCards: state.cards.players[ownProps.playerId].viruses,
         }
     },
     null

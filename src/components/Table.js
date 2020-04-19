@@ -19,7 +19,7 @@ class Table extends React.Component {
             {playerItems.map((item, index) => {
                 return <OtherPlayer key={index} playerId={item.playerId} position={item.position} />
             })}
-            <MyPlayer playerId={this.props.myPlayerId} />
+            <MyPlayer playerId={this.props.myPlayerSessionId} />
             <Deck playerItems={playerItems} />
             <ChatRoom collapsed={true}/>
             <div className="footer">
@@ -53,7 +53,7 @@ class Table extends React.Component {
 export default connect(
     (state) => {
         const result = {
-            players: state.players,
+            players: state.cards.players,
             myPlayerSessionId: state.myPlayerSessionId
         }
         return result;

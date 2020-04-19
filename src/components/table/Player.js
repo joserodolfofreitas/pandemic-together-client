@@ -24,7 +24,7 @@ class Player extends React.Component {
 export default connect(
     (state, ownProps) => {
         return {
-            playerName: state.players[ownProps.playerId].name
+            playerName: state.cards.players[ownProps.playerId].name
         }
     },
     null

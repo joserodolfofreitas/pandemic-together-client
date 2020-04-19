@@ -8,7 +8,6 @@ import { mapRoomStateToGameFlow, mapRoomStateToVirusPhaseMessages, mapRoomStateT
 function runSetMyPlayerRoom(room){
     return (dispatch, getState) => {
         dispatch(setRoom(room));
-
         room.onMessage((message) => {
             const chatMessage = mapRoomMessageToChatMessage(message);
             if(chatMessage){
@@ -35,7 +34,7 @@ function runSetMyPlayerRoom(room){
                 const messages = mapRoomStateToVirusPhaseMessages(roomState);
                 dispatch(playVirusPhase(gameFlow, cards, messages));
             }else{
-                updateGameFlow(gameFlow, cards);
+                dispatch(updateGameFlow(gameFlow, cards));
             }
         });
     };
