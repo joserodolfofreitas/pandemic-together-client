@@ -5,12 +5,12 @@ import {setVirusPhaseMessage} from './../actions'
 function runPlayVirusPhase() {
     return (dispatch, getState) => {
         const state = getState();        
-        let roundMessages = [].concat(state.newRoundMessages || [])
+        let virusPhaseMessages = [].concat(state.virusPhaseMessages || [])
         console.log("runPlayVirusPhase");
 
         function processNextRoundMessage(){
-            if(roundMessages.length){
-                var message = roundMessages.splice(0,1)[0];
+            if(virusPhaseMessages.length){
+                var message = virusPhaseMessages.splice(0,1)[0];
                 dispatch(setVirusPhaseMessage(message));
                 setTimeout(processNextRoundMessage, 0.5 * 1000);
             }else{

@@ -1,6 +1,5 @@
 import {
     SET_ROOM,
-    SET_ROOM_STATE,
     ADD_BOT,
     SET_IS_LOADING,
     SET_DRAGGING_CARD,
@@ -24,13 +23,18 @@ import removeGameMessage from './reducers/removeGameMessage';
 import resetGameMessages from './reducers/resetGameMessages';
 
 const reducerMap = {
-    [SET_ROOM]: (state, action) => setRoom(state, action.room, action.isLoading),
-    [ADD_BOT]: (state, action) => addBot(state, action.botRoom, action.isLoading),
+    [SET_ROOM]: (state, action) => setRoom(state, action.room),
+    [ADD_BOT]: (state, action) => addBot(state, action.botRoom),
+    
     [SET_IS_LOADING]: (state, action) => setIsLoading(state, action.isLoading),
+    
     [SET_DRAGGING_CARD]: (state, action) => setDraggingCard(state, action.card),
     [SET_DRAG_OVER_CARD]: (state, action) => setDragOverCard(state, action.card),
+    
     [SET_VIRUS_PHASE_MESSAGE]: (state, action) => setVirusPhaseMessage(state, action.message),
+    
     [PUSH_CHAT_MESSAGE]: (state, action) => pushChatMessage(state, action.chatMessage),
+    
     [PUSH_GAME_MESSAGE]: (state, action) => pushGameMessage(state, action.gameMessage),
     [REMOVE_GAME_MESSAGE]: (state, action) => removeGameMessage(state, action.gameMessage),
     [RESET_GAME_MESSAGES]: (state, action) => resetGameMessages(state)

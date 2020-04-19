@@ -11,16 +11,17 @@ import runSetMyPlayerRoom from './thunks/runSetMyPlayerRoom';
  */
 export const SET_ROOM = 'SET_ROOM';
 export const ADD_BOT = 'ADD_BOT';
-export const SHUFFLE_DECK = 'SHUFFLE_DECK';
-export const DRAW_CARD = 'DRAW_CARD';
-export const UPDATE_PLAYER = 'UPDATE_PLAYER';
-export const SET_ROOM_STATE = 'SET_ROOM_STATE';
+
 export const SET_IS_LOADING = 'SET_IS_LOADING';
+
 export const SET_DRAGGING_CARD = 'SET_DRAGGING_CARD';
 export const SET_DRAG_OVER_CARD = 'SET_DRAG_OVER_CARD';
+
 export const SET_VIRUS_PHASE_MESSAGE = 'SET_VIRUS_PHASE_MESSAGE';
-export const PUSH_GAME_MESSAGE = 'PUSH_GAME_MESSAGE';
+
 export const PUSH_CHAT_MESSAGE = 'PUSH_CHAT_MESSAGE';
+
+export const PUSH_GAME_MESSAGE = 'PUSH_GAME_MESSAGE';
 export const REMOVE_GAME_MESSAGE = 'REMOVE_GAME_MESSAGE';
 export const RESET_GAME_MESSAGES = 'RESET_GAME_MESSAGES';
 
@@ -46,17 +47,13 @@ export function resetGameMessages() {
     return { type: RESET_GAME_MESSAGES }
 }
 
-export function setRoom(room, isLoading) {
-    return { type: SET_ROOM, room, isLoading }
+export function setRoom(room) {
+    return { type: SET_ROOM, room }
 }
 
-export function addBot(botRoom, isLoading) {
-    return { type: ADD_BOT, botRoom, isLoading }
+export function addBot(botRoom) {
+    return { type: ADD_BOT, botRoom }
 }
-
-// export function updatePlayer(player) {
-//     return { type: UPDATE_PLAYER, player }
-// }
 
 export function isLoading(isLoading) {
     return { type: SET_IS_LOADING, isLoading }

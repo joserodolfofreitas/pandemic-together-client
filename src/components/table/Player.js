@@ -7,7 +7,7 @@ class Player extends React.Component {
 
         const styles = { gridArea: position };
         let classes = `player ${position}`;
-        if(this.props.isActivePlayer){
+        if(this.props.isCurrentTurn){
             classes += " current-turn";
         }
         return (

@@ -1,12 +1,11 @@
 import * as Constants from '../common/constants';
 
 export const initialState = {
-    player: null, //FIXME wer ist das
     room: null, //FIXME referenzen finden
-    currentPlayerTurn: "", //currentTurn -> ChatRoom, activePlayerId -> Deck, MyPlayer, OtherPlayer
+
+    currentTurnPlayerSessionId: "", //currentTurn -> ChatRoom, activePlayerId -> Deck, MyPlayer, OtherPlayer
     myPlayerSessionId: "",
-    selectedCards: [],
-    roomPlayers: [],
+
     chatMessages: [],
 
     deck: [],
@@ -17,11 +16,13 @@ export const initialState = {
     roundState: null,
     gameState: null, //state.roomState ? state.roomState.gameState : null
     round: 0, //
-    newRoundMessages: [], //refactor
+    virusPhaseMessages: [], //newRoundMessages
 
     isLoading: false,
+
     draggingCard: null,
     dragOverCard: null,
+    
     /*gameMessages: [{messageId: 1, type: "test", value:"test 1 lero"},
                     {messageId: 2, type: "test", value:"test 2 lero lero"},
                     {messageId: 3, type: "test", value:"test 1 bla bla bla"}],*/

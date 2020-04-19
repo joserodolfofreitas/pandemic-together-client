@@ -58,7 +58,8 @@ function runStartBot(username) {
                         }*/
                     });
                 };
-                dispatch(addBot(botRoom, false));
+                dispatch(addBot(botRoom));
+                dispatch(isLoading(false));
             }).catch(e => {
                 console.log("JOIN ERROR", e);
             });

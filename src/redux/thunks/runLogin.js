@@ -13,6 +13,7 @@ function runLogin(username) {
         client.joinOrCreate("pandemic-together-room", { name: username })
             .then(room => {
                 dispatch(setMyPlayerRoom(room));
+                dispatch(isLoading(false));
             }).catch(e => {
                 console.log("JOIN ERROR", e);
             });

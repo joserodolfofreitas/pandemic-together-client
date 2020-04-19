@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 
 class Deck extends React.Component {
     render() {
-        const activePlayer = this.props.playerItems.filter(p => p.playerID === this.props.activePlayerId);
-        const activePlayerPosition = (activePlayer && activePlayer.length) ? activePlayer[0].position : "player-current";
-        const className = `deck ${activePlayerPosition}`;
+        const currentTurnPlayer = this.props.playerItems.filter(p => p.playerID === this.props.currentTurnPlayerSessionId);
+        const currentTurnPlayerPosition = (currentTurnPlayer && currentTurnPlayer.length) ? currentTurnPlayer[0].position : "player-current";
+        const className = `deck ${currentTurnPlayerPosition}`;
 
         if (this.props.cardsOnStack > 0) {
             let cards = [];
@@ -27,7 +27,7 @@ class Deck extends React.Component {
 export default connect(
     (state) => {
         return {
-            activePlayerId: state.currentTurn,
+            activePlayerId: state.currentTurnPlayerSessionId,
             cardsOnStack: Math.min(state.deck.length, 4)
         }
     },

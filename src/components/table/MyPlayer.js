@@ -17,14 +17,14 @@ class MyPlayer extends React.Component {
     render() {
         const playerId = this.props.playerId;
         let cardCount = this.props.virusCards.length + this.props.handCards.length + 2; // + character
-        const isActivePlayer = playerId === this.props.activePlayerId;
-        if (isActivePlayer) {
+        const isCurrentTurn = playerId === this.props.currentTurnPlayerSessionId;
+        if (isCurrentTurn) {
             cardCount += 1; // + action
         }
-        return <Player playerId={playerId} position={"player-current"} isActivePlayer={isActivePlayer} cardCount={cardCount}>
+        return <Player playerId={playerId} position={"player-current"} isCurrentTurn={isCurrentTurn} cardCount={cardCount}>
             <Viruses playerId={playerId} />
             <Character playerId={playerId} />
-            <Hand playerId={playerId} isActivePlayer={isActivePlayer} />
+            <Hand playerId={playerId} isActivePlayer={isCurrentTurn} />
             <div className="actions">
                 <div className="action action-skip" style={{ backgroundImage: "url(/images/action-skip.png)" }} onClick={() => this.onClick_skipTurn()}></div>
             </div>
@@ -35,7 +35,7 @@ class MyPlayer extends React.Component {
 export default connect(
     (state, ownProps) => {
         return {
-            activePlayerId: state.currentTurn, //TODO: reintegrate to lock myPlayer while runing VirusPhase state.roomState.roundState === Constants.ROUND_STATE_PLAYERS_PHASE ? state.roomState.currentTurn : null,
+            currentTurnPlayerSessionId: state.currentTurnPlayerSessionId, //TODO: reintegrate to lock myPlayer while runing VirusPhase state.roomState.roundState === Constants.ROUND_STATE_PLAYERS_PHASE ? state.roomState.currentTurn : null,
             virusCards: state.players[ownProps.playerId].virusCards,
             handCards: state.players[ownProps.playerId].handCards
         }

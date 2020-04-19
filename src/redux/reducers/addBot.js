@@ -1,8 +1,7 @@
-function addBot(state, botRoom, isLoading) {
+function addBot(state, botRoom) {
     return {
         ...state,
-        bots: [...state.bots, botRoom],
-        isLoading
+        bots: [...state.bots, botRoom]
     };
 }
 

@@ -1,9 +1,8 @@
-function setRoom(state, room, isLoading) {
+function setRoom(state, room) {
     return {
         ...state,
         room,
-        myPlayerSessionId: room.sessionId,
-        isLoading
+        myPlayerSessionId: room.sessionId
     };
 }
 

@@ -9,9 +9,9 @@ class OtherPlayer extends React.Component {
     render() {
         const playerId = this.props.playerId;
         const cardCount = this.props.virusCards.length + 2;
-        const isActivePlayer = playerId === this.props.activePlayerId;
+        const isCurrentTurn = playerId === this.props.currentTurnPlayerSessionId;
 
-        return <Player playerId={playerId} position={this.props.position} isActivePlayer={isActivePlayer} cardCount={cardCount}>
+        return <Player playerId={playerId} position={this.props.position} isCurrentTurn={isCurrentTurn} cardCount={cardCount}>
             <Character playerId={playerId} />
             <Viruses playerId={playerId} />
         </Player>
@@ -21,7 +21,7 @@ class OtherPlayer extends React.Component {
 export default connect(
     (state, ownProps) => {
         return {
-            activePlayerId: state.roundState === Constants.ROUND_STATE_PLAYERS_PHASE ? state.currentTurn : null,
+            currentTurnPlayerSessionId: state.roundState === Constants.ROUND_STATE_PLAYERS_PHASE ? state.currentTurnPlayerSessionId : null,
             virusCards: state.players[ownProps.playerId].virusCards,
         }
     },

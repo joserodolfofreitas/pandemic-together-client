@@ -10,6 +10,7 @@ function mapStateToProps(state) {
         gameState: state.gameState,
         players: state.players,
         myPlayerSessionId: state.myPlayerSessionId,
+        currentTurnPlayerSessionId: state.currentTurnPlayerSessionId,
         chatMessages: state.chatMessages,
         round: state.round,
     }
@@ -63,7 +64,7 @@ class ChatRoom extends React.Component {
     render() {
         const players = this.props.players;
         const gameState = this.props.gameState;
-        const currentTurn = this.props.currentTurn;
+        const currentTurnPlayerSessionId = this.props.currentTurnPlayerSessionId;
         let playerList = [];
         let index = 0;
         for (let id in players) {
@@ -86,8 +87,8 @@ class ChatRoom extends React.Component {
                 </div>
                 <div className="chat-content">
                     {playerList.map(function (player, index) {
-                        var playerCurrentTurn = currentTurn === player.sessionId;
-                        return <div key={index} style={{ textAlign: "center" }}>{playerCurrentTurn ? <span style={{ float: "left", color: "#050" }}>=></span> : ""}<span>{player.name}</span></div>
+                        const isCurrentTurn = currentTurnPlayerSessionId === player.sessionId;
+                        return <div key={index} style={{ textAlign: "center" }}>{isCurrentTurn ? <span style={{ float: "left", color: "#050" }}>=></span> : ""}<span>{player.name}</span></div>
                     })}
                     <div><hr /></div>
                     <div style={{ fontSize: "0.6em", color: "#333", textAlign: "center" }}>{gameState}</div>
