@@ -5,33 +5,33 @@ import runApplyResourceOnVirus from './thunks/runApplyResourceOnVirus';
 import runRemoveMobileUrlBar from './thunks/runRemoveMobileUrlBar';
 import runSkipTurn from './thunks/runSkipTurn';
 import runPlayVirusPhase from './thunks/runPlayVirusPhase';
+import runSetMyPlayerRoom from './thunks/runSetMyPlayerRoom';
 /*
  * redux action types
  */
 export const SET_ROOM = 'SET_ROOM';
 export const ADD_BOT = 'ADD_BOT';
-export const SET_CURRENT_PLAYER_SESSION_ID = 'SET_CURRENT_PLAYER_SESSION_ID';
-export const SHUFFLE_DECK = 'SHUFFLE_DECK';
-export const DRAW_CARD = 'DRAW_CARD';
-export const UPDATE_PLAYER = 'UPDATE_PLAYER';
-export const SET_ROOM_STATE = 'SET_ROOM_STATE';
+
 export const SET_IS_LOADING = 'SET_IS_LOADING';
+
 export const SET_DRAGGING_CARD = 'SET_DRAGGING_CARD';
 export const SET_DRAG_OVER_CARD = 'SET_DRAG_OVER_CARD';
+
 export const SET_VIRUS_PHASE_MESSAGE = 'SET_VIRUS_PHASE_MESSAGE';
-export const PUSH_GAME_MESSAGE = 'PUSH_GAME_MESSAGE';
+
 export const PUSH_CHAT_MESSAGE = 'PUSH_CHAT_MESSAGE';
+
+export const PUSH_GAME_MESSAGE = 'PUSH_GAME_MESSAGE';
 export const REMOVE_GAME_MESSAGE = 'REMOVE_GAME_MESSAGE';
 export const RESET_GAME_MESSAGES = 'RESET_GAME_MESSAGES';
+
+export const UPDATE_GAME_FLOW = 'UPDATE_GAME_FLOW'
 
 
 /*
  * redux action creators
  */
 
-export function setCurrentPlayerSessionId(sessionId) {
-    return { type: SET_CURRENT_PLAYER_SESSION_ID, sessionId }
-}
 
 export function pushGameMessage(gameMessage) {
     return { type: PUSH_GAME_MESSAGE, gameMessage }
@@ -57,22 +57,6 @@ export function addBot(botRoom) {
     return { type: ADD_BOT, botRoom }
 }
 
-export function setRoomState(roomState) {
-    return { type: SET_ROOM_STATE, roomState }
-}
-
-export function drawCard(card) {
-    return { type: DRAW_CARD, card }
-}
-
-export function shuffleDeck() {
-    return { type: SHUFFLE_DECK }
-}
-
-export function updatePlayer(player) {
-    return { type: UPDATE_PLAYER, player }
-}
-
 export function isLoading(isLoading) {
     return { type: SET_IS_LOADING, isLoading }
 }
@@ -87,6 +71,10 @@ export function setDragOverCard(card) {
 
 export function setVirusPhaseMessage(message){
     return { type: SET_VIRUS_PHASE_MESSAGE, message }
+}
+
+export function updateGameFlow(gameFlow, cards){
+    return { type: UPDATE_GAME_FLOW, gameFlow, cards }
 }
 
 export function startGame() {
@@ -113,7 +101,11 @@ export function skipTurn(){
     return runSkipTurn()
 }
 
-export function playVirusPhase(){
-    return runPlayVirusPhase()
+export function playVirusPhase(gameFlow, cards, messages){
+    return runPlayVirusPhase(gameFlow, cards, messages)
+}
+
+export function setMyPlayerRoom(room){
+    return runSetMyPlayerRoom(room)
 }
 

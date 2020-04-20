@@ -35,12 +35,12 @@ export function generateBotPlayDecision(players, botSessionId) {
         for (var i = 0; i < me.hand.length; i++) {
             const resourceCard = me.hand[i];
 
-            if (bestCardToPlay == null) {
+            if (bestCardToPlay === null) {
                 bestCardToPlay = resourceCard;
                 continue;
             }
 
-            if (resourceCard.maxTokensImpact == mostDangerousCard.tokens) {
+            if (resourceCard.maxTokensImpact === mostDangerousCard.tokens) {
                 bestCardToPlay = resourceCard;
                 break;
             }
@@ -54,7 +54,8 @@ export function generateBotPlayDecision(players, botSessionId) {
         var onCardIds = [mostDangerousCard.cardId];
 
         if (bestCardToPlay.maxCardsImpact > 1) {
-            var player = mostDangerousCard.cardId.cardHolder;
+            var player = players[mostDangerousCard.cardHolder];
+            
             for (var i = 1; i < player.virusField.length && i <= bestCardToPlay.maxCardsImpact; i++) {
                 var virus = player.virusField[i];
                 if (!onCardIds.includes(virus.cardId)) {

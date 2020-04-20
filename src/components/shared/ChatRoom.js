@@ -2,18 +2,6 @@ import React from 'react';
 import * as Constants from './../../common/constants';
 import { connect } from 'react-redux';
 
-
-function mapStateToProps(state) {
-    return {
-        player: state.player,
-        room: state.room,
-        roomState: state.roomState,
-        currentPlayerSessionId: state.currentPlayerSessionId,
-        chatMessages: state.chatMessages,
-        updatesOnRoomState: state.updatesOnRoomState,
-    }
-}
-
 class ChatRoom extends React.Component {
     constructor(props) {
         super(props);
@@ -40,11 +28,11 @@ class ChatRoom extends React.Component {
     sendMessage() {
         const message = {
             type: Constants.GM_CHAT_MESSAGE,
-            playerName: this.props.roomState.players[this.props.currentPlayerSessionId].name,
+            playerName: this.props.players[this.props.myPlayerSessionId].name,
             text: this.state.messageText,
         };
         this.props.room.send(message)
-        this.setState({messageText: ""});
+        this.setState({ messageText: "" });
     }
 
     scrollToBottom = () => {
@@ -60,14 +48,16 @@ class ChatRoom extends React.Component {
     }
 
     render() {
-        const roomState = this.props.roomState;
-        let players = [];
+        const players = this.props.players;
+        const gameState = this.props.gameFlow.gameState;
+        const currentTurnPlayerSessionId = this.props.gameFlow.currentTurnPlayerSessionId;
+        let playerList = [];
         let index = 0;
-        for (let id in roomState.players) {
-            const player = roomState.players[id];
-            players[index++] = player;
+        for (let id in players) {
+            const player = players[id];
+            playerList[index++] = player;
         }
-        const round = (roomState.gameState === Constants.GAME_STATE_STARTED) ? "round " + roomState.round : "";
+        const round = (gameState === Constants.GAME_STATE_STARTED) ? "round " + this.props.gameFlow.roundCount : "";
         const chatMessages = this.props.chatMessages;
 
         /*<div>player1: lerolero</div>
@@ -82,25 +72,25 @@ class ChatRoom extends React.Component {
                     <h2>Players in the room</h2>
                 </div>
                 <div className="chat-content">
-                    {players.map(function (player, index) {
-                        var playerCurrentTurn = roomState.currentTurn === player.sessionId;
-                        return <div key={index} style={{ textAlign: "center" }}>{playerCurrentTurn ? <span style={{ float: "left", color: "#050" }}>=></span> : ""}<span>{player.name}</span></div>
+                    {playerList.map(function (player, index) {
+                        const isCurrentTurn = currentTurnPlayerSessionId === player.sessionId;
+                        return <div key={index} style={{ textAlign: "center" }}>{isCurrentTurn ? <span style={{ float: "left", color: "#050" }}>=></span> : ""}<span>{player.name}</span></div>
                     })}
                     <div><hr /></div>
-                    <div style={{ fontSize: "0.6em", color: "#333", textAlign: "center" }}>{roomState.gameState}</div>
+                    <div style={{ fontSize: "0.6em", color: "#333", textAlign: "center" }}>{gameState}</div>
                     <div style={{ fontSize: "0.7em", color: "#333", textAlign: "center" }}>{round}</div>
                     <div><hr /></div>
                     <div className="chat-messages">
-                        {chatMessages.map(function(chatMessage){
+                        {chatMessages.map(function (chatMessage) {
                             return <div>{chatMessage.playerName}: {chatMessage.text}</div>
                         })}
-                        <div style={{ float:"left", clear: "both" }}
-                             ref={(el) => { this.messagesEnd = el; }}>
+                        <div style={{ float: "left", clear: "both" }}
+                            ref={(el) => { this.messagesEnd = el; }}>
                         </div>
                     </div>
 
                     <div className="chat-input-box">
-                        <input placeholder="type your message here" value={this.state.messageText}  onChange={this.onChange_UpdateMessageText} onKeyUp={this.onKeyUp_SubmitOnEnter} />
+                        <input placeholder="type your message here" value={this.state.messageText} onChange={this.onChange_UpdateMessageText} onKeyUp={this.onKeyUp_SubmitOnEnter} />
                         <button onClick={() => this.sendMessage()}>SEND</button>
                     </div>
                 </div>
@@ -109,4 +99,15 @@ class ChatRoom extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, null)(ChatRoom)
+export default connect(
+    (state) => {
+        return {
+            room: state.room,
+            players: state.cards.players,
+            myPlayerSessionId: state.myPlayerSessionId,
+            chatMessages: state.chatMessages,
+            gameFlow: state.gameFlow
+        }
+    },
+    null
+)(ChatRoom)

@@ -132,6 +132,17 @@
     bottom: 0;
     pointer-events: none;
   }
+
+  .virus-phase-action {
+    position: absolute;
+    width: 100%;
+    bottom: calc(100%  + (#{$cardWidth} / 5) + 2vh);
+    word-break: break-all;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 2px #dc143c, 2px -2px 2px #dc143c, -2px 2px 2px #dc143c, -2px -2px 2px #dc143c;
+  }
 }
 
 .card-container {

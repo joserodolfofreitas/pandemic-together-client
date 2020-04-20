@@ -5,16 +5,6 @@ import ChatRoom from './shared/ChatRoom';
 import HowToPlayGuide from './HowToPlayGuide';
 import * as Constants from './../common/constants';
 
-
-function mapStateToProps(state) {
-    return {
-        roomState: state.roomState,
-        isLoading: state.isLoading,
-        bots: state.bots,
-        updatesOnRoomState: state.updatesOnRoomState,
-    }
-}
-
 class StartGame extends React.Component {
 
     constructor(props) {
@@ -25,7 +15,7 @@ class StartGame extends React.Component {
     }
 
     usedBotNames = [];
-    botNames = ["Dannel", "Giskard", "Andrew", "Norby", "Emma-2", "Brackenridge", "Tony", "Lenny", "Speedie", "Robbie", "Z-1", "Z-2", "Z-3", "L-76", "Ez-27" ];
+    botNames = ["Dannel", "Giskard", "Andrew", "Norby", "Emma-2", "Brackenridge", "Tony", "Lenny", "Speedie", "Robbie", "Z-1", "Z-2", "Z-3", "L-76", "Ez-27"];
     generateBotName() {
         var arrayOfUnusedNames = this.botNames.filter(item => !this.usedBotNames.includes(item));
         var index = Math.floor(Math.random() * arrayOfUnusedNames.length);
@@ -73,13 +63,14 @@ class StartGame extends React.Component {
     }
 
     renderUserArea() {
-        const roomState = this.props.roomState;
+        const gameState = this.props.gameState;
+        const players = this.props.players;
         if (this.props.isLoading) {
             return <div className="loading">
-                <span className="logo" style={{backgroundImage: "url(/images/logo.png)"}}></span>
+                <span className="logo" style={{ backgroundImage: "url(/images/logo.png)" }}></span>
                 <small>loading</small>
             </div>
-        } else if (roomState === null) {
+        } else if (!gameState) {
             return (
                 <div className="login-box">
                     <h1>Pandemic Together</h1>
@@ -90,12 +81,12 @@ class StartGame extends React.Component {
                     <small>a collaborative game for staysafe gamejam</small>
                 </div>
             );
-        } else if (roomState.gameState === Constants.GAME_STATE_WAITING_PLAYERS) {
-            var numberOfPlayersInTheRoom = Object.keys(roomState.players).length;
-            var disabledStartButton = (Object.keys(roomState.players).length < 3) ? true : false;
-            var disabledAddBotButton = (Object.keys(roomState.players).length < 4) ? false : true;
-            return <div style={{padding:10}}>
-                <button disabled={disabledStartButton} className="start-button" onClick={() => this.onClick_StartGame()} >{(disabledStartButton) ?  "waiting for players "  : "Start Game"} {" - (" + numberOfPlayersInTheRoom +"/4)"}</button>
+        } else if (gameState === Constants.GAME_STATE_WAITING_PLAYERS) {
+            var numberOfPlayersInTheRoom = Object.keys(players).length;
+            var disabledStartButton = (Object.keys(players).length < 3) ? true : false;
+            var disabledAddBotButton = (Object.keys(players).length < 4) ? false : true;
+            return <div style={{ padding: 10 }}>
+                <button disabled={disabledStartButton} className="start-button" onClick={() => this.onClick_StartGame()} >{(disabledStartButton) ? "waiting for players " : "Start Game"} {" - (" + numberOfPlayersInTheRoom + "/4)"}</button>
                 <button disabled={disabledAddBotButton} onClick={() => this.onClick_StartBot()}>Add a bot</button>
                 <br />
                 <ChatRoom />
@@ -109,4 +100,14 @@ class StartGame extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, { login, startGame, startBot, removeMobileUrlBar })(StartGame)
+export default connect(
+    (state) => {
+        return {
+            isLoading: state.isLoading,
+            gameState: state.gameFlow.gameState,
+            bots: state.bots,
+            players: state.cards.players
+        }
+    },
+    { login, startGame, startBot, removeMobileUrlBar }
+)(StartGame)

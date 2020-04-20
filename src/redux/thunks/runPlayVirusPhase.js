@@ -2,21 +2,20 @@
 import * as Constants from './../../common/constants';
 import {setVirusPhaseMessage} from './../actions'
 
-function runPlayVirusPhase() {
+function runPlayVirusPhase(gameFlow, cards, messages) {
     return (dispatch, getState) => {
         const state = getState();        
-        let roundMessages = [].concat(state.roomState.newRoundMessages || [])
-        console.log("runPlayVirusPhase");
-
+        let virusPhaseMessages = (state.virusPhaseMessages || []).concat(messages);
+        
         function processNextRoundMessage(){
-            if(roundMessages.length){
-                var message = roundMessages.splice(0,1)[0];
+            if(virusPhaseMessages.length){
+                var message = virusPhaseMessages.splice(0,1)[0];
                 dispatch(setVirusPhaseMessage(message));
-                setTimeout(processNextRoundMessage, 0.5 * 1000);
+                setTimeout(processNextRoundMessage, 2 * 1000);
             }else{
                 dispatch(setVirusPhaseMessage(null));
                 //inform server, that all rounds where played
-                state.room.send({ type: Constants.GM_END_NEW_ROUND_ANIMATIONS, playerId: state.currentPlayerSessionId });
+                state.room.send({ type: Constants.GM_END_NEW_ROUND_ANIMATIONS, playerId: state.myPlayerSessionId });
             }
         }
         processNextRoundMessage();

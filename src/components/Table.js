@@ -19,7 +19,7 @@ class Table extends React.Component {
             {playerItems.map((item, index) => {
                 return <OtherPlayer key={index} playerId={item.playerId} position={item.position} />
             })}
-            <MyPlayer playerId={this.props.myPlayerId} />
+            <MyPlayer playerId={this.props.myPlayerSessionId} />
             <Deck playerItems={playerItems} />
             <ChatRoom collapsed={true}/>
             <div className="footer">
@@ -35,15 +35,15 @@ class Table extends React.Component {
         let myPlayerIndex = 0;
         for (let id in this.props.players) {
             const player = this.props.players[id];
-            if (player.sessionId !== this.props.myPlayerId) {
-                players.push({ playerId: player.sessionId })
+            if (player.sessionId !== this.props.myPlayerSessionId) {
+                players.push({ playerId: player.sessionId }) //TODO: bei umzug in datamapper refactoren
             } else {
                 myPlayerIndex = indexCounter;
             }
             indexCounter++;
         }
         players = players.concat(players.splice(0, myPlayerIndex))
-        let positions = players.length === 2 ? ["player-left", "player-right"] : ["player-left", "player-top", "player-right"];
+        let positions = players.length === 2 ? ["player-left", "player-right"] : ["player-left", "player-top", "player-right"]; //TODO: in datamapper umziehen
         positions.forEach((p, i) => players[i].position = p);
         return players;
     }
@@ -53,8 +53,8 @@ class Table extends React.Component {
 export default connect(
     (state) => {
         const result = {
-            players: state.roomState.players,
-            myPlayerId: state.currentPlayerSessionId
+            players: state.cards.players,
+            myPlayerSessionId: state.myPlayerSessionId
         }
         return result;
     },

@@ -2,6 +2,7 @@ import React from 'react';
 import VirusCard from './../cards/VirusCard';
 import { connect } from 'react-redux';
 import * as Constants from '../../../common/constants';
+import _getCardItems from './_getCardItems';
 
 const action2indicatorMap = {
     [Constants.ACTION_DESTROY_VIRUS_TOKEN]: "reduce-tokens",
@@ -14,51 +15,34 @@ class Viruses extends React.Component {
     render() {
         const virusCardItems = this.getCardItems();
         const cardIndicators = this.getCardIndicators(virusCardItems);
+        const virusPhaseMessage = this.props.virusPhaseMessage;
         let positionIndex = 0;
-        //console.log("Viruses render", this.props.playerId, virusCardItems)
         return <div className="virus-infection card-container" style={{ "--card-count": virusCardItems.filter(c => c.state !== "destroyed").length }}>
-            {virusCardItems.map((cardItem) => {
-                //console.log("Viruses card",cardItem.card.cardId,cardItem);
-                //FIXME: properties dont change, even if card-state or card tokens changed, so virus card isn't rendered
-                if (cardItem.state === "destroyed") {
-                    return <VirusCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex} isDestroyed={true} dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard} />
+            {virusCardItems.map((item) => {
+                if (item.state === "destroyed") {
+                    return <VirusCard key={item.card.cardId} card={item.card} index={positionIndex} isDestroyed={true} dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard} />
                 } else {
-                    return <VirusCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex++} indicator={cardIndicators[cardItem.card.cardId]} dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard} />
+                    let isFaded = false;
+                    let card = item.card;
+                    let virusPhaseAction;
+                    if(virusPhaseMessage){
+                        const updatedCard = virusPhaseMessage.targetCards[card.cardId];
+                        if(updatedCard){
+                            card = updatedCard;
+                            isFaded = false;
+                            virusPhaseAction = virusPhaseMessage.action;
+                        }else{
+                            isFaded = true;
+                        }
+                    }                    
+                    return <VirusCard key={card.cardId} card={card} index={positionIndex++} indicator={cardIndicators[card.cardId]} isFaded={isFaded} virusPhaseAction={virusPhaseAction} dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard} />
                 }
             })}
         </div>;
     }
 
     getCardItems() {
-        let activeCards = this.props.virusCards;
-        let displayCardItems = this.displayCardItems;
-        let activeIndex = 0, displayIndex = 0;
-        while (activeIndex < activeCards.length || displayIndex < displayCardItems.length) {
-            const activeCard = activeCards[activeIndex];
-            const displayCardItem = displayCardItems[displayIndex];
-
-            if (activeCard && displayCardItem && activeCard.cardId === displayCardItem.card.cardId) {
-                displayCardItem.card = Object.assign({}, activeCard); //clone card, to avoid reference problems for now
-                displayCardItem.state = "displayed";
-                activeIndex++;
-                displayIndex++;
-                continue;
-            }
-            if (!displayCardItem) {
-                const newItem = { card: Object.assign({}, activeCard), state: "displayed" }; //clone card, to avoid reference problems for now
-                displayCardItems.push(newItem);
-                activeIndex++;
-                displayIndex++;
-                continue;
-            }
-            if (!activeCard || activeCard.cardId !== displayCardItem.card.cardId) {
-                displayCardItem.state = "destroyed";
-                displayIndex++;
-                continue;
-            }
-            throw new Error("unreachable state");
-        }
-        return this.displayCardItems = displayCardItems;
+        return this.displayCardItems = _getCardItems(this.props.virusCards, this.displayCardItems);
     }
 
     getCardIndicators(cardItems) {
@@ -85,11 +69,11 @@ class Viruses extends React.Component {
 
 export default connect(
     (state, ownProps) => {
-        //console.log("connect viruses", ownProps.playerId, state.roomState.players[ownProps.playerId].virusField)
         return {
             draggingCard: state.draggingCard,
             dragOverCard: state.dragOverCard,
-            virusCards: state.roomState.players[ownProps.playerId].virusField
+            virusCards: state.cards.players[ownProps.playerId].viruses,
+            virusPhaseMessage: state.virusPhaseMessage
         }
     },
     null

@@ -1,7 +1,5 @@
 function setVirusPhaseMessage(state, message) {
-    if(message){
-        console.log(message.type, message.action, message.cardSrc, message.cardTargets);
-    }
+    console.log(message);
     return {
         ...state,
         virusPhaseMessage: message

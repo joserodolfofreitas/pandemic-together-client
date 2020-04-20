@@ -7,7 +7,7 @@ class Player extends React.Component {
 
         const styles = { gridArea: position };
         let classes = `player ${position}`;
-        if(this.props.isActivePlayer){
+        if(this.props.isCurrentTurn){
             classes += " current-turn";
         }
         return (
@@ -24,7 +24,7 @@ class Player extends React.Component {
 export default connect(
     (state, ownProps) => {
         return {
-            playerName: state.roomState.players[ownProps.playerId].name
+            playerName: state.cards.players[ownProps.playerId].name
         }
     },
     null

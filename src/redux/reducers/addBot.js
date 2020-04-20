@@ -1,7 +1,7 @@
 function addBot(state, botRoom) {
     return {
         ...state,
-        bots: [...state.bots, botRoom],
+        bots: [...state.bots, botRoom]
     };
 }
 

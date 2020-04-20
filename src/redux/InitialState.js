@@ -1,26 +1,34 @@
 import * as Constants from '../common/constants';
 
 export const initialState = {
-    player: null,
-    room: null,
-    roomState: null,
-    updatesOnRoomState: 0,
-    currentPlayerTurn: "",
-    currentPlayerSessionId: "",
-    selectedCards: [],
-    roomPlayers: [],
-    chatMessages: [],
-    deck: [],
+    room: null, //via setRoom //FIXME referenzen finden
+
+    myPlayerSessionId: "", //via setRoom
+
+    chatMessages: [], //via runSetMyPlayerRoom room.onMessage
+    gameMessages: [], //via runSetMyPlayerRoom room.state.onChange  [{messageId: 1, type: "test", value:"test 1 lero"}, ...]
+    virusPhaseMessages: [], //newRoundMessages
+
+    gameFlow: { //via runSetMyPlayerRoom room.onStateChange 
+        gameState: null,
+        roundState: null,
+        roundCount: 0,
+        currentTurnPlayerSessionId: ""
+    },
+
+    cards: { //via runSetMyPlayerRoom room.onStateChange 
+        deck: [], 
+        players: {}, // {[playerId] : {hand: [], viruses: [], character: [] } } ,
+    },
+
     isLoading: false,
+
     draggingCard: null,
     dragOverCard: null,
-    /*gameMessages: [{messageId: 1, type: "test", value:"test 1 lero"},
-                    {messageId: 2, type: "test", value:"test 2 lero lero"},
-                    {messageId: 3, type: "test", value:"test 1 bla bla bla"}],*/
-    gameMessages: [],
-    bots: [],
-    cards: [
 
+    bots: [],
+
+    allCards: [
         {
             elementId: "V1",
             type: Constants.CARD_TYPE_VIRUS,

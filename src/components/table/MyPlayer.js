@@ -5,11 +5,10 @@ import Character from './fields/Character';
 import { connect } from 'react-redux';
 import { skipTurn } from '../../redux/actions';
 import Player from './Player';
-import * as Constants from '../../common/constants';
 
 class MyPlayer extends React.Component {
     onClick_skipTurn() {
-        if (this.props.playerId !== this.props.activePlayerId) {
+        if (this.props.playerId !== this.props.currentTurnPlayerSessionId) {
             return;
         }
         this.props.skipTurn();
@@ -17,14 +16,14 @@ class MyPlayer extends React.Component {
     render() {
         const playerId = this.props.playerId;
         let cardCount = this.props.virusCards.length + this.props.handCards.length + 2; // + character
-        const isActivePlayer = playerId === this.props.activePlayerId;
-        if (isActivePlayer) {
+        const isCurrentTurn = playerId === this.props.currentTurnPlayerSessionId;
+        if (isCurrentTurn) {
             cardCount += 1; // + action
         }
-        return <Player playerId={playerId} position={"player-current"} isActivePlayer={isActivePlayer} cardCount={cardCount}>
+        return <Player playerId={playerId} position={"player-current"} isCurrentTurn={isCurrentTurn} cardCount={cardCount}>
             <Viruses playerId={playerId} />
             <Character playerId={playerId} />
-            <Hand playerId={playerId} isActivePlayer={isActivePlayer} />
+            <Hand playerId={playerId} isActivePlayer={isCurrentTurn} />
             <div className="actions">
                 <div className="action action-skip" style={{ backgroundImage: "url(/images/action-skip.png)" }} onClick={() => this.onClick_skipTurn()}></div>
             </div>
@@ -35,9 +34,9 @@ class MyPlayer extends React.Component {
 export default connect(
     (state, ownProps) => {
         return {
-            activePlayerId: state.roomState.currentTurn, //TODO: reintegrate to lock myPlayer while runing VirusPhase state.roomState.roundState === Constants.ROUND_STATE_PLAYERS_PHASE ? state.roomState.currentTurn : null,
-            virusCards: state.roomState.players[ownProps.playerId].virusField,
-            handCards: state.roomState.players[ownProps.playerId].hand
+            currentTurnPlayerSessionId: state.gameFlow.currentTurnPlayerSessionId,
+            virusCards: state.cards.players[ownProps.playerId].viruses,
+            handCards: state.cards.players[ownProps.playerId].hand
         }
     },
     { skipTurn }

@@ -1,7 +1,8 @@
 function setRoom(state, room) {
     return {
         ...state,
-        room: room,
+        room,
+        myPlayerSessionId: room.sessionId
     };
 }
 
