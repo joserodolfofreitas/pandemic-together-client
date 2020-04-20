@@ -8,6 +8,8 @@ class Hand extends React.Component {
 
     render() {
         const handCardItems = this.getCardItems();
+        const isFaded = !!this.props.virusPhaseMessage;
+        
         let positionIndex = 0;
         return <div className="hand-cards card-container" style={{ "--card-count": handCardItems.filter(c => c.state !== "destroyed").length }}>
             {handCardItems.map((cardItem) => {
@@ -16,7 +18,7 @@ class Hand extends React.Component {
                     return <HandCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex} isDestroyed={true} dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard} />
                 } else {
                     const isHidden = this.props.draggingCard && this.props.draggingCard.cardId === cardItem.card.cardId;
-                    return <HandCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex++} isPlayable={isPlayable} isFaded={!!this.props.draggingCard} isHidden={isHidden} dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard} />
+                    return <HandCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex++} isPlayable={isPlayable} isFaded={!!this.props.draggingCard} isHidden={isHidden} isFaded={isFaded} dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard} />
                 }
             })}
         </div>
@@ -32,7 +34,8 @@ export default connect(
         return {
             draggingCard: state.draggingCard,
             dragOverCard: state.dragOverCard,
-            handCards: state.cards.players[ownProps.playerId].hand
+            handCards: state.cards.players[ownProps.playerId].hand,
+            virusPhaseMessage: state.virusPhaseMessage
         }
     },
     null

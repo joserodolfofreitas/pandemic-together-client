@@ -15,14 +15,27 @@ class Viruses extends React.Component {
     render() {
         const virusCardItems = this.getCardItems();
         const cardIndicators = this.getCardIndicators(virusCardItems);
+        const virusPhaseMessage = this.props.virusPhaseMessage;
         let positionIndex = 0;
         return <div className="virus-infection card-container" style={{ "--card-count": virusCardItems.filter(c => c.state !== "destroyed").length }}>
-            {virusCardItems.map((cardItem) => {
-                //FIXME: properties dont change, even if card-state or card tokens changed, so virus card isn't rendered
-                if (cardItem.state === "destroyed") {
-                    return <VirusCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex} isDestroyed={true} dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard} />
+            {virusCardItems.map((item) => {
+                if (item.state === "destroyed") {
+                    return <VirusCard key={item.card.cardId} card={item.card} index={positionIndex} isDestroyed={true} dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard} />
                 } else {
-                    return <VirusCard key={cardItem.card.cardId} card={cardItem.card} index={positionIndex++} indicator={cardIndicators[cardItem.card.cardId]} dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard} />
+                    let isFaded = false;
+                    let card = item.card;
+                    let virusPhaseAction;
+                    if(virusPhaseMessage){
+                        const updatedCard = virusPhaseMessage.targetCards[card.cardId];
+                        if(updatedCard){
+                            card = updatedCard;
+                            isFaded = false;
+                            virusPhaseAction = virusPhaseMessage.action;
+                        }else{
+                            isFaded = true;
+                        }
+                    }                    
+                    return <VirusCard key={card.cardId} card={card} index={positionIndex++} indicator={cardIndicators[card.cardId]} isFaded={isFaded} virusPhaseAction={virusPhaseAction} dragOverCard={this.props.dragOverCard} draggingCard={this.props.draggingCard} />
                 }
             })}
         </div>;
@@ -59,7 +72,8 @@ export default connect(
         return {
             draggingCard: state.draggingCard,
             dragOverCard: state.dragOverCard,
-            virusCards: state.cards.players[ownProps.playerId].viruses
+            virusCards: state.cards.players[ownProps.playerId].viruses,
+            virusPhaseMessage: state.virusPhaseMessage
         }
     },
     null

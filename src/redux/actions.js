@@ -101,8 +101,8 @@ export function skipTurn(){
     return runSkipTurn()
 }
 
-export function playVirusPhase(){
-    return runPlayVirusPhase()
+export function playVirusPhase(gameFlow, cards, messages){
+    return runPlayVirusPhase(gameFlow, cards, messages)
 }
 
 export function setMyPlayerRoom(room){
