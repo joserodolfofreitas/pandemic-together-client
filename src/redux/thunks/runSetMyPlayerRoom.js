@@ -13,6 +13,9 @@ function runSetMyPlayerRoom(room){
             if(chatMessage){
                 dispatch(pushChatMessage(chatMessage));
             }
+            if(message.type && message.type == Constants.SERVER_ERROR) {
+                console.log("Error message", message);
+            }
         });
 
         room.state.onChange = (changes) => {
