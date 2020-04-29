@@ -32,6 +32,8 @@ export const ROUND_STATE_INITIAL_DRAW = 'ROUND_STATE_INITIAL_DRAW';
 export const ROUND_STATE_VIRUS_PHASE = 'ROUND_STATE_VIRUS_PHASE';
 export const ROUND_STATE_PLAYERS_PHASE = 'ROUND_STATE_PLAYERS_PHASE';
 
+export const SERVER_ERROR = "SERVER_ERROR"
+
 export const DndItemTypes = {
     CARD: 'card'
 }
