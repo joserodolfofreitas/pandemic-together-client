@@ -13,8 +13,8 @@ function runSetMyPlayerRoom(room){
             if(chatMessage){
                 dispatch(pushChatMessage(chatMessage));
             }
-            if(message.type && message.type == Constants.SERVER_ERROR) {
-                console.log("Error message", message);
+            if(message.type && (message.type == Constants.GAME_SERVER_ERROR || message.type == Constants.GAME_SERVER_MESSAGE)) {
+                console.log("Server message", message.type, message);
             }
         });
 
