@@ -10,7 +10,7 @@
     "colyseus": "^0.12.4",
     "colyseus.js": "^0.12.2",
     "fibers": "^4.0.2",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
